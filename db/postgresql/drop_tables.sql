@@ -1,0 +1,9 @@
+/* Script to drop all tables if I need to reset the database */
+
+DROP TABLE IF EXISTS Users CASCADE;
+DROP TABLE IF EXISTS Goals CASCADE;
+DROP TABLE IF EXISTS JournalMetadata CASCADE;
+DROP TABLE IF EXISTS MoodEntries CASCADE;
+DROP TABLE IF EXISTS Questionnaires CASCADE;
+DROP TABLE IF EXISTS Questions CASCADE;
+DROP TABLE IF EXISTS MoodResponses CASCADE;
