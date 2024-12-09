@@ -1,3 +1,5 @@
+require("dotenv").config();
+
 const express = require("express");
 const bodyParser = require("body-parser");
 const connectToMongoDB = require("./db/mongodb/setup");
@@ -17,8 +19,6 @@ const { start } = require("repl");
 // Initialize Express
 const app = express();
 app.use(bodyParser.json());
-
-require("dotenv").config();
 
 const startServer = async () => {
     try {

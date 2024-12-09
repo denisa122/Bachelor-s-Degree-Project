@@ -1,14 +1,14 @@
 const { Sequelize } = require('sequelize');
 const path = require('path');
 
-const sequelize = new Sequelize(process.env.POSTGRESQL_DB_NAME, process.env.POSTGRESQL_DB_USER, process.env.POSTGRESQL_DB_PASSWORD, {
-    host: process.env.POSTGRESQL_DB_HOST,
+const sequelize = new Sequelize(`postgres://${process.env.POSTGRESQL_DB_USER}:${process.env.POSTGRESQL_DB_PASSWORD}@${process.env.POSTGRESQL_DB_HOST}:${process.env.POSTGRESQL_DB_PORT}/${process.env.POSTGRESQL_DB_NAME}`, {
     dialect: 'postgres',
 });
 
+
 const connectToPostgreSQLDB = async () => {
     try {
-        await pool.connect();
+        await sequelize.authenticate();
         console.log('Successfully connected to PostgreSQL!');
 
         // Sync models to the database (creates tables if they don't exist)
