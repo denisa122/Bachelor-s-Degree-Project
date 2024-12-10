@@ -1,6 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 import "./authentication.css";
 
@@ -9,11 +10,26 @@ const Register = () => {
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [dateOfBirth, setDateOfBirth] = useState("");
   const [errors, setError] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    try {
+      const response = await axios.post(`${process.env.REACT_APP_API_BASE_URL}/api/auth/register`, 
+        {
+          firstName,
+          lastName,
+          email,
+          password,
+        }
+      );
+
+      window.location.href = "/login"; // Redirect to login after successful registration
+    } catch (error) {
+      console.error("Error caught in handleSubmit:", error);
+      setError("An unexpected error occurred");
+    }
   };
 
   return (
@@ -79,20 +95,6 @@ const Register = () => {
           />
           <label htmlFor="password" className="pointer-events-none">
             Password
-          </label>
-        </div>
-
-        <div>
-          <input
-            type="date"
-            id="dateOfBirth"
-            name="dateOfBirth"
-            value={dateOfBirth}
-            onChange={(e) => setDateOfBirth(e.target.value)}
-            className="rounded"
-          />
-          <label htmlFor="dateOfBirth" className="pointer-events-none">
-            Date of birth
           </label>
         </div>
 
