@@ -49,7 +49,7 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login setIsAuthenticated={setIsAuthenticated} />} />
 
-        <Route path="/home" element={<HomepageLoggedIn />}/>
+        <Route path="/home" element={<HomepageLoggedIn setIsAuthenticated={setIsAuthenticated}/>}/>
       </Routes>
     </BrowserRouter>
   );
