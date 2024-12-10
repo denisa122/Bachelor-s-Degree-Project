@@ -1,21 +1,47 @@
 import React from "react";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
 
 import "./authentication.css";
 
-const Login = () => {
+const Login = ({ setIsAuthenticated }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
+  const navigate = useNavigate();
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-  }; 
+
+    try {
+      const response = await axios.post(
+        `${process.env.REACT_APP_API_BASE_URL}/api/auth/login`,
+        {
+          email,
+          password,
+        }
+      );
+
+      const token = response.data?.data?.token;
+
+      if (token) {
+        localStorage.setItem("token", token);
+        setIsAuthenticated(true);
+        navigate("/home");
+      } else {
+        setError("Token not received from server");
+      }
+    } catch (error) {
+      console.error("Error caught in handleSubmit:", error);
+      setError("An unexpected error occurred");
+    }
+  };
 
   return (
     <div>
-      <form id="loginForm">
+      <form id="loginForm" onSubmit={handleSubmit}>
         <h1>Welcome to MindScribe</h1>
         <h3>Login to your account</h3>
 
@@ -41,7 +67,7 @@ const Login = () => {
             id="password"
             name="password"
             value={password}
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={(e) => setPassword(e.target.value)}
             className="rounded"
           />
           <label htmlFor="password" className="pointer-events-none">
