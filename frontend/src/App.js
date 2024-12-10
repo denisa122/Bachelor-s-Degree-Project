@@ -1,10 +1,19 @@
-import './App.css';
+import React from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+
+import "./App.css";
+
+import Register from "./Components/User/Register"
+import Login from "./Components/User/Login"
 
 function App() {
   return (
-    <div>
-      
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/register" element={<Register />}></Route>
+        <Route path="/login" element={<Login />}></Route>
+      </Routes>
+    </BrowserRouter>
   );
 }
 
