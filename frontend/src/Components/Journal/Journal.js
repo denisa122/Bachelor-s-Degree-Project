@@ -1,16 +1,16 @@
 import React from 'react';
 
-import './Homepage.css';
+import './Journal.css';
 
 import Navigation from '../Navigation/Navigation';
 
-const HomepageLoggedIn = () => {
+const Journal = () => {
     return (
         <div>
             <Navigation />
-            This is the homepage for logged in users
+            This is the journal page
         </div>
     );
 };
 
-export default HomepageLoggedIn;
+export default Journal;

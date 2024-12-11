@@ -1,16 +1,16 @@
 import React from 'react';
 
-import './Homepage.css';
+import './MoodTracker.css';
 
 import Navigation from '../Navigation/Navigation';
 
-const HomepageLoggedIn = () => {
+const MoodTracker = () => {
     return (
         <div>
             <Navigation />
-            This is the homepage for logged in users
+            This is the mood tracker page
         </div>
     );
 };
 
-export default HomepageLoggedIn;
+export default MoodTracker;

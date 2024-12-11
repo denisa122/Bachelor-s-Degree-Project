@@ -1,16 +1,16 @@
 import React from 'react';
 
-import './Homepage.css';
+import './Insights.css';
 
 import Navigation from '../Navigation/Navigation';
 
-const HomepageLoggedIn = () => {
+const Insights = () => {
     return (
         <div>
             <Navigation />
-            This is the homepage for logged in users
+            This is the insights page
         </div>
     );
 };
 
-export default HomepageLoggedIn;
+export default Insights;

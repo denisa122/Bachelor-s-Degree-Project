@@ -5,11 +5,17 @@ import axios from "axios";
 
 import "./App.css";
 
+import PrivateRoute from "./Components/PrivateRoute";
+
 import Register from "./Components/User/Register";
 import Login from "./Components/User/Login";
+
+import HomepageGuest from "./Components/Homepage/HomepageGuest";
 import HomepageLoggedIn from "./Components/Homepage/HomepageLoggedIn";
 
-import PrivateRoute from "./Components/PrivateRoute";
+import Journal from "./Components/Journal/Journal";
+import MoodTracker from "./Components/MoodTracker/MoodTracker";
+import Insights from "./Components/Insights/Insights";
 
 function App() {
   const [userId, setUserId] = useState(null);
@@ -55,11 +61,42 @@ function App() {
           element={<Login setIsAuthenticated={setIsAuthenticated} />}
         />
 
+        <Route path="/" element={<HomepageGuest />} />
         <Route
           path="/home"
           element={
             <PrivateRoute
               element={<HomepageLoggedIn />}
+              isAuthenticated={isAuthenticated}
+            />
+          }
+        />
+
+        <Route
+          path="/journal"
+          element={
+            <PrivateRoute
+              element={<Journal />}
+              isAuthenticated={isAuthenticated}
+            />
+          }
+        />
+
+        <Route
+          path="/mood-tracker"
+          element={
+            <PrivateRoute
+              element={<MoodTracker />}
+              isAuthenticated={isAuthenticated}
+            />
+          }
+        />
+
+        <Route
+          path="/insights"
+          element={
+            <PrivateRoute
+              element={<Insights />}
               isAuthenticated={isAuthenticated}
             />
           }
