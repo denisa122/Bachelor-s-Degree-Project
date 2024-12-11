@@ -12,7 +12,7 @@
 .logo {
     object-fit: cover;
     width: 140px;
-    height: 96px;
+    margin-top: 20px;
 }
 
 .listItem {

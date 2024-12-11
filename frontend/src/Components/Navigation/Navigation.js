@@ -45,7 +45,7 @@ const Navigation = () => {
         exact="true"
         to="/home"
         activeClass="active"
-        className="listItem"
+        className="mb-5 self-center"
       >
         <img src={Logo} alt="Logo" className="logo"></img>
       </NavLink>
