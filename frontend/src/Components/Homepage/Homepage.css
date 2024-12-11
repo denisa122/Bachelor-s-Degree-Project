@@ -1,0 +1,94 @@
+.logoHP {
+    object-fit: cover;
+    width: 192px;
+    height: 128px;
+    margin-top: 40px;
+    margin-bottom: 20px;
+}
+
+.homepage {
+    flex-grow: 1;
+    display: flex;
+}
+
+.leftSide {
+    flex: 70%;
+    display: flex;
+    flex-direction: column;
+    padding-left: 40px;
+    padding-right: 40px;
+}
+
+.rightSide {
+background-color: blueviolet;
+flex: 30%;
+}
+
+.header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 72px;
+}
+
+.title {
+    font-size: 32px;
+}
+
+.section {
+    margin-bottom: 60px;
+}
+
+.sectionTitle {
+    font-size: 20px;
+    margin-bottom: 16px;
+}
+
+.sectionText {
+    font-size: 16px;
+    margin-bottom: 20px;
+}
+
+.buttonIcon {
+    object-fit: cover;
+    width: 18px;
+    height: 18px;
+    margin-right: 6px;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    width: 100%;
+}
+
+.grid-container > div {
+    text-align: center;
+    justify-items: center;
+}
+
+.questionnaireImage {
+    object-fit: cover;
+    width: 200px;
+    height: 133px;
+    margin-bottom: 10px;
+}
+
+.insightsSectionIcon {
+    width: 20px;
+    height: 20px;
+}
+
+.insightsSectionImg {
+    object-fit: cover;
+    width: 250px;
+    height: 230px;
+    margin-bottom: 10px;
+}
+
+.buttonWithBorder {
+    border: 1px solid #252D3B;
+    border-radius: 4px;
+    padding: 5px 10px;
+}

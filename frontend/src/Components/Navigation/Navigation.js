@@ -5,7 +5,7 @@ import axios from "axios";
 
 import "./Navigation.css";
 
-import Logo from "../../assets/logo.png";
+import Logo from "../../assets/logo-navbar.png";
 import Journal from "../../assets/journal-icon.svg";
 import MoodTracker from "../../assets/mood-tracker-icon.svg";
 import Insights from "../../assets/insights-icon.svg";
