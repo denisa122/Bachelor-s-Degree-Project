@@ -6,7 +6,7 @@ import Navigation from '../Navigation/Navigation';
 
 const Journal = () => {
     return (
-        <div>
+        <div className='flex flex-row'>
             <Navigation />
             This is the journal page
         </div>

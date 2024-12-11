@@ -6,7 +6,7 @@ import Navigation from '../Navigation/Navigation';
 
 const MoodTracker = () => {
     return (
-        <div>
+        <div className='flex flex-row'>
             <Navigation />
             This is the mood tracker page
         </div>

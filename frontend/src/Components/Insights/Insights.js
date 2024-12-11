@@ -6,7 +6,7 @@ import Navigation from '../Navigation/Navigation';
 
 const Insights = () => {
     return (
-        <div>
+        <div className='flex flex-row'>
             <Navigation />
             This is the insights page
         </div>
