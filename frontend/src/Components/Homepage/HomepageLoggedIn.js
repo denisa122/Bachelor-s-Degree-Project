@@ -1,7 +1,8 @@
 import React from "react";
 
-import "./Homepage.css";
+import "./HomepageLoggedIn.css";
 
+// Icons
 import Logo from "../../assets/logo.png";
 import WriteIcon from "../../assets/write-icon.svg";
 import MorningQuestionnaire from "../../assets/morning q.png";
@@ -10,8 +11,13 @@ import EveningQuestionnaire from "../../assets/evening q.png";
 import InsightsIcon from "../../assets/hp-insights-icon.svg";
 import InsightsImg from "../../assets/hp-insights-img.png";
 import MagnifyingGlass from "../../assets/magnifying-glass-icon.svg";
+import Notifications from "../../assets/notifications-icon.svg";
+import Quote from "../../assets/quote-icon.svg";
+import Meditate from "../../assets/meditate-icon.svg";
+import DailyReminder from "../../assets/dailyReminder.png";
 
 import Navigation from "../Navigation/Navigation";
+import NotificationCard from "./NotificationCard";
 // import Footer from '../Footer/Footer';
 
 const HomepageLoggedIn = () => {
@@ -25,7 +31,7 @@ const HomepageLoggedIn = () => {
             <h1 className="title">Welcome back, Jane!</h1>
           </div>
 
-          <div className="section startWritingSection">
+          <div className="sectionLeft startWritingSection">
             <h2 className="sectionTitle">Feeling inspired? Write it down!</h2>
             <p className="sectionText">
               Whether it’s a spark of inspiration or a moment of reflection,
@@ -46,7 +52,7 @@ const HomepageLoggedIn = () => {
             </a>
           </div>
 
-          <div className="section questionnairesSection">
+          <div className="sectionLeft questionnairesSection">
             <h2 className="sectionTitle">Don’t forget to check in</h2>
             <p className="sectionText pb-5">
               Tracking your mood every day helps you gain insights into your
@@ -61,7 +67,7 @@ const HomepageLoggedIn = () => {
                   className="questionnaireImage"
                 ></img>
                 <button
-                  className="mb-3 inline-block w-full rounded px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-[#252D3B] shadow-dark-3 transition duration-150 ease-in-out hover:shadow-dark-2 focus:shadow-dark-2 focus:outline-none focus:ring-0 active:shadow-dark-2 dark:shadow-black/30 dark:hover:shadow-dark-strong dark:focus:shadow-dark-strong dark:active:shadow-dark-strong"
+                  className="mb-3 inline-block w-full rounded px-6 pb-2 pt-2.5 text-sm font-medium leading-normal text-[#252D3B] shadow-dark-3 transition duration-150 ease-in-out hover:shadow-dark-2 focus:shadow-dark-2 focus:outline-none focus:ring-0 active:shadow-dark-2 dark:shadow-black/30 dark:hover:shadow-dark-strong dark:focus:shadow-dark-strong dark:active:shadow-dark-strong"
                   style={{
                     background:
                       "linear-gradient(to right, #FFCAD4 0%, #CBC0D3 50%, #D8E2DC 100%)",
@@ -77,7 +83,7 @@ const HomepageLoggedIn = () => {
                   className="questionnaireImage"
                 ></img>
                 <button
-                  className="mb-3 inline-block w-full rounded px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-[#252D3B] shadow-dark-3 transition duration-150 ease-in-out hover:shadow-dark-2 focus:shadow-dark-2 focus:outline-none focus:ring-0 active:shadow-dark-2 dark:shadow-black/30 dark:hover:shadow-dark-strong dark:focus:shadow-dark-strong dark:active:shadow-dark-strong"
+                  className="mb-3 inline-block w-full rounded px-6 pb-2 pt-2.5 text-sm font-medium leading-normal text-[#252D3B] shadow-dark-3 transition duration-150 ease-in-out hover:shadow-dark-2 focus:shadow-dark-2 focus:outline-none focus:ring-0 active:shadow-dark-2 dark:shadow-black/30 dark:hover:shadow-dark-strong dark:focus:shadow-dark-strong dark:active:shadow-dark-strong"
                   style={{
                     background:
                       "linear-gradient(to right, #FFCAD4 0%, #CBC0D3 50%, #D8E2DC 100%)",
@@ -93,7 +99,7 @@ const HomepageLoggedIn = () => {
                   className="questionnaireImage !w-[133px]"
                 ></img>
                 <button
-                  className="mb-3 inline-block w-full rounded px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-[#252D3B] shadow-dark-3 transition duration-150 ease-in-out hover:shadow-dark-2 focus:shadow-dark-2 focus:outline-none focus:ring-0 active:shadow-dark-2 dark:shadow-black/30 dark:hover:shadow-dark-strong dark:focus:shadow-dark-strong dark:active:shadow-dark-strong"
+                  className="mb-3 inline-block w-full rounded px-6 pb-2 pt-2.5 text-sm font-medium leading-normal text-[#252D3B] shadow-dark-3 transition duration-150 ease-in-out hover:shadow-dark-2 focus:shadow-dark-2 focus:outline-none focus:ring-0 active:shadow-dark-2 dark:shadow-black/30 dark:hover:shadow-dark-strong dark:focus:shadow-dark-strong dark:active:shadow-dark-strong"
                   style={{
                     background:
                       "linear-gradient(to right, #FFCAD4 0%, #CBC0D3 50%, #D8E2DC 100%)",
@@ -105,7 +111,7 @@ const HomepageLoggedIn = () => {
             </div>
           </div>
 
-          <div className="section insightsSection">
+          <div className="sectionLeft insightsSection">
             <div className="flex flex-row items-baseline">
               <h1 className="sectionTitle mr-1.5">
                 Your personal insights await
@@ -113,7 +119,7 @@ const HomepageLoggedIn = () => {
               <img
                 src={InsightsIcon}
                 alt="lightbulb icon"
-                className="insightsSectionIcon"
+                className="sectionIcon"
               ></img>
             </div>
             <p className="sectionText">
@@ -143,7 +149,61 @@ const HomepageLoggedIn = () => {
         </div>
 
         <div className="rightSide">
-          <h1>this is the right side</h1>
+          <div className="sectionRight notificationsSection">
+            <div className="flex flex-row items-baseline">
+              <img
+                src={Notifications}
+                alt="notification bell icon"
+                className="sectionIcon mr-1.5"
+              ></img>
+              <h1 className="sectionTitle">Notifications</h1>
+            </div>
+
+            <div className="notifications">
+              <NotificationCard text="You have 1 new insight available!" />
+              <NotificationCard text="You have an unfinished journal entry. Click here to continue writing." />
+              <NotificationCard text="You didn’t fill in today’s morning questionnaire. Click here to fill it it now." />
+            </div>
+          </div>
+
+          <div className="sectionRight dailyQuoteSection">
+            <div className="flex flex-row items-baseline">
+              <img
+                src={Quote}
+                alt="quote icon"
+                className="sectionIcon mr-1.5"
+              ></img>
+              <h1 className="sectionTitle">Today's Quote</h1>
+            </div>
+            <p className="quote">
+              Your mental health is just as important as your physical
+              health—nurture your mind, embrace your emotions, and take the time
+              to heal and grow.
+            </p>
+          </div>
+
+          <div className="sectionRight reminderSection text-center">
+            <div className="flex flex-row items-baseline">
+              <img
+                src={Meditate}
+                alt="meditation icon"
+                className="sectionIcon mr-1.5"
+              ></img>
+              <h1 className="sectionTitle">Daily Reminder</h1>
+            </div>
+            <div className="justify-items-center">
+              <p className="reminder">
+                Mental well-being is not the absence of struggles but the
+                presence of self-compassion, resilience, and the courage to grow
+                through each moment.
+              </p>
+              <img
+                src={DailyReminder}
+                alt="person meditating animation"
+                className="dailyReminderImg"
+              ></img>
+            </div>
+          </div>
         </div>
       </div>
       {/* <Footer /> */}

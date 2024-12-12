@@ -20,8 +20,9 @@
 }
 
 .rightSide {
-background-color: blueviolet;
-flex: 30%;
+    flex: 30%;
+    padding: 0 40px;
+    padding-top: 40px;
 }
 
 .header {
@@ -35,13 +36,18 @@ flex: 30%;
     font-size: 32px;
 }
 
-.section {
+.sectionLeft {
+    margin-bottom: 44px;
+}
+
+.sectionRight {
     margin-bottom: 60px;
 }
 
 .sectionTitle {
     font-size: 20px;
     margin-bottom: 16px;
+    font-weight: 500px;
 }
 
 .sectionText {
@@ -75,7 +81,7 @@ flex: 30%;
     margin-bottom: 20px;
 }
 
-.insightsSectionIcon {
+.sectionIcon {
     width: 20px;
     height: 20px;
 }
@@ -91,4 +97,20 @@ flex: 30%;
     border: 1px solid #252D3B;
     border-radius: 4px;
     padding: 5px 10px;
+}
+
+.quote {
+    text-align: center;
+    font-size: 18px;
+    font-style: italic;
+}
+
+.reminder {
+    font-size: 18px;
+}
+
+.dailyReminderImg {
+    object-fit: cover;
+    width: 200px;
+    margin-top: 32px;
 }
