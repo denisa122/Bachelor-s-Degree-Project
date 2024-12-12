@@ -31,7 +31,7 @@ const HomepageLoggedIn = () => {
             <h1 className="title">Welcome back, Jane!</h1>
           </div>
 
-          <div className="sectionLeft startWritingSection">
+          <div className="section startWritingSection">
             <h2 className="sectionTitle">Feeling inspired? Write it down!</h2>
             <p className="sectionText">
               Whether it’s a spark of inspiration or a moment of reflection,
@@ -52,7 +52,7 @@ const HomepageLoggedIn = () => {
             </a>
           </div>
 
-          <div className="sectionLeft questionnairesSection">
+          <div className="section questionnairesSection">
             <h2 className="sectionTitle">Don’t forget to check in</h2>
             <p className="sectionText pb-5">
               Tracking your mood every day helps you gain insights into your
@@ -111,7 +111,7 @@ const HomepageLoggedIn = () => {
             </div>
           </div>
 
-          <div className="sectionLeft insightsSection">
+          <div className="section insightsSection">
             <div className="flex flex-row items-baseline">
               <h1 className="sectionTitle mr-1.5">
                 Your personal insights await
@@ -149,7 +149,7 @@ const HomepageLoggedIn = () => {
         </div>
 
         <div className="rightSide">
-          <div className="sectionRight notificationsSection">
+          <div className="section notificationsSection">
             <div className="flex flex-row items-baseline">
               <img
                 src={Notifications}
@@ -166,7 +166,7 @@ const HomepageLoggedIn = () => {
             </div>
           </div>
 
-          <div className="sectionRight dailyQuoteSection">
+          <div className="section dailyQuoteSection">
             <div className="flex flex-row items-baseline">
               <img
                 src={Quote}
@@ -182,7 +182,7 @@ const HomepageLoggedIn = () => {
             </p>
           </div>
 
-          <div className="sectionRight reminderSection text-center">
+          <div className="section reminderSection text-center">
             <div className="flex flex-row items-baseline">
               <img
                 src={Meditate}

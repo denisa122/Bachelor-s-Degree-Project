@@ -36,7 +36,7 @@ const Journal = () => {
               future. Whether it’s a fleeting thought, a big idea, or a simple
               reflection, your journal is a space that’s entirely yours. Take
               the first step and discover the joy of putting your thoughts into
-              words
+              words.
             </p>
             <a
               href="/journal"
