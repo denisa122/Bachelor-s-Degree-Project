@@ -53,7 +53,9 @@ startServer();
 
 // Routes
 const authRoutes = require("./routes/auth");
+const journalRoutes = require("./routes/journal");
 
 app.use("/api/auth", authRoutes);
+app.use("/api/journal", journalRoutes);
 
 module.exports = app;
