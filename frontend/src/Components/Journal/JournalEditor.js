@@ -1,6 +1,6 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import ReactDOM from "react-dom";
 import { Editor, EditorState, RichUtils } from "draft-js";
 import "draft-js/dist/Draft.css";
@@ -14,6 +14,7 @@ import { set } from "mongoose";
 
 const JournalEditor = ( {userID}) => {
   const {id} = useParams();
+  const navigate = useNavigate();
   const [editorState, setEditorState] = useState(() =>
     EditorState.createEmpty()
   )
@@ -60,6 +61,7 @@ const JournalEditor = ( {userID}) => {
       );
       console.log("Journal entry saved:", response.data);
       alert("Journal entry saved!");
+      navigate("/journal");
     } catch (error) {
       console.error("Error saving journal entry:", error);
     }

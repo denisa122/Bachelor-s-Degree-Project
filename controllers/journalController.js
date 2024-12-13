@@ -39,6 +39,19 @@ const saveJournalEntry = async (req, res) => {
     }
 }; 
 
+const getJournalEntries = async (req, res) => {
+    const { userID } = req.params;
+
+    try {
+        const journalEntries = await JournalEntry.find({userID}).sort({timestamp: -1});
+        res.status(200).json(journalEntries);
+    } catch (error) {
+        console.error("Error fetching journal entries:", error);
+        res.status(500).json({ error: "Something went wrong!" });
+    }
+};
+
 module.exports = {
     saveJournalEntry,
+    getJournalEntries,
 }

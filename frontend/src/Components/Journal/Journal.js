@@ -1,4 +1,7 @@
 import React from "react";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import axios from "axios";
 
 import "./Journal.css";
 
@@ -11,7 +14,25 @@ import MoreIcon from "../../assets/more-icon.svg";
 import Navigation from "../Navigation/Navigation";
 import JournalEntry from "./JournalEntry";
 
-const Journal = () => {
+const Journal = ({ userID }) => {
+  const { id } = useParams();
+  const [entries, setEntries] = useState([]);
+
+  useEffect (() => {
+    const fetchEntries = async() => {
+      try {
+        const response = await axios.get(
+          `${process.env.REACT_APP_API_BASE_URL}/api/journal/entries/${userID}`
+        );
+        setEntries(response.data);
+      } catch (error) {
+        console.error("Error fetching journal entries:", error);
+      }
+    };
+
+    fetchEntries();
+  }, [userID]);
+
   return (
     <div className="flex flex-row">
       <Navigation />
@@ -62,18 +83,13 @@ const Journal = () => {
           </div>
 
           <div className="entries">
-            <JournalEntry
-              title="A Rainy Day for the Soul"
-              date="December 1, 2024"
-              entry="Today was one of those days where I felt like time moved both too quickly and too slowly. I woke up to the sound of rain tapping on the window, which set the tone for a calm but reflective morning. I couldn’t help but think about how far I’ve come over the last few months—navigating challenges I never thought I’d overcome. It’s strange how the hardest moments shape us the most. I spent the afternoon organizing my workspace, and even though it felt mundane, there was something satisfying about finding order in the chaos. I paused for a while, staring out the window, watching the rain slide down the glass. I thought about all the things I’ve been holding onto—old fears, misplaced guilt, unnecessary doubts—and decided it’s time to let go of some of them. It feels like a small step, but I know it’s part of something bigger. Tonight, I’ll light a candle, drink some tea, and remind myself that growth takes time."
-            />
-            <JournalEntry
-              title="Seeking Joy in Simplicity"
-              date="December 2, 2024"
-              entry="I had an unexpected moment of joy today. While walking through the park, I noticed a group of kids playing with a kite. There was something so carefree and innocent about it can be if we let it. I stood there for a few minutes, watching the kite dip and soar against the bright blue sky. It made me think about my own childhood, the days when I didn’t overthink everything or feel the weight of expectations. I miss that version of myself sometimes.
-
-Afterward, I found a bench and just sat, letting my thoughts wander. It struck me how rare it is to pause like this—to just exist without rushing to the next task. The world felt a little quieter in that moment, and I realized how much I’ve been craving simplicity. Later in the day, I tackled some work, but my mind kept returning to the kite. Maybe it’s a sign to seek out more of those small, joyful moments. Life doesn’t have to be so serious all the time. I ended the day with a short walk, breathing in the cool evening air, feeling a little lighter, and strangely hopeful."
-            />
+            {entries.map((entry) => (
+              <JournalEntry
+                key={entry._id}
+                date={new Date(entry.timestamp).toLocaleDateString()}
+                entry={entry.content}
+              />
+            ))}
           </div>
         </div>
       </div>

@@ -57,14 +57,6 @@ function App() {
     fetchUserId();
   }, []);
 
-  useEffect(() => {
-    console.log("User ID:", userId); // Log the userId to verify it's being set
-  }, [userId]);
-
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
-
   return (
     <BrowserRouter>
       <Routes>
@@ -89,7 +81,7 @@ function App() {
           path="/journal"
           element={
             <PrivateRoute
-              element={<Journal />}
+              element={<Journal userID={userId} />}
               isAuthenticated={isAuthenticated}
             />
           }
