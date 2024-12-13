@@ -80,3 +80,8 @@
 .editorToolbar button:active {
     background: #d0d0d0;
 }
+
+select:focus {
+    outline: none;
+    border: none;
+}

@@ -40,7 +40,7 @@ const HomepageLoggedIn = () => {
               you.
             </p>
             <a
-              href="/journal"
+              href="/write"
               className="flex flex-row items-center buttonWithBorder w-[135px]"
             >
               <img

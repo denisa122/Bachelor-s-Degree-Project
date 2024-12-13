@@ -13,18 +13,47 @@ import MoreIcon from "../../assets/more-icon.svg";
 
 import Navigation from "../Navigation/Navigation";
 import JournalEntry from "./JournalEntry";
+import { set } from "mongoose";
 
 const Journal = ({ userID }) => {
   const { id } = useParams();
   const [entries, setEntries] = useState([]);
+  const [groupedEntries, setGroupedEntries] = useState({});
+  const [selectedMonth, setSelectedMonth] = useState("");
+  const [selectedYear, setSelectedYear] = useState("");
 
-  useEffect (() => {
-    const fetchEntries = async() => {
+  useEffect(() => {
+    const fetchEntries = async () => {
       try {
         const response = await axios.get(
           `${process.env.REACT_APP_API_BASE_URL}/api/journal/entries/${userID}`
         );
-        setEntries(response.data);
+        const fetchedEntries = response.data;
+
+        // Group by month and year
+        const grouped = fetchedEntries.reduce((acc, entry) => {
+          const date = new Date(entry.timestamp);
+          const year = date.getFullYear();
+          const month = date.toLocaleString("default", { month: "long" });
+
+          const key = `${month} ${year}`;
+          if (!acc[key]) {
+            acc[key] = [];
+          }
+          acc[key].push(entry);
+          return acc;
+        }, {});
+
+        setGroupedEntries(grouped);
+
+        // Set selected month and year to the most recent by default
+        const keys = Object.keys(grouped);
+        if (keys.length > 0) {
+          const [mostRecent] = keys;
+          const [recentMonth, recentYear] = mostRecent.split(" ");
+          setSelectedMonth(recentMonth);
+          setSelectedYear(recentYear);
+        }
       } catch (error) {
         console.error("Error fetching journal entries:", error);
       }
@@ -32,6 +61,11 @@ const Journal = ({ userID }) => {
 
     fetchEntries();
   }, [userID]);
+
+  const handleMonthYearChange = (month, year) => {
+    setSelectedMonth(month);
+    setSelectedYear(year);
+  };
 
   return (
     <div className="flex flex-row">
@@ -77,19 +111,37 @@ const Journal = ({ userID }) => {
           <h1 className="sectionTitle">
             Explore your previous journal entries
           </h1>
-          <div className="flex flex-row items-baseline">
-            <p className="sectionText mr-1.5">December 2024</p>
-            <img src={MoreIcon} alt="more icon"></img>
+          {/** Month-Year dropdown */}
+          <div className="flex flex-row items-baseline sectionText">
+            <select
+              value={`${selectedMonth} ${selectedYear}`}
+              onChange={(e) => {
+                const [month, year] = e.target.value.split(" ");
+                handleMonthYearChange(month, year);
+              }}
+            >
+              {Object.keys(groupedEntries).map((key) => (
+                <option key={key} value={key}>
+                  {key}
+                </option>
+              ))}
+            </select>
           </div>
 
           <div className="entries">
-            {entries.map((entry) => (
-              <JournalEntry
-                key={entry._id}
-                date={new Date(entry.timestamp).toLocaleDateString()}
-                entry={entry.content}
-              />
-            ))}
+            {groupedEntries[`${selectedMonth} ${selectedYear}`]?.map(
+              (entry) => (
+                <JournalEntry
+                  key={entry._id}
+                  date={new Date(entry.timestamp).toLocaleDateString("en-US", {
+                    day: "numeric",
+                    month: "long",
+                    year: "numeric",
+                  })}
+                  entry={entry.content}
+                />
+              )
+            )}
           </div>
         </div>
       </div>
