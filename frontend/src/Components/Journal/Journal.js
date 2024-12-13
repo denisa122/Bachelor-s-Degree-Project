@@ -107,7 +107,7 @@ const Journal = ({ userID }) => {
           </div>
         </div>
 
-        <div className="sectionLeft journalEntriesSection mt-10">
+        <div className="section journalEntriesSection mt-[60px]">
           <h1 className="sectionTitle">
             Explore your previous journal entries
           </h1>

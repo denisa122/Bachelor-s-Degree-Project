@@ -11,3 +11,62 @@
     align-items: center;
     margin-bottom: 72px;
 }
+
+.questionnaires {
+   display: grid;
+   grid-template-columns: repeat(3, 1fr);
+   justify-items: stretch;
+   margin-top: 32px;
+}
+
+.item-start {
+    justify-self: start;
+}
+
+.item-end {
+    justify-self: end;
+}
+
+.item-middle {
+    justify-self: center;
+}
+
+
+.questionnaireBox {
+    border-radius: 12px;
+    border: solid 1px #252D3B;
+    padding: 20px 25px;
+    width: 80%;
+    justify-items: center;
+}
+
+.questionnaireTitle {
+    font-size: 18px;
+    font-weight: 500;
+    margin-bottom: 24px;
+}
+
+.moodQuestionnaireImg {
+    object-fit: cover;
+    width: 150px;
+    margin-bottom: 32px;
+}
+
+.questionnaireInfo {
+   font-size: 14px;
+   text-align: center;
+   margin-bottom: 32px;
+}
+
+.goals {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 12px;
+    justify-items: left;
+    margin-top: 20px;
+}
+
+.goal {
+    display: flex;
+    flex-direction: row;
+}
