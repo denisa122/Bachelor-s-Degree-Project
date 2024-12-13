@@ -5,6 +5,9 @@ import "./Insights.css";
 // Icons & images
 import Logo from "../../assets/logo.png";
 import InsightsImage from "../../assets/insights.png";
+import Filter from "../../assets/filter-icon.svg";
+import PatternsIcon from "../../assets/insights-icon-small.svg";
+import Emoji from "../../assets/emoji.svg";
 
 import Navigation from "../Navigation/Navigation";
 
@@ -29,7 +32,9 @@ const Insights = () => {
             className="journalImage" // Make this image bigger
           ></img>
           <div className="flex flex-col">
-            <h2 className="sectionTitle !mb-2.5">Understand Your Emotional Landscape</h2>
+            <h2 className="sectionTitle !mb-2.5">
+              Understand Your Emotional Landscape
+            </h2>
             <p className="sectionText">
               Your emotions and actions tell a story—one that’s uniquely yours.
               The Insights page brings together data from your journal entries,
@@ -42,6 +47,145 @@ const Insights = () => {
               thrive. Let your reflections guide you toward a brighter, more
               balanced tomorrow.
             </p>
+          </div>
+        </div>
+
+        <div className="section moodTrendsSection">
+          <h1 className="sectionTitle mt-[60px]">Mood Trends</h1>
+          <p className="sectionText">
+            In this section, you can explore how your mood has evolved over
+            time. By reviewing the results of your mood questionnaires—taken
+            throughout the day and over various periods—you can identify
+            patterns, fluctuations, and emotional shifts.
+          </p>
+          <img src={Filter} alt="filter icon "></img>
+          <div className="moodTrendsImg">
+            <img src="moodTrends.jpg" alt="mood trends graph"></img>
+          </div>
+        </div>
+
+        <div className="section patternsSection">
+          <h1 className="sectionTitle">Patterns</h1>
+          <div className="flex flex-col space-y-5">
+            <div className="flex flex-row items-baseline">
+              <img
+                src={PatternsIcon}
+                alt="lightbulb icon"
+                className="mr-4"
+              ></img>
+              <p>
+                You tend to put off tasks or responsibilities until the last
+                minute, often leading to stress and rushed work. This may be due
+                to fear of failure or lack of motivation.
+              </p>
+            </div>
+            <div className="flex flex-row items-baseline">
+              <img
+                src={PatternsIcon}
+                alt="lightbulb icon"
+                className="mr-4"
+              ></img>
+              <p>
+                You tend to use encouraging and affirming language with
+                yourself, even when faced with challenges. This helps boost your
+                self-esteem, foster resilience, and improve your mental health.
+              </p>
+            </div>
+            <div className="flex flex-row items-baseline">
+              <img
+                src={PatternsIcon}
+                alt="lightbulb icon"
+                className="mr-4"
+              ></img>
+              <p>
+                You often take on too many tasks or responsibilities, sometimes
+                at the expense of your well-being or personal time. This may
+                stem from a desire to please others or a fear of missing out.
+              </p>
+            </div>
+            <div className="flex flex-row items-baseline">
+              <img
+                src={PatternsIcon}
+                alt="lightbulb icon"
+                className="mr-4"
+              ></img>
+              <p>
+                You tend to strive for flawlessness in every aspect of your
+                life, which can lead to unrealistic expectations and
+                dissatisfaction when things don't meet your high standards. This
+                behavior may cause stress, burnout, and prevent you from fully
+                enjoying your achievements.
+              </p>
+            </div>
+            <div className="flex flex-row items-baseline">
+              <img
+                src={PatternsIcon}
+                alt="lightbulb icon"
+                className="mr-4"
+              ></img>
+              <p>
+                You tend to avoid confrontational situations or difficult
+                conversations, often to maintain peace or prevent upsetting
+                others. While this may reduce short-term stress, it can prevent
+                personal growth and resolution of issues.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div className="section sentimentAnalysisSection">
+          <h1 className="sectionTitle">Sentiment Analysis</h1>
+          <p className="sectionText">
+            Gain deeper insights into the emotions behind your journal entries.
+            See how your mood shifts and what words reflect your inner state.
+          </p>
+          <div className="sentimentAnalysisImd">
+            <img src="moodTrends.jpg" alt="sentiment analysis chart"></img>
+          </div>
+          <p className="sectionText mt-5 !text-lg font-medium">
+            Most used sentiments over the last 7 days
+          </p>
+          <div className="emotions">
+            <div className="flex flex-col">
+              <img
+                src={Emoji}
+                alt="emotion emoji face"
+                className="emotionEmoji"
+              ></img>
+              <p className="emotionText">Sad</p>
+            </div>
+            <div className="flex flex-col">
+              <img
+                src={Emoji}
+                alt="emotion emoji face"
+                className="emotionEmoji"
+              ></img>
+              <p className="emotionText">Sad</p>
+            </div>
+            <div className="flex flex-col">
+              <img
+                src={Emoji}
+                alt="emotion emoji face"
+                className="emotionEmoji"
+              ></img>
+              <p className="emotionText">Sad</p>
+            </div>
+            <div className="flex flex-col">
+              <img
+                src={Emoji}
+                alt="emotion emoji face"
+                className="emotionEmoji"
+              ></img>
+              <p className="emotionText">Sad</p>
+            </div>
+            <div className="flex flex-col">
+              <img
+                src={Emoji}
+                alt="emotion emoji face"
+                className="emotionEmoji"
+              ></img>
+              <p className="emotionText">Sad</p>
+            </div>
           </div>
         </div>
       </div>
