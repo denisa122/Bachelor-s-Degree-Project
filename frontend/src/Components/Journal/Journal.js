@@ -39,7 +39,7 @@ const Journal = () => {
               words.
             </p>
             <a
-              href="/journal"
+              href="/write"
               className="flex flex-row items-center buttonWithBorder w-[120px]"
             >
               <img

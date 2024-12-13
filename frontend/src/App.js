@@ -14,6 +14,7 @@ import HomepageGuest from "./Components/Homepage/HomepageGuest";
 import HomepageLoggedIn from "./Components/Homepage/HomepageLoggedIn";
 
 import Journal from "./Components/Journal/Journal";
+import JournalEditor from "./Components/Journal/JournalEditor";
 import MoodTracker from "./Components/MoodTracker/MoodTracker";
 import Insights from "./Components/Insights/Insights";
 
@@ -77,6 +78,16 @@ function App() {
           element={
             <PrivateRoute
               element={<Journal />}
+              isAuthenticated={isAuthenticated}
+            />
+          }
+        />
+
+        <Route
+          path="/write"
+          element={
+            <PrivateRoute
+              element={<JournalEditor />}
               isAuthenticated={isAuthenticated}
             />
           }

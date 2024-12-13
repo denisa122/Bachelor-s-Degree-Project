@@ -4,7 +4,7 @@ import "./Insights.css";
 
 // Icons & images
 import Logo from "../../assets/logo.png";
-import InsightsImage from "../../assets/insights.jpg";
+import InsightsImage from "../../assets/insights.png";
 
 import Navigation from "../Navigation/Navigation";
 
