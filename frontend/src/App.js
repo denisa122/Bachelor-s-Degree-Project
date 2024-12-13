@@ -17,6 +17,7 @@ import Journal from "./Components/Journal/Journal";
 import JournalEditor from "./Components/Journal/JournalEditor";
 import MoodTracker from "./Components/MoodTracker/MoodTracker";
 import Insights from "./Components/Insights/Insights";
+import ProfileSettings from "./Components/User/ProfileSettings";
 
 function App() {
   const [userId, setUserId] = useState(null);
@@ -112,6 +113,16 @@ function App() {
           element={
             <PrivateRoute
               element={<Insights />}
+              isAuthenticated={isAuthenticated}
+            />
+          }
+        />
+
+        <Route
+          path="/profile-settings"
+          element={
+            <PrivateRoute
+              element={<ProfileSettings />}
               isAuthenticated={isAuthenticated}
             />
           }
