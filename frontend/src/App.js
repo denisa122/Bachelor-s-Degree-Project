@@ -36,11 +36,19 @@ function App() {
               },
             }
           );
-          setUserId(response.data.id);
-          setIsAuthenticated(true);
+          console.log("Login status response:", response.data);
+          if (response.data.isLoggedIn) {
+            setUserId(response.data.id);
+            setIsAuthenticated(true);
+          } else {
+            setIsAuthenticated(false);
+          }
+        } else {
+          setIsAuthenticated(false);
         }
       } catch (error) {
         console.error("Error fetching user ID:", error);
+        setIsAuthenticated(false);
       } finally {
         setIsLoading(false);
       }
@@ -48,6 +56,10 @@ function App() {
 
     fetchUserId();
   }, []);
+
+  useEffect(() => {
+    console.log("User ID:", userId); // Log the userId to verify it's being set
+  }, [userId]);
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -87,7 +99,7 @@ function App() {
           path="/write"
           element={
             <PrivateRoute
-              element={<JournalEditor />}
+              element={<JournalEditor userID={userId} />}
               isAuthenticated={isAuthenticated}
             />
           }

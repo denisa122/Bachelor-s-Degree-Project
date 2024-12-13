@@ -1,19 +1,22 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import ReactDOM from "react-dom";
 import { Editor, EditorState, RichUtils } from "draft-js";
 import "draft-js/dist/Draft.css";
 import axios from "axios";
+import { jwtDecode } from "jwt-decode";
 
 import "./Journal.css";
 
 import Navigation from "../Navigation/Navigation";
+import { set } from "mongoose";
 
-const JournalEditor = () => {
+const JournalEditor = ( {userID}) => {
+  const {id} = useParams();
   const [editorState, setEditorState] = useState(() =>
     EditorState.createEmpty()
-  );
-  const [userID, setUserID] = useState("1");
+  )
 
   const handleKeyCommand = (command) => {
     const newState = RichUtils.handleKeyCommand(editorState, command);
@@ -33,14 +36,28 @@ const JournalEditor = () => {
   };
 
   const saveJournalEntry = async () => {
+    if (!userID) {
+      alert("User is not authenticated.");
+      return;
+    }
+
     const contentState = editorState.getCurrentContent();
-    const content = contentState.getPlainText(); 
+    const content = contentState.getPlainText();
+    const token = localStorage.getItem("token");
 
     try {
-      const response = await axios.post(`${process.env.REACT_APP_API_BASE_URL}/api/journal/entries`, {
-        userID,
-        content,
-      });
+      const response = await axios.post(
+        `${process.env.REACT_APP_API_BASE_URL}/api/journal/entries`,
+        {
+          userID,
+          content,
+        }, 
+        {
+          headers: {
+            "auth-token": token,
+          },
+        }
+      );
       console.log("Journal entry saved:", response.data);
       alert("Journal entry saved!");
     } catch (error) {

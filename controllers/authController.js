@@ -62,11 +62,13 @@ const login = async (req, res) => {
   // Create and assign token
   const token = jwt.sign(
     {
+      id: user.userID,
       email: user.email,
-      id: user.id,
     },
     process.env.TOKEN_SECRET,
-    { expiresIn: process.env.JWT_EXPIRES_IN }
+    {
+      expiresIn: process.env.JWT_EXPIRES_IN,
+    }
   );
 
   // Attach token to header
@@ -77,19 +79,20 @@ const login = async (req, res) => {
 };
 
 const getLoginStatus = async (req, res) => {
-    try {
-        const token = req.header("auth-token");
-        if (token) {
-            const decoded = jwt.verify(token, process.env.TOKEN_SECRET);
-            const {id} = decoded;
-            res.json({ isLoggedIn: true, id });
-        } else {
-            res.json({ isLoggedIn: false });
-        }
-    } catch (error) {
-        res.json({ isLoggedIn: false });
-        res.status(500).json({ error });
+  try {
+    const token = req.header("auth-token");
+    if (token) {
+      const decoded = jwt.verify(token, process.env.TOKEN_SECRET);
+      const { id } = decoded;
+      res.json({ isLoggedIn: true, id });
+    } else {
+      res.json({ isLoggedIn: false });
     }
+  } catch (error) {
+    console.error("Error fetching login status:", error);
+    res.json({ isLoggedIn: false });
+    res.status(500).json({ error });
+  }
 };
 
 const logout = async (req, res) => {
@@ -104,5 +107,5 @@ module.exports = {
   register,
   login,
   getLoginStatus,
-  logout
+  logout,
 };
