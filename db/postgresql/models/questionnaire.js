@@ -7,7 +7,7 @@ const Questionnaire = sequelize.define('Questionnaire', {
         primaryKey: true,
         autoIncrement: true,
     },
-    name: {
+    title: {
         type: DataTypes.STRING(255),
         allowNull: false,
     },
