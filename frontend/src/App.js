@@ -103,7 +103,7 @@ function App() {
           path="/mood-tracker"
           element={
             <PrivateRoute
-              element={<MoodTracker />}
+              element={<MoodTracker userID={userId}/>}
               isAuthenticated={isAuthenticated}
             />
           }

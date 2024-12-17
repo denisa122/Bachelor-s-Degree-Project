@@ -1,6 +1,6 @@
 import React from "react";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 
 import "./MoodTracker.css";
@@ -19,7 +19,8 @@ import QuestionnaireBox from "./QuestionnaireBox";
 import GoalBox from "./GoalBox";
 import { get, set } from "mongoose";
 
-const MoodTracker = () => {
+const MoodTracker = ( {userID}) => {
+  const {id} = useParams();
   const [morningQuestionnaire, setMorningQuestionnaire] = useState(null);
   const [middayQuestionnaire, setMiddayQuestionnaire] = useState(null);
   const [eveningQuestionnaire, setEveningQuestionnaire] = useState(null);
@@ -73,7 +74,10 @@ const MoodTracker = () => {
     try {
       const response = await axios.post(
         `${process.env.REACT_APP_API_BASE_URL}/api/goals`,
-        { text: newGoal }
+        {
+          text: newGoal,
+          userID: userID,
+        }
       );
 
       setGoals([...goals, response.data]);
