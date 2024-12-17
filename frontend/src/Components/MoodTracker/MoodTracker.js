@@ -85,6 +85,28 @@ const MoodTracker = () => {
     }
   };
 
+  const handleGoalCheckboxChange = async (goalId, currentStatus) => {
+    if (currentStatus) return;
+
+    try {
+      const response = await axios.put(
+        `${process.env.REACT_APP_API_BASE_URL}/api/goals/${goalId}`,
+        { completed: true }
+      );
+
+      setGoals((prevGoals) =>
+        prevGoals.map((goal) =>
+          goal.goalID === goalId ? { ...goal, completed: true } : goal
+        )
+      );
+    } catch (error) {
+      console.error("Error updating goal completion", error);
+      alert(
+        "There was an error with marking the goal as completed. Please try again."
+      );
+    }
+  };
+
   return (
     <div className="flex flex-row">
       <Navigation />
@@ -172,7 +194,11 @@ const MoodTracker = () => {
           <div className="goals">
             {goals.length > 0 ? (
               goals.map((goal) => (
-                <GoalBox key={goal._id} goal={goal} />
+                <GoalBox
+                  key={goal._id}
+                  goal={goal}
+                  onCheckboxChange={handleGoalCheckboxChange}
+                />
               ))
             ) : (
               <p>You didn't set any goals for today.</p>
@@ -183,11 +209,11 @@ const MoodTracker = () => {
             <div className="goalModal">
               <div className="modalContent">
                 <h2>Enter goal</h2>
-                <textarea 
-                value = {newGoal}
-                onChange={(e) => setNewGoal(e.target.value)}
-                placeholder="Enter your goal"
-                className="goalInput"
+                <textarea
+                  value={newGoal}
+                  onChange={(e) => setNewGoal(e.target.value)}
+                  placeholder="Enter your goal"
+                  className="goalInput"
                 />
                 <div className="modalActions">
                   <button onClick={() => setIsModalOpen(false)}>Cancel</button>
@@ -195,7 +221,7 @@ const MoodTracker = () => {
                 </div>
               </div>
             </div>
-            )}
+          )}
         </div>
 
         <div className="section insightsMoodTrackerSection">

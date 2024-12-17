@@ -9,4 +9,8 @@ router.post('/', goalController.addGoal);
 // /api/goals/today
 router.get('/today', goalController.getTodaysGoals);
 
+// Update goal completion
+// /api/goals/:id
+router.put("/:id", goalController.updateGoalCompleted);
+
 module.exports = router;
