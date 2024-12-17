@@ -1,29 +1,27 @@
-const { Sequelize, DataTypes } = require('sequelize');
-const {sequelize} = require('../setup');
+const { Sequelize, DataTypes } = require("sequelize");
+const { sequelize } = require("../setup");
 
-const Question = sequelize.define('Question', {
+const Question = sequelize.define(
+  "Question",
+  {
     questionID: {
-        type: DataTypes.INTEGER,
-        primaryKey: true,
-        autoIncrement: true,
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
     },
     text: {
-        type: DataTypes.TEXT,
-        allowNull: false,
+      type: DataTypes.TEXT,
+      allowNull: false,
     },
     type: {
-        type: DataTypes.STRING(50),
-        allowNull: false,
+      type: DataTypes.STRING(50),
+      allowNull: false,
     },
-}, {
-    tableName: 'questions', 
-    timestamps: false, 
-});
-
-
-const Questionnaire = require('./questionnaire');
-
-// Associations
-Question.belongsTo(Questionnaire, {foreignKey: 'questionnaireID', onDelete: 'CASCADE'});
+  },
+  {
+    tableName: "questions",
+    timestamps: false,
+  }
+);
 
 module.exports = Question;

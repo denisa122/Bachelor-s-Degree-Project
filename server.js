@@ -5,16 +5,11 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 
 const connectToMongoDB = require("./db/mongodb/setup");
-const { connectToPostgreSQLDB, sequelize } = require("./db/postgresql/setup");
+const { connectToPostgreSQLDB } = require("./db/postgresql/setup");
 
 // Import Sequelize models
-const Goal = require("./db/postgresql/models/goal");
-const JournalMetadata = require("./db/postgresql/models/journalMetadata");
-const MoodEntry = require("./db/postgresql/models/moodEntry");
-const MoodResponse = require("./db/postgresql/models/moodResponse");
-const Question = require("./db/postgresql/models/question");
-const Questionnaire = require("./db/postgresql/models/questionnaire");
-const User = require("./db/postgresql/models/user");
+const models = require("./db/postgresql/models");
+const {sequelize} = models;
 
 const { start } = require("repl");
 
@@ -54,8 +49,10 @@ startServer();
 // Routes
 const authRoutes = require("./routes/auth");
 const journalRoutes = require("./routes/journal");
+const questionnaireRoutes = require("./routes/questionnaire");
 
 app.use("/api/auth", authRoutes);
 app.use("/api/journal", journalRoutes);
+app.use("/api/questionnaires", questionnaireRoutes);
 
 module.exports = app;

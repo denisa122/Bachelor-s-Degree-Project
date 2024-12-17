@@ -1,4 +1,6 @@
 import React from "react";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 import "./MoodTracker.css";
 
@@ -12,8 +14,30 @@ import Plus from "../../assets/plus-icon.svg";
 import InsightsIcon from "../../assets/insights-icon-small.svg";
 
 import Navigation from "../Navigation/Navigation";
+import QuestionnaireBox from "./QuestionnaireBox";
 
 const MoodTracker = () => {
+  const [morningQuestionnaire, setMorningQuestionnaire] = useState(null);
+  const [middayQuestionnaire, setMiddayQuestionnaire] = useState(null);
+  const [eveningQuestionnaire, setEveningQuestionnaire] = useState(null);
+
+  useEffect(() => {
+    const fetchQuestionnaire = async (timeOfDay, setFunction) => {
+      try {
+        const response = await axios.get(
+          `${process.env.REACT_APP_API_BASE_URL}/api/questionnaires/${timeOfDay}`
+        );
+        setFunction(response.data);
+      } catch (error) {
+        console.error("Error fetching ${timeOfDay} questionnaire:", error);
+      }
+    };
+
+    fetchQuestionnaire("Morning", setMorningQuestionnaire);
+    fetchQuestionnaire("Midday", setMiddayQuestionnaire);
+    fetchQuestionnaire("Evening", setEveningQuestionnaire);
+  }, []);
+
   return (
     <div className="flex flex-row">
       <Navigation />
@@ -52,72 +76,31 @@ const MoodTracker = () => {
         <div className="section questionnairesSection mt-[60px]">
           <h1 className="sectionTitle">Mood Questionnaires</h1>
           <div className="questionnaires">
-            <div className="questionnaireBox item-start">
-              <h2 className="questionnaireTitle">Morning questionnaire</h2>
-              <img
-                src={MorningQuestionnaire}
-                alt="morning questionnaire image"
-                className="moodQuestionnaireImg"
-              ></img>
-              <p className="questionnaireInfo">
-                Start your day by capturing your initial mood and setting your
-                intentions. Reflect on your goals, expectations, and how
-                prepared you feel for the day ahead.
-              </p>
-              <button
-                className="mb-3 inline-block w-full rounded px-6 pb-2 pt-2.5 text-sm font-medium leading-normal text-[#252D3B] shadow-dark-3 transition duration-150 ease-in-out hover:shadow-dark-2 focus:shadow-dark-2 focus:outline-none focus:ring-0 active:shadow-dark-2 dark:shadow-black/30 dark:hover:shadow-dark-strong dark:focus:shadow-dark-strong dark:active:shadow-dark-strong"
-                style={{
-                  background:
-                    "linear-gradient(to right, #FFCAD4 0%, #CBC0D3 50%, #D8E2DC 100%)",
-                }}
-              >
-                Start questionnaire
-              </button>
-            </div>
-            <div className="questionnaireBox item-middle">
-              <h2 className="questionnaireTitle">Midday questionnaire</h2>
-              <img
-                src={MiddayQuestionnaire}
-                alt="morning questionnaire image"
-                className="moodQuestionnaireImg"
-              ></img>
-              <p className="questionnaireInfo">
-                Take a moment to process how your day is unfolding. Reflect on
-                key events, challenges, and accomplishments, and see how your
-                mood is evolving.
-              </p>
-              <button
-                className="mb-3 inline-block w-full rounded px-6 pb-2 pt-2.5 text-sm font-medium leading-normal text-[#252D3B] shadow-dark-3 transition duration-150 ease-in-out hover:shadow-dark-2 focus:shadow-dark-2 focus:outline-none focus:ring-0 active:shadow-dark-2 dark:shadow-black/30 dark:hover:shadow-dark-strong dark:focus:shadow-dark-strong dark:active:shadow-dark-strong"
-                style={{
-                  background:
-                    "linear-gradient(to right, #FFCAD4 0%, #CBC0D3 50%, #D8E2DC 100%)",
-                }}
-              >
-                Start questionnaire
-              </button>
-            </div>
-            <div className="questionnaireBox item-end">
-              <h2 className="questionnaireTitle">Evening questionnaire</h2>
-              <img
-                src={EveningQuestionnaire}
-                alt="morning questionnaire image"
-                className="moodQuestionnaireImg"
-              ></img>
-              <p className="questionnaireInfo">
-                End your day by checking in on your emotional and energy shifts.
-                This helps track any fluctuations in mood or stress, and gives
-                you a chance to unwind.
-              </p>
-              <button
-                className="mb-3 inline-block w-full rounded px-6 pb-2 pt-2.5 text-sm font-medium leading-normal text-[#252D3B] shadow-dark-3 transition duration-150 ease-in-out hover:shadow-dark-2 focus:shadow-dark-2 focus:outline-none focus:ring-0 active:shadow-dark-2 dark:shadow-black/30 dark:hover:shadow-dark-strong dark:focus:shadow-dark-strong dark:active:shadow-dark-strong"
-                style={{
-                  background:
-                    "linear-gradient(to right, #FFCAD4 0%, #CBC0D3 50%, #D8E2DC 100%)",
-                }}
-              >
-                Start questionnaire
-              </button>
-            </div>
+            {morningQuestionnaire && (
+              <QuestionnaireBox
+                className="item-start"
+                title={morningQuestionnaire.title}
+                image={MorningQuestionnaire}
+                description={morningQuestionnaire.description}
+              />
+            )}
+            {middayQuestionnaire && (
+              <QuestionnaireBox
+                className="item-middle"
+                title={middayQuestionnaire.title}
+                image={MiddayQuestionnaire}
+                description={middayQuestionnaire.description}
+              />
+            )}
+
+            {eveningQuestionnaire && (
+              <QuestionnaireBox
+                className="item-end"
+                title={eveningQuestionnaire.title}
+                image={EveningQuestionnaire}
+                description={eveningQuestionnaire.description}
+              />
+            )}
           </div>
         </div>
 
@@ -165,7 +148,11 @@ const MoodTracker = () => {
           </h1>
           <div className="flex flex-row items-baseline">
             <p className="sectionText mr-1">
-              Your <a href="/insights"><u>insights</u></a> are ready to be explored.
+              Your{" "}
+              <a href="/insights">
+                <u>insights</u>
+              </a>{" "}
+              are ready to be explored.
             </p>
             <img src={InsightsIcon} alt="lightbulb icon"></img>
           </div>
