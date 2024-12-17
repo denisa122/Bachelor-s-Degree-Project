@@ -3,19 +3,22 @@ import React from "react";
 import "./MoodTracker.css";
 
 const GoalBox = ({ goal, onCheckboxChange }) => {
+const {goalID, completed, text} = goal;
+
   const handleCheckboxChange = () => {
     if (goal.completed) return;
-    onCheckboxChange(goal.goalID, goal.completed);
+    onCheckboxChange(goalID, completed);
   };
 
   return (
     <div className="goal">
-      <p className="mr-1.5">{goal.text}</p>
+      <span className={completed ? 'strikethrough' : ''}>{goal.text}</span>
       <input
         type="checkbox"
-        checked={goal.completed}
+        checked={completed}
         onChange={handleCheckboxChange}
-        disabled={goal.completed}
+        disabled = {completed}
+        className="ml-1.5"
       />
     </div>
   );

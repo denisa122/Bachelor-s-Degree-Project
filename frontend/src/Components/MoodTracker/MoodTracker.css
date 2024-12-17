@@ -71,6 +71,11 @@
     flex-direction: row;
 }
 
+.strikethrough {
+    text-decoration: line-through;
+    color: #888;
+}
+
 .goalModal {
     position: fixed;
     top: 0;
