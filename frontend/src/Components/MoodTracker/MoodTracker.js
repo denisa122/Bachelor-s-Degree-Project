@@ -1,5 +1,6 @@
 import React from "react";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 import "./MoodTracker.css";
@@ -21,6 +22,8 @@ const MoodTracker = () => {
   const [middayQuestionnaire, setMiddayQuestionnaire] = useState(null);
   const [eveningQuestionnaire, setEveningQuestionnaire] = useState(null);
 
+  const navigate = useNavigate();
+
   useEffect(() => {
     const fetchQuestionnaire = async (timeOfDay, setFunction) => {
       try {
@@ -37,6 +40,10 @@ const MoodTracker = () => {
     fetchQuestionnaire("Midday", setMiddayQuestionnaire);
     fetchQuestionnaire("Evening", setEveningQuestionnaire);
   }, []);
+
+  const handleStartQuestionnaire = (timeOfDay) => {
+    navigate(`/questionnaire/${timeOfDay}`);
+  };
 
   return (
     <div className="flex flex-row">
@@ -82,7 +89,8 @@ const MoodTracker = () => {
                 title={morningQuestionnaire.title}
                 image={MorningQuestionnaire}
                 description={morningQuestionnaire.description}
-              />
+                onClick={() => handleStartQuestionnaire("Morning")}
+              ></QuestionnaireBox>
             )}
             {middayQuestionnaire && (
               <QuestionnaireBox
@@ -90,7 +98,8 @@ const MoodTracker = () => {
                 title={middayQuestionnaire.title}
                 image={MiddayQuestionnaire}
                 description={middayQuestionnaire.description}
-              />
+                onClick={() => handleStartQuestionnaire("Midday")}
+              ></QuestionnaireBox>
             )}
 
             {eveningQuestionnaire && (
@@ -99,7 +108,8 @@ const MoodTracker = () => {
                 title={eveningQuestionnaire.title}
                 image={EveningQuestionnaire}
                 description={eveningQuestionnaire.description}
-              />
+                onClick={() => handleStartQuestionnaire("Evening")}
+              ></QuestionnaireBox>
             )}
           </div>
         </div>

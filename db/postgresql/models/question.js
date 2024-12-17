@@ -17,6 +17,10 @@ const Question = sequelize.define(
       type: DataTypes.STRING(50),
       allowNull: false,
     },
+    options: {
+      type: DataTypes.JSON,
+      allowNull: true,
+    },
   },
   {
     tableName: "questions",

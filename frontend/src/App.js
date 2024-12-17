@@ -18,6 +18,7 @@ import JournalEditor from "./Components/Journal/JournalEditor";
 import MoodTracker from "./Components/MoodTracker/MoodTracker";
 import Insights from "./Components/Insights/Insights";
 import ProfileSettings from "./Components/User/ProfileSettings";
+import Questionnaire from "./Components/Questionnaire/Questionnaire";
 
 function App() {
   const [userId, setUserId] = useState(null);
@@ -103,6 +104,16 @@ function App() {
           element={
             <PrivateRoute
               element={<MoodTracker />}
+              isAuthenticated={isAuthenticated}
+            />
+          }
+        />
+
+        <Route
+          path="/questionnaire/:timeOfDay"
+          element={
+            <PrivateRoute
+              element={<Questionnaire />}
               isAuthenticated={isAuthenticated}
             />
           }
