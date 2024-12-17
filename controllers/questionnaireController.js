@@ -18,11 +18,12 @@ const getQuestionnaires = async (req, res) => {
   }
 };
 
-exports.submitQuestionnaire = async (req, res) => {
+const submitQuestionnaire = async (req, res) => {
   try {
     const {
       userID,
       questionnaireID,
+      timeOfDay,
       moodScore,
       energyLevel,
       stressLevel,
@@ -33,6 +34,7 @@ exports.submitQuestionnaire = async (req, res) => {
       userID,
       questionnaireID,
       date: new Date(),
+      timeOfDay,
       moodScore,
       energyLevel,
       stressLevel,
@@ -76,5 +78,6 @@ const getQuestionnaireByTimeOfDay = async (req, res) => {
 
 module.exports = {
   getQuestionnaires,
+  submitQuestionnaire,
   getQuestionnaireByTimeOfDay,
 };

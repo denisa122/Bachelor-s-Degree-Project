@@ -11,6 +11,6 @@ router.get('/:timeOfDay', questionnaireController.getQuestionnaireByTimeOfDay);
 
 // Submit completed questionnaire
 // api/questionnaires/submit
-// router.post('/submit', questionnaireController.submitQuestionnaire);
+router.post('/submit', questionnaireController.submitQuestionnaire);
 
 module.exports = router;

@@ -1,53 +1,52 @@
-const { Sequelize, DataTypes } = require('sequelize');
-const {sequelize} = require('../setup');
+const { Sequelize, DataTypes } = require("sequelize");
+const { sequelize } = require("../setup");
 
-
-const MoodEntry = sequelize.define('MoodEntry', {
+const MoodEntry = sequelize.define(
+  "MoodEntry",
+  {
     entryID: {
-        type: DataTypes.INTEGER,
-        primaryKey: true,
-        autoIncrement: true,
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
     },
     date: {
-        type: DataTypes.DATEONLY,
-        allowNull: false,
+      type: DataTypes.DATE,
+      allowNull: false,
+      defaultValue: DataTypes.NOW,
     },
     timeOfDay: {
-        type: DataTypes.STRING,
-        allowNull: false,
+      type: DataTypes.STRING,
+      allowNull: false,
     },
     moodScore: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-        validate: {
-            min: 0,
-            max: 10,
-        },
+      type: DataTypes.INTEGER,
+      allowNull: true,
+      validate: {
+        min: 0,
+        max: 10,
+      },
     },
     energyLevel: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-        validate: {
-            min: 0,
-            max: 10,
-        },
+      type: DataTypes.INTEGER,
+      allowNull: true,
+      validate: {
+        min: 0,
+        max: 10,
+      },
     },
     stressLevel: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-        validate: {
-            min: 0,
-            max: 10,
-        },
+      type: DataTypes.INTEGER,
+      allowNull: true,
+      validate: {
+        min: 0,
+        max: 10,
+      },
     },
-}, {
-    tableName: 'mood_entries', 
-    timestamps: false, 
-});
-
-const User = require('./user');
-
-// Associations
-MoodEntry.belongsTo(User, {foreignKey: 'userID', onDelete: 'CASCADE'});
+  },
+  {
+    tableName: "mood_entries",
+    timestamps: false,
+  }
+);
 
 module.exports = MoodEntry;

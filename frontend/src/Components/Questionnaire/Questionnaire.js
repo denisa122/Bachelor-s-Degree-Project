@@ -5,8 +5,9 @@ import axios from "axios";
 
 import "./Questionnaire.css";
 
-const Questionnaire = () => {
+const Questionnaire = ({ userID }) => {
   const { timeOfDay } = useParams();
+  const { id } = useParams();
   const [questionnaire, setQuestionnaire] = useState(null);
   const [responses, setResponses] = useState({});
   const navigate = useNavigate();
@@ -17,7 +18,6 @@ const Questionnaire = () => {
         const response = await axios.get(
           `${process.env.REACT_APP_API_BASE_URL}/api/questionnaires/${timeOfDay}`
         );
-        console.log("Questionnaire data:", response.data);
         setQuestionnaire(response.data);
       } catch (error) {
         console.error("Error fetching ${timeOfDay} questionnaire:", error);
@@ -27,15 +27,41 @@ const Questionnaire = () => {
     fetchQuestionnaire();
   }, [timeOfDay]);
 
-  const handleSubmit = () => {
-    console.log("Responses:", responses);
-  };
-
   const handleAnswerChange = (questionId, answer) => {
     setResponses({
       ...responses,
       [questionId]: answer,
     });
+  };
+
+  const handleSubmit = async () => {
+    const payload = {
+      userID: userID,
+      questionnaireID: questionnaire?.questionnaireID,
+      timeOfDay: timeOfDay,
+      moodScore: responses.moodScore !== undefined ? responses.moodScore : 0,
+      energyLevel: responses.energyLevel !== undefined ? responses.energyLevel : 0,
+      stressLevel: responses.stressLevel !== undefined ? responses.stressLevel: 0,
+      responses: Object.keys(responses).map((key) => ({
+        questionID: key,
+        answer: responses[key],
+      })),
+    };
+
+    console.log("Payload:", payload);
+
+    try {
+      const response = await axios.post(
+        `${process.env.REACT_APP_API_BASE_URL}/api/questionnaires/submit`,
+        payload
+      );
+      console.log("Questionnaire submission successful!", response.data);
+      alert("Questionnaire submitted successfully!");
+      navigate("/mood-tracker");
+    } catch (error) {
+      console.error("Error submitting questionnaire:", error);
+      alert("Error submitting questionnaire. Please try again.");
+    }
   };
 
   return (

@@ -113,7 +113,7 @@ function App() {
           path="/questionnaire/:timeOfDay"
           element={
             <PrivateRoute
-              element={<Questionnaire />}
+              element={<Questionnaire userID={userId} />}
               isAuthenticated={isAuthenticated}
             />
           }
