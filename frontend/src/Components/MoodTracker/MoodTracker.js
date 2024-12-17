@@ -16,11 +16,17 @@ import InsightsIcon from "../../assets/insights-icon-small.svg";
 
 import Navigation from "../Navigation/Navigation";
 import QuestionnaireBox from "./QuestionnaireBox";
+import GoalBox from "./GoalBox";
+import { get, set } from "mongoose";
 
 const MoodTracker = () => {
   const [morningQuestionnaire, setMorningQuestionnaire] = useState(null);
   const [middayQuestionnaire, setMiddayQuestionnaire] = useState(null);
   const [eveningQuestionnaire, setEveningQuestionnaire] = useState(null);
+
+  const [goals, setGoals] = useState([]);
+  const [newGoal, setNewGoal] = useState("");
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const navigate = useNavigate();
 
@@ -39,10 +45,44 @@ const MoodTracker = () => {
     fetchQuestionnaire("Morning", setMorningQuestionnaire);
     fetchQuestionnaire("Midday", setMiddayQuestionnaire);
     fetchQuestionnaire("Evening", setEveningQuestionnaire);
+
+    const fetchGoals = async () => {
+      try {
+        const response = await axios.get(
+          `${process.env.REACT_APP_API_BASE_URL}/api/goals/today`
+        );
+        setGoals(response.data);
+      } catch {
+        console.error("Error fetching today's goals");
+      }
+    };
+
+    fetchGoals();
   }, []);
 
   const handleStartQuestionnaire = (timeOfDay) => {
     navigate(`/questionnaire/${timeOfDay}`);
+  };
+
+  const handleAddGoal = async () => {
+    if (newGoal.trim() === "") {
+      alert("Please enter a goal");
+      return;
+    }
+
+    try {
+      const response = await axios.post(
+        `${process.env.REACT_APP_API_BASE_URL}/api/goals`,
+        { text: newGoal }
+      );
+
+      setGoals([...goals, response.data]);
+      setNewGoal("");
+      setIsModalOpen(false);
+    } catch (error) {
+      console.error("Error adding goal:", error);
+      alert("Error adding goal. Please try again.");
+    }
   };
 
   return (
@@ -120,35 +160,42 @@ const MoodTracker = () => {
             What will you focus on? Setting clear goals helps you stay on track
             and feel accomplished.
           </p>
-          <a
+          <div
             href="/write"
             className="flex flex-row items-center buttonWithBorder w-[110px]"
           >
             <img src={Plus} alt="plus icon" className="buttonIconJournal"></img>
-            <button className="text-sm">Add goals</button>
-          </a>
-          <div className="goals">
-            <div className="goal space-x-2.5">
-              <p>Meditate for 5 minutes</p>
-              <input type="checkbox" />
-            </div>
-            <div className="goal space-x-2.5">
-              <p>Complete a 30-minute workout</p>
-              <input type="checkbox" />
-            </div>
-            <div className="goal space-x-2.5">
-              <p>Read for 20 minutes</p>
-              <input type="checkbox" />
-            </div>
-            <div className="goal space-x-2.5">
-              <p>Plan and prepare a healthy meal</p>
-              <input type="checkbox" />
-            </div>
-            <div className="goal space-x-2.5">
-              <p>Spend time outdoors for 15 minutes</p>
-              <input type="checkbox" />
-            </div>
+            <button className="text-sm" onClick={() => setIsModalOpen(true)}>
+              Add goals
+            </button>
           </div>
+          <div className="goals">
+            {goals.length > 0 ? (
+              goals.map((goal) => (
+                <GoalBox key={goal._id} goal={goal} />
+              ))
+            ) : (
+              <p>You didn't set any goals for today.</p>
+            )}
+          </div>
+
+          {isModalOpen && (
+            <div className="goalModal">
+              <div className="modalContent">
+                <h2>Enter goal</h2>
+                <textarea 
+                value = {newGoal}
+                onChange={(e) => setNewGoal(e.target.value)}
+                placeholder="Enter your goal"
+                className="goalInput"
+                />
+                <div className="modalActions">
+                  <button onClick={() => setIsModalOpen(false)}>Cancel</button>
+                  <button onClick={handleAddGoal}>Add</button>
+                </div>
+              </div>
+            </div>
+            )}
         </div>
 
         <div className="section insightsMoodTrackerSection">

@@ -50,9 +50,11 @@ startServer();
 const authRoutes = require("./routes/auth");
 const journalRoutes = require("./routes/journal");
 const questionnaireRoutes = require("./routes/questionnaire");
+const goalRoutes = require("./routes/goal");
 
 app.use("/api/auth", authRoutes);
 app.use("/api/journal", journalRoutes);
 app.use("/api/questionnaires", questionnaireRoutes);
+app.use("/api/goals", goalRoutes);
 
 module.exports = app;
