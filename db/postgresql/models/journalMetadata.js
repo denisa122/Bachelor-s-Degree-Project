@@ -23,6 +23,10 @@ const JournalMetadata = sequelize.define(
       type: DataTypes.DOUBLE,
       allowNull: true,
     },
+    journalentryid: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
   },
   {
     tableName: "journal_metadata",

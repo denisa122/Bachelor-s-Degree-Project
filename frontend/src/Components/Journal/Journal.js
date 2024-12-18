@@ -29,6 +29,7 @@ const Journal = ({ userID }) => {
           `${process.env.REACT_APP_API_BASE_URL}/api/journal/entries/${userID}`
         );
         const fetchedEntries = response.data;
+        setEntries(fetchedEntries);
 
         // Group by month and year
         const grouped = fetchedEntries.reduce((acc, entry) => {
@@ -139,6 +140,7 @@ const Journal = ({ userID }) => {
                     year: "numeric",
                   })}
                   entry={entry.content}
+                  sentimentScore={entry.sentimentScore}
                 />
               )
             )}
