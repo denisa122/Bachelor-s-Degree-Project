@@ -19,28 +19,16 @@ const MoodEntry = sequelize.define(
       allowNull: false,
     },
     moodScore: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.FLOAT,
       allowNull: true,
-      validate: {
-        min: 0,
-        max: 10,
-      },
     },
     energyLevel: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.FLOAT,
       allowNull: true,
-      validate: {
-        min: 0,
-        max: 10,
-      },
     },
     stressLevel: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.FLOAT,
       allowNull: true,
-      validate: {
-        min: 0,
-        max: 10,
-      },
     },
   },
   {

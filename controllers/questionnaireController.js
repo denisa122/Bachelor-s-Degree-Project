@@ -3,6 +3,7 @@ const Question = require("../db/postgresql/models/question");
 const MoodEntry = require("../db/postgresql/models/moodEntry");
 const MoodResponse = require("../db/postgresql/models/moodResponse");
 const { date } = require("joi");
+const scoringLogic = require("../services/scoringLogic");
 
 const getQuestionnaires = async (req, res) => {
   try {
@@ -24,11 +25,11 @@ const submitQuestionnaire = async (req, res) => {
       userID,
       questionnaireID,
       timeOfDay,
-      moodScore,
-      energyLevel,
-      stressLevel,
       responses,
     } = req.body;
+
+    const { moodScore, energyLevel, stressLevel } = scoringLogic.calculateScores(responses);
+    console.log("Scores calculated: ", moodScore, energyLevel, stressLevel);
 
     const moodEntry = await MoodEntry.create({
       userID,
@@ -47,6 +48,9 @@ const submitQuestionnaire = async (req, res) => {
         answer: response.answer,
       });
     }
+
+    console.log("Received responses: ", responses);
+    console.log("Calculated scores: ", moodScore, energyLevel, stressLevel);
 
     res.status(201).json({ message: "Questionnaire submitted successfully" });
   } catch (error) {

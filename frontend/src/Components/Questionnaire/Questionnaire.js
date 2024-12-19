@@ -39,9 +39,6 @@ const Questionnaire = ({ userID }) => {
       userID: userID,
       questionnaireID: questionnaire?.questionnaireID,
       timeOfDay: timeOfDay,
-      moodScore: responses.moodScore !== undefined ? responses.moodScore : 0,
-      energyLevel: responses.energyLevel !== undefined ? responses.energyLevel : 0,
-      stressLevel: responses.stressLevel !== undefined ? responses.stressLevel: 0,
       responses: Object.keys(responses).map((key) => ({
         questionID: key,
         answer: responses[key],

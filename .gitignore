@@ -38,3 +38,6 @@ coverage/
 
 #Output of 'npm pack'
 *.tgz
+
+/config/config.json
+
