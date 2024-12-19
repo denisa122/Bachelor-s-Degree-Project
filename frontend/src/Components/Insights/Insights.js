@@ -2,6 +2,9 @@ import React from "react";
 import { useState, useEffect } from "react";
 import axios from "axios";
 
+import { Pie } from "react-chartjs-2";
+import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
+
 import "./Insights.css";
 
 // Icons & images
@@ -13,9 +16,16 @@ import Emoji from "../../assets/emoji.svg";
 
 import Navigation from "../Navigation/Navigation";
 
+ChartJS.register(ArcElement, Tooltip, Legend);
+
 const Insights = ({ userID }) => {
   const [sentimentAnalysis, setSentimentAnalysis] = useState([]);
   const [mostUsedSentiments, setMostUsedSentiments] = useState([]);
+  const [sentimentPercentages, setSentimentPercentages] = useState({
+    positive: 0,
+    negative: 0,
+    neutral: 0,
+  });
 
   useEffect(() => {
     const fetchSentimentAnalysis = async () => {
@@ -24,6 +34,7 @@ const Insights = ({ userID }) => {
           `${process.env.REACT_APP_API_BASE_URL}/api/insights/sentiment-analysis/${userID}`
         );
         setSentimentAnalysis(response.data.sentimentAnalysisResults);
+        setSentimentPercentages(response.data.sentimentPercentages);
       } catch (error) {
         console.error("Error fetching sentiment analysis data: ", error);
       }
@@ -43,6 +54,37 @@ const Insights = ({ userID }) => {
     fetchSentimentAnalysis();
     fetchMostUsedSentiments();
   }, [userID]);
+
+  const pieChartData = {
+    labels: ["Positive", "Negative", "Neutral"],
+    datasets: [
+      {
+        data: [
+          sentimentPercentages.positive,
+          sentimentPercentages.negative,
+          sentimentPercentages.neutral,
+        ],
+        backgroundColor: ['#66FF99', '#FFCAD4', '#EECFA1'],
+        hoverBackgroundColor: ['#4DFF80', '#FF9FB4', '#D4A86E'],
+      },
+    ],
+  };
+
+  const pieChartOptions = {
+    responsive: true,
+    plugins: {
+      tooltip: {
+        callbacks: {
+          label: function (tooltipItem) {
+            return `${tooltipItem.label}: ${tooltipItem.raw}%`;
+          },
+        },
+      },
+      legend: {
+        position: "top",
+      },
+    },
+  };
 
   return (
     <div className="flex flex-row">
@@ -171,8 +213,8 @@ const Insights = ({ userID }) => {
             Gain deeper insights into the emotions behind your journal entries.
             See how your mood shifts and what words reflect your inner state.
           </p>
-          <div className="sentimentAnalysisImd">
-            <img src="moodTrends.jpg" alt="sentiment analysis chart"></img>
+          <div className="sentimentPieChart">
+            <Pie data={pieChartData} options={pieChartOptions} />
           </div>
           <p className="sectionText mt-5 !text-lg font-medium">
             Most used sentiments over the last 7 days

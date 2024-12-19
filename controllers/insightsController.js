@@ -8,35 +8,65 @@ const getSentimentAnalysis = async (req, res) => {
   const { userID } = req.params;
 
   try {
-    const journalEntries = await JournalEntry.find({ userID }).sort({
-      timestamp: -1,
-    });
+    const date7DaysAgo = new Date();
+    date7DaysAgo.setDate(date7DaysAgo.getDate() - 7);
+
+    const journalEntries = await JournalEntry.find({
+      userID,
+      timestamp: { $gte: date7DaysAgo },
+    }).sort({ timestamp: -1 });
 
     if (!journalEntries || journalEntries.length === 0) {
       return res.status(404).json({
-        message: "No journal entries found for this user.",
+        message: "No journal entries found for this user in the last 7 days.",
       });
     }
 
-    const sentimentData = await SentimentAnalysis.find({
-      entryID: { $in: journalEntries.map((entry) => entry._id) },
-    }).sort({ analysisDate: -1 });
+    let positiveCount = 0;
+    let negativeCount = 0;
+    let neutralCount = 0;
+    const sentimentData = [];
 
-    if (!sentimentData || sentimentData.length === 0) {
-      return res.status(404).json({
-        message: "No sentiment analysis found for this user.",
+    for (const entry of journalEntries) {
+      const sentimentResult = sentiment.analyze(entry.content);
+
+      let sentimentCategory = "neutral";
+      if (sentimentResult.score > 0) {
+        sentimentCategory = "positive";
+        positiveCount++;
+      } else if (sentimentResult.score < 0) {
+        sentimentCategory = "negative";
+        negativeCount++;
+      } else {
+        neutralCount++;
+      }
+
+      sentimentData.push({
+        entryID: entry._id,
+        sentimentScore: sentimentResult.score,
+        sentimentCategory,
+        analysisDate: entry.timestamp,
       });
     }
 
-    const sentimentAnalysisResults = sentimentData.map((entry) => ({
-      entryID: entry.entryID,
-      sentimentScore: entry.sentimentScore,
-      analysisDate: entry.analysisDate,
-    }));
+    const totalEntries = journalEntries.length;
+    const positivePercentage = ((positiveCount / totalEntries) * 100).toFixed(
+      2
+    );
+    const negativePercentage = ((negativeCount / totalEntries) * 100).toFixed(
+      2
+    );
+    const neutralPercentage = ((neutralCount / totalEntries) * 100).toFixed(2);
 
     res.status(200).json({
-      message: "Sentiment analysis retrieved successfully.",
-      sentimentAnalysisResults,
+      message:
+        "Sentiment analysis from the last 7 days retrieved successfully.",
+      sentimentAnalysisResults: sentimentData,
+      sentimentPercentages: {
+        positive: positivePercentage,
+        negative: negativePercentage,
+        neutral: neutralPercentage,
+      },
     });
   } catch (error) {
     console.error("Error fetching sentiment analysis: ", error);
