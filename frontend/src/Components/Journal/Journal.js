@@ -24,6 +24,7 @@ const Journal = ({ userID }) => {
 
   useEffect(() => {
     const fetchEntries = async () => {
+      if (!userID) return;
       try {
         const response = await axios.get(
           `${process.env.REACT_APP_API_BASE_URL}/api/journal/entries/${userID}`

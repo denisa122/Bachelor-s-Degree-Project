@@ -82,10 +82,14 @@ function App() {
         <Route
           path="/journal"
           element={
-            <PrivateRoute
-              element={<Journal userID={userId} />}
-              isAuthenticated={isAuthenticated}
-            />
+            isLoading ? (
+              <p>Loading...</p>
+            ) : (
+              <PrivateRoute
+                element={<Journal userID={userId} />}
+                isAuthenticated={isAuthenticated}
+              />
+            )
           }
         />
 
@@ -103,7 +107,7 @@ function App() {
           path="/mood-tracker"
           element={
             <PrivateRoute
-              element={<MoodTracker userID={userId}/>}
+              element={<MoodTracker userID={userId} />}
               isAuthenticated={isAuthenticated}
             />
           }
@@ -123,7 +127,7 @@ function App() {
           path="/insights"
           element={
             <PrivateRoute
-              element={<Insights />}
+              element={<Insights userID={userId} />}
               isAuthenticated={isAuthenticated}
             />
           }

@@ -1,10 +1,18 @@
 const mongoose = require("mongoose");
 const { JournalEntry } = require("../db/mongodb/models/journalEntryModel");
 const JournalMetadata = require("../db/postgresql/models/journalMetadata");
+const SentimentAnalysis = require("../db/mongodb/models/sentimentAnalysisModel");
 const { Op } = require("sequelize");
 
 const Sentiment = require("sentiment");
 const sentiment = new Sentiment();
+
+// sentiment.addDictionary({
+//   routine: 0,
+//   typical: 0,
+//   normal: 0,
+//   standard: 0,
+// });
 
 const getWordCount = (content) => {
   return content.split(/\s+/).length;
@@ -25,6 +33,11 @@ const saveJournalEntry = async (req, res) => {
     const wordCount = getWordCount(content);
     const sentimentResult = sentiment.analyze(content);
     const sentimentScore = sentimentResult.score;
+
+    await SentimentAnalysis.create({
+      entryID: journalEntry._id,
+      sentimentScore,
+    });
 
     const journalMetadata = await JournalMetadata.create({
       userID,

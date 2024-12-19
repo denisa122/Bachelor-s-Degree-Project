@@ -1,4 +1,6 @@
 import React from "react";
+import { useState, useEffect } from "react";
+import axios from "axios";
 
 import "./Insights.css";
 
@@ -11,7 +13,37 @@ import Emoji from "../../assets/emoji.svg";
 
 import Navigation from "../Navigation/Navigation";
 
-const Insights = () => {
+const Insights = ({ userID }) => {
+  const [sentimentAnalysis, setSentimentAnalysis] = useState([]);
+  const [mostUsedSentiments, setMostUsedSentiments] = useState([]);
+
+  useEffect(() => {
+    const fetchSentimentAnalysis = async () => {
+      try {
+        const response = await axios.get(
+          `${process.env.REACT_APP_API_BASE_URL}/api/insights/sentiment-analysis/${userID}`
+        );
+        setSentimentAnalysis(response.data.sentimentAnalysisResults);
+      } catch (error) {
+        console.error("Error fetching sentiment analysis data: ", error);
+      }
+    };
+
+    const fetchMostUsedSentiments = async () => {
+      try {
+        const response = await axios.get(
+          `${process.env.REACT_APP_API_BASE_URL}/api/insights/most-used-sentiments/${userID}`
+        );
+        setMostUsedSentiments(response.data.mostUsedSentiments);
+      } catch (error) {
+        console.error("Error fetching most used sentiments data: ", error);
+      }
+    };
+
+    fetchSentimentAnalysis();
+    fetchMostUsedSentiments();
+  }, [userID]);
+
   return (
     <div className="flex flex-row">
       <Navigation />
@@ -146,46 +178,20 @@ const Insights = () => {
             Most used sentiments over the last 7 days
           </p>
           <div className="emotions">
-            <div className="flex flex-col">
-              <img
-                src={Emoji}
-                alt="emotion emoji face"
-                className="emotionEmoji"
-              ></img>
-              <p className="emotionText">Sad</p>
-            </div>
-            <div className="flex flex-col">
-              <img
-                src={Emoji}
-                alt="emotion emoji face"
-                className="emotionEmoji"
-              ></img>
-              <p className="emotionText">Sad</p>
-            </div>
-            <div className="flex flex-col">
-              <img
-                src={Emoji}
-                alt="emotion emoji face"
-                className="emotionEmoji"
-              ></img>
-              <p className="emotionText">Sad</p>
-            </div>
-            <div className="flex flex-col">
-              <img
-                src={Emoji}
-                alt="emotion emoji face"
-                className="emotionEmoji"
-              ></img>
-              <p className="emotionText">Sad</p>
-            </div>
-            <div className="flex flex-col">
-              <img
-                src={Emoji}
-                alt="emotion emoji face"
-                className="emotionEmoji"
-              ></img>
-              <p className="emotionText">Sad</p>
-            </div>
+            {mostUsedSentiments && mostUsedSentiments.length > 0 ? (
+              mostUsedSentiments.map((sentiment, index) => (
+                <div key={index} className="flex flex-col">
+                  <img
+                    src={Emoji}
+                    alt="emotion emoji face"
+                    className="emotionEmoji"
+                  ></img>
+                  <p className="emotionText">{sentiment}</p>
+                </div>
+              ))
+            ) : (
+              <p>No sentiments available</p>
+            )}
           </div>
         </div>
       </div>
