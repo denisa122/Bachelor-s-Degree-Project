@@ -72,13 +72,16 @@ function App() {
         <Route
           path="/home"
           element={
-            <PrivateRoute
-              element={isLoading ? <p>Loading...</p> : <HomepageLoggedIn />}
-              isAuthenticated={isAuthenticated}
-            />
+            isLoading ? (
+              <p>Loading...</p>
+            ) : (
+              <PrivateRoute
+                element={<HomepageLoggedIn userID={userId} />}
+                isAuthenticated={isAuthenticated}
+              />
+            )
           }
         />
-
         <Route
           path="/journal"
           element={

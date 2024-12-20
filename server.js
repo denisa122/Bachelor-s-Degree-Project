@@ -48,12 +48,14 @@ startServer();
 
 // Routes
 const authRoutes = require("./routes/auth");
+const userRoutes = require("./routes/user");
 const journalRoutes = require("./routes/journal");
 const questionnaireRoutes = require("./routes/questionnaire");
 const goalRoutes = require("./routes/goal");
 const insightsRoutes = require("./routes/insights");
 
 app.use("/api/auth", authRoutes);
+app.use("/api/user", userRoutes);
 app.use("/api/journal", journalRoutes);
 app.use("/api/questionnaires", questionnaireRoutes);
 app.use("/api/goals", goalRoutes);

@@ -1,4 +1,7 @@
 import React from "react";
+import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+import axios from "axios";
 
 import "./HomepageLoggedIn.css";
 
@@ -20,7 +23,44 @@ import Navigation from "../Navigation/Navigation";
 import NotificationCard from "./NotificationCard";
 // import Footer from '../Footer/Footer';
 
-const HomepageLoggedIn = () => {
+const HomepageLoggedIn = ({ userID }) => {
+  const { id } = useParams();
+  const [firstName, setFirstName] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      if (!userID) {
+        window.location.reload();
+        return;
+      }
+
+      const token = localStorage.getItem("token");
+      if (!token) return;
+
+      try {
+        const response = await axios.get(
+          `${process.env.REACT_APP_API_BASE_URL}/api/user/${userID}`,
+          {
+            headers: {
+              "auth-token": token,
+            },
+          }
+        );
+        setFirstName(response.data.firstName);
+        setIsLoading(false);
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+      }
+    };
+
+    fetchUserData();
+  }, [userID]);
+
+  if (isLoading) {
+    return <p>Loading...</p>;
+  }
+
   return (
     <div className="flex flex-row">
       <Navigation />
@@ -28,7 +68,7 @@ const HomepageLoggedIn = () => {
         <div className="leftSide">
           <div className="header">
             <img src={Logo} alt="Logo" className="logoHP"></img>
-            <h1 className="title">Welcome back, Jane!</h1>
+            <h1 className="title">Welcome back, {firstName}!</h1>
           </div>
 
           <div className="section startWritingSection">
