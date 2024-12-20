@@ -73,7 +73,7 @@ function App() {
           path="/home"
           element={
             <PrivateRoute
-              element={<HomepageLoggedIn />}
+              element={isLoading ? <p>Loading...</p> : <HomepageLoggedIn />}
               isAuthenticated={isAuthenticated}
             />
           }
@@ -96,50 +96,70 @@ function App() {
         <Route
           path="/write"
           element={
-            <PrivateRoute
-              element={<JournalEditor userID={userId} />}
-              isAuthenticated={isAuthenticated}
-            />
+            isLoading ? (
+              <p>LOading...</p>
+            ) : (
+              <PrivateRoute
+                element={<JournalEditor userID={userId} />}
+                isAuthenticated={isAuthenticated}
+              />
+            )
           }
         />
 
         <Route
           path="/mood-tracker"
           element={
-            <PrivateRoute
-              element={<MoodTracker userID={userId} />}
-              isAuthenticated={isAuthenticated}
-            />
+            isLoading ? (
+              <p>Loading...</p>
+            ) : (
+              <PrivateRoute
+                element={<MoodTracker userID={userId} />}
+                isAuthenticated={isAuthenticated}
+              />
+            )
           }
         />
 
         <Route
           path="/questionnaire/:timeOfDay"
           element={
-            <PrivateRoute
-              element={<Questionnaire userID={userId} />}
-              isAuthenticated={isAuthenticated}
-            />
+            isLoading ? (
+              <p>Loading...</p>
+            ) : (
+              <PrivateRoute
+                element={<Questionnaire userID={userId} />}
+                isAuthenticated={isAuthenticated}
+              />
+            )
           }
         />
 
         <Route
           path="/insights"
           element={
-            <PrivateRoute
-              element={<Insights userID={userId} />}
-              isAuthenticated={isAuthenticated}
-            />
+            isLoading ? (
+              <p>Loading...</p>
+            ) : (
+              <PrivateRoute
+                element={<Insights userID={userId} />}
+                isAuthenticated={isAuthenticated}
+              />
+            )
           }
         />
 
         <Route
           path="/profile-settings"
           element={
-            <PrivateRoute
-              element={<ProfileSettings />}
-              isAuthenticated={isAuthenticated}
-            />
+            isLoading ? (
+              <p>Loading...</p>
+            ) : (
+              <PrivateRoute
+                element={<ProfileSettings />}
+                isAuthenticated={isAuthenticated}
+              />
+            )
           }
         />
       </Routes>

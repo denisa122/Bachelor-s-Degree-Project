@@ -66,7 +66,8 @@ const HomepageLoggedIn = () => {
                   alt="morning questionnaire picture"
                   className="questionnaireImage"
                 ></img>
-                <button
+                <a
+                  href="/questionnaire/Morning"
                   className="mb-3 inline-block w-full rounded px-6 pb-2 pt-2.5 text-sm font-medium leading-normal text-[#252D3B] shadow-dark-3 transition duration-150 ease-in-out hover:shadow-dark-2 focus:shadow-dark-2 focus:outline-none focus:ring-0 active:shadow-dark-2 dark:shadow-black/30 dark:hover:shadow-dark-strong dark:focus:shadow-dark-strong dark:active:shadow-dark-strong"
                   style={{
                     background:
@@ -74,7 +75,7 @@ const HomepageLoggedIn = () => {
                   }}
                 >
                   Morning questionnaire
-                </button>
+                </a>
               </div>
               <div>
                 <img
@@ -82,7 +83,8 @@ const HomepageLoggedIn = () => {
                   alt="midday questionnaire picture"
                   className="questionnaireImage"
                 ></img>
-                <button
+                <a
+                  href="questionnaire/Midday"
                   className="mb-3 inline-block w-full rounded px-6 pb-2 pt-2.5 text-sm font-medium leading-normal text-[#252D3B] shadow-dark-3 transition duration-150 ease-in-out hover:shadow-dark-2 focus:shadow-dark-2 focus:outline-none focus:ring-0 active:shadow-dark-2 dark:shadow-black/30 dark:hover:shadow-dark-strong dark:focus:shadow-dark-strong dark:active:shadow-dark-strong"
                   style={{
                     background:
@@ -90,7 +92,7 @@ const HomepageLoggedIn = () => {
                   }}
                 >
                   Midday questionnaire
-                </button>
+                </a>
               </div>
               <div>
                 <img
@@ -98,7 +100,8 @@ const HomepageLoggedIn = () => {
                   alt="evening questionnaire picture"
                   className="questionnaireImage !w-[133px]"
                 ></img>
-                <button
+                <a
+                  href="/questionnaire/Evening"
                   className="mb-3 inline-block w-full rounded px-6 pb-2 pt-2.5 text-sm font-medium leading-normal text-[#252D3B] shadow-dark-3 transition duration-150 ease-in-out hover:shadow-dark-2 focus:shadow-dark-2 focus:outline-none focus:ring-0 active:shadow-dark-2 dark:shadow-black/30 dark:hover:shadow-dark-strong dark:focus:shadow-dark-strong dark:active:shadow-dark-strong"
                   style={{
                     background:
@@ -106,7 +109,7 @@ const HomepageLoggedIn = () => {
                   }}
                 >
                   Evening questionnaire
-                </button>
+                </a>
               </div>
             </div>
           </div>
