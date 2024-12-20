@@ -49,10 +49,18 @@ const Insights = ({ userID }) => {
   const emojisFetchedRef = useRef(false);
 
   useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (!token) return;
+
     const fetchMoodData = async () => {
       try {
         const response = await axios.get(
-          `${process.env.REACT_APP_API_BASE_URL}/api/insights/mood-trends/${userID}`
+          `${process.env.REACT_APP_API_BASE_URL}/api/insights/mood-trends/${userID}`,
+          {
+            headers: {
+              "auth-token": token,
+            },
+          }
         );
         setMoodData(response.data.moodTrends);
       } catch (error) {
@@ -63,7 +71,12 @@ const Insights = ({ userID }) => {
     const fetchSentimentAnalysis = async () => {
       try {
         const response = await axios.get(
-          `${process.env.REACT_APP_API_BASE_URL}/api/insights/sentiment-analysis/${userID}`
+          `${process.env.REACT_APP_API_BASE_URL}/api/insights/sentiment-analysis/${userID}`,
+          {
+            headers: {
+              "auth-token": token,
+            },
+          }
         );
         setSentimentAnalysis(response.data.sentimentAnalysisResults);
         setSentimentPercentages(response.data.sentimentPercentages);
@@ -75,7 +88,12 @@ const Insights = ({ userID }) => {
     const fetchMostUsedSentiments = async () => {
       try {
         const response = await axios.get(
-          `${process.env.REACT_APP_API_BASE_URL}/api/insights/most-used-sentiments/${userID}`
+          `${process.env.REACT_APP_API_BASE_URL}/api/insights/most-used-sentiments/${userID}`,
+          {
+            headers: {
+              "auth-token": token,
+            },
+          }
         );
         setMostUsedSentiments(response.data.mostUsedSentiments);
       } catch (error) {

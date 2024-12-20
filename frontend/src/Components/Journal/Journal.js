@@ -23,11 +23,19 @@ const Journal = ({ userID }) => {
   const [selectedYear, setSelectedYear] = useState("");
 
   useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (!token) return;
+
     const fetchEntries = async () => {
       if (!userID) return;
       try {
         const response = await axios.get(
-          `${process.env.REACT_APP_API_BASE_URL}/api/journal/entries/${userID}`
+          `${process.env.REACT_APP_API_BASE_URL}/api/journal/entries/${userID}`,
+          {
+            headers: {
+              "auth-token": token,
+            },
+          }
         );
         const fetchedEntries = response.data;
         setEntries(fetchedEntries);

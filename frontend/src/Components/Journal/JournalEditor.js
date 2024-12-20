@@ -19,6 +19,8 @@ const JournalEditor = ( {userID}) => {
     EditorState.createEmpty()
   )
 
+  const token = localStorage.getItem("token");
+
   const handleKeyCommand = (command) => {
     const newState = RichUtils.handleKeyCommand(editorState, command);
     if (newState) {

@@ -13,10 +13,18 @@ const Questionnaire = ({ userID }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (!token) return;
+
     const fetchQuestionnaire = async () => {
       try {
         const response = await axios.get(
-          `${process.env.REACT_APP_API_BASE_URL}/api/questionnaires/${timeOfDay}`
+          `${process.env.REACT_APP_API_BASE_URL}/api/questionnaires/${timeOfDay}`,
+          {
+            headers: {
+              "auth-token": token,
+            },
+          }
         );
         setQuestionnaire(response.data);
       } catch (error) {
@@ -45,12 +53,17 @@ const Questionnaire = ({ userID }) => {
       })),
     };
 
-    console.log("Payload:", payload);
+    const token = localStorage.getItem("token");
 
     try {
       const response = await axios.post(
         `${process.env.REACT_APP_API_BASE_URL}/api/questionnaires/submit`,
-        payload
+        payload,
+        {
+          headers: {
+            "auth-token": token,
+          },
+        }
       );
       console.log("Questionnaire submission successful!", response.data);
       alert("Questionnaire submitted successfully!");

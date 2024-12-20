@@ -1,16 +1,18 @@
 const router = require('express').Router();
 const goalController = require('../controllers/goalController');
 
+const {verifyToken} = require('../middlewares/tokenVerification');
+
 // Add goal
 // api/goals
-router.post('/', goalController.addGoal);
+router.post('/', verifyToken, goalController.addGoal);
 
 // Get today's goals
 // /api/goals/today
-router.get('/today', goalController.getTodaysGoals);
+router.get('/today', verifyToken, goalController.getTodaysGoals);
 
 // Update goal completion
 // /api/goals/:id
-router.put("/:id", goalController.updateGoalCompleted);
+router.put("/:id", verifyToken, goalController.updateGoalCompleted);
 
 module.exports = router;

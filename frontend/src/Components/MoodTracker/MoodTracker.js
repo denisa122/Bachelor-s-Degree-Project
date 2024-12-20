@@ -19,8 +19,8 @@ import QuestionnaireBox from "./QuestionnaireBox";
 import GoalBox from "./GoalBox";
 import { get, set } from "mongoose";
 
-const MoodTracker = ( {userID}) => {
-  const {id} = useParams();
+const MoodTracker = ({ userID }) => {
+  const { id } = useParams();
   const [morningQuestionnaire, setMorningQuestionnaire] = useState(null);
   const [middayQuestionnaire, setMiddayQuestionnaire] = useState(null);
   const [eveningQuestionnaire, setEveningQuestionnaire] = useState(null);
@@ -32,10 +32,18 @@ const MoodTracker = ( {userID}) => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (!token) return;
+
     const fetchQuestionnaire = async (timeOfDay, setFunction) => {
       try {
         const response = await axios.get(
-          `${process.env.REACT_APP_API_BASE_URL}/api/questionnaires/${timeOfDay}`
+          `${process.env.REACT_APP_API_BASE_URL}/api/questionnaires/${timeOfDay}`,
+          {
+            headers: {
+              "auth-token": token,
+            },
+          }
         );
         setFunction(response.data);
       } catch (error) {
@@ -50,7 +58,12 @@ const MoodTracker = ( {userID}) => {
     const fetchGoals = async () => {
       try {
         const response = await axios.get(
-          `${process.env.REACT_APP_API_BASE_URL}/api/goals/today`
+          `${process.env.REACT_APP_API_BASE_URL}/api/goals/today`,
+          {
+            headers: {
+              "auth-token": token,
+            },
+          }
         );
         setGoals(response.data);
       } catch {
@@ -66,6 +79,7 @@ const MoodTracker = ( {userID}) => {
   };
 
   const handleAddGoal = async () => {
+    const token = localStorage.getItem("token");
     if (newGoal.trim() === "") {
       alert("Please enter a goal");
       return;
@@ -77,6 +91,11 @@ const MoodTracker = ( {userID}) => {
         {
           text: newGoal,
           userID: userID,
+        },
+        {
+          headers: {
+            "auth-token": token,
+          },
         }
       );
 
@@ -90,12 +109,18 @@ const MoodTracker = ( {userID}) => {
   };
 
   const handleGoalCheckboxChange = async (goalId, currentStatus) => {
+    const token = localStorage.getItem("token");
     if (currentStatus) return;
 
     try {
       const response = await axios.put(
         `${process.env.REACT_APP_API_BASE_URL}/api/goals/${goalId}`,
-        { completed: true }
+        { completed: true },
+        {
+          headers: {
+            "auth-token": token,
+          },
+        }
       );
 
       setGoals((prevGoals) =>
