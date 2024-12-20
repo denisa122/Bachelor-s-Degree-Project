@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 
-import "./Authentication.css";
+import "./authentication.css";
 
 const Register = () => {
   const [firstName, setFirstName] = useState("");

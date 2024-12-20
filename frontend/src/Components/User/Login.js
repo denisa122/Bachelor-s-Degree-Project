@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
-import "./Authentication.css";
+import "./authentication.css";
 
 const Login = ({ setIsAuthenticated }) => {
   const [email, setEmail] = useState("");
