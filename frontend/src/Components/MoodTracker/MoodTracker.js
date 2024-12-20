@@ -25,6 +25,12 @@ const MoodTracker = ({ userID }) => {
   const [middayQuestionnaire, setMiddayQuestionnaire] = useState(null);
   const [eveningQuestionnaire, setEveningQuestionnaire] = useState(null);
 
+  const [questionnaireStatus, setQuestionnaireStatus] = useState({
+    morning: false,
+    midday: false,
+    evening: false,
+  });
+
   const [goals, setGoals] = useState([]);
   const [newGoal, setNewGoal] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -51,6 +57,30 @@ const MoodTracker = ({ userID }) => {
       }
     };
 
+    const checkSubmissionStatus = async (timeOfDay) => {
+      try {
+        const response = await axios.get(
+          `${process.env.REACT_APP_API_BASE_URL}/api/questionnaires/check/${userID}/${timeOfDay}`,
+          {
+            headers: {
+              "auth-token": token,
+            },
+          }
+        );
+        setQuestionnaireStatus((prevStatus) => ({
+          ...prevStatus,
+          [timeOfDay.toLowerCase()]: response.data.submitted,
+        }));
+      } catch (error) {
+        console.error(`Error checking ${timeOfDay} submission status:`, error);
+      }
+    };
+
+    // Check submission status for each time of day
+    checkSubmissionStatus("Morning");
+    checkSubmissionStatus("Midday");
+    checkSubmissionStatus("Evening");
+
     fetchQuestionnaire("Morning", setMorningQuestionnaire);
     fetchQuestionnaire("Midday", setMiddayQuestionnaire);
     fetchQuestionnaire("Evening", setEveningQuestionnaire);
@@ -72,7 +102,7 @@ const MoodTracker = ({ userID }) => {
     };
 
     fetchGoals();
-  }, []);
+  }, [userID]);
 
   const handleStartQuestionnaire = (timeOfDay) => {
     navigate(`/questionnaire/${timeOfDay}`);
@@ -181,6 +211,7 @@ const MoodTracker = ({ userID }) => {
                 image={MorningQuestionnaire}
                 description={morningQuestionnaire.description}
                 onClick={() => handleStartQuestionnaire("Morning")}
+                disabled={questionnaireStatus.morning}
               ></QuestionnaireBox>
             )}
             {middayQuestionnaire && (
@@ -190,6 +221,7 @@ const MoodTracker = ({ userID }) => {
                 image={MiddayQuestionnaire}
                 description={middayQuestionnaire.description}
                 onClick={() => handleStartQuestionnaire("Midday")}
+                disabled={questionnaireStatus.midday}
               ></QuestionnaireBox>
             )}
 
@@ -200,6 +232,7 @@ const MoodTracker = ({ userID }) => {
                 image={EveningQuestionnaire}
                 description={eveningQuestionnaire.description}
                 onClick={() => handleStartQuestionnaire("Evening")}
+                disabled={questionnaireStatus.evening}
               ></QuestionnaireBox>
             )}
           </div>

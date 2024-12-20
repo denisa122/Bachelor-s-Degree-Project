@@ -2,6 +2,8 @@ const Questionnaire = require("../db/postgresql/models/questionnaire");
 const Question = require("../db/postgresql/models/question");
 const MoodEntry = require("../db/postgresql/models/moodEntry");
 const MoodResponse = require("../db/postgresql/models/moodResponse");
+const QuestionnaireSubmission = require("../db/postgresql/models/questionnaireSubmission");
+
 const { date } = require("joi");
 const scoringLogic = require("../services/scoringLogic");
 
@@ -19,17 +21,54 @@ const getQuestionnaires = async (req, res) => {
   }
 };
 
+const checkIfSubmitted = async (req, res) => {
+  try {
+    const { userID, timeOfDay } = req.params;
+
+    const submission = await QuestionnaireSubmission.findOne({
+      where: {
+        userID,
+        timeOfDay,
+      },
+    });
+
+    if (submission) {
+      return res.status(200).json({ submitted: true });
+    }
+
+    return res.status(200).json({ submitted: false });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
 const submitQuestionnaire = async (req, res) => {
   try {
-    const {
+    const { userID, questionnaireID, timeOfDay, responses } = req.body;
+
+    const existingSubmission = await QuestionnaireSubmission.findOne({
+      where: {
+        userID,
+        questionnaireID,
+        timeOfDay,
+      },
+    });
+
+    if (existingSubmission) {
+      return res
+        .status(400)
+        .json({ message: "You have already completed this questionnaire." });
+    }
+
+    const { moodScore, energyLevel, stressLevel } =
+      scoringLogic.calculateScores(responses);
+    console.log("Scores calculated: ", moodScore, energyLevel, stressLevel);
+
+    await QuestionnaireSubmission.create({
       userID,
       questionnaireID,
       timeOfDay,
-      responses,
-    } = req.body;
-
-    const { moodScore, energyLevel, stressLevel } = scoringLogic.calculateScores(responses);
-    console.log("Scores calculated: ", moodScore, energyLevel, stressLevel);
+    });
 
     const moodEntry = await MoodEntry.create({
       userID,
@@ -82,6 +121,7 @@ const getQuestionnaireByTimeOfDay = async (req, res) => {
 
 module.exports = {
   getQuestionnaires,
+  checkIfSubmitted,
   submitQuestionnaire,
   getQuestionnaireByTimeOfDay,
 };

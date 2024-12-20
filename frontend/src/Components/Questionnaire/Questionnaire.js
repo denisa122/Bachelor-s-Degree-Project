@@ -10,6 +10,7 @@ const Questionnaire = ({ userID }) => {
   const { id } = useParams();
   const [questionnaire, setQuestionnaire] = useState(null);
   const [responses, setResponses] = useState({});
+  const [isSubmitted, setIsSubmitted] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -27,13 +28,24 @@ const Questionnaire = ({ userID }) => {
           }
         );
         setQuestionnaire(response.data);
+
+        const submissionResponse = await axios.get(
+          `${process.env.REACT_APP_API_BASE_URL}/api/questionnaires/submission/check/${userID}/${timeOfDay}`,
+          {
+            headers: {
+              "auth-token": token,
+            },
+          }
+        );
+
+        setIsSubmitted(submissionResponse.data.submitted);
       } catch (error) {
-        console.error("Error fetching ${timeOfDay} questionnaire:", error);
+        console.error("Error fetching questionnaire:", error);
       }
     };
 
     fetchQuestionnaire();
-  }, [timeOfDay]);
+  }, [timeOfDay, userID]);
 
   const handleAnswerChange = (questionId, answer) => {
     setResponses({
