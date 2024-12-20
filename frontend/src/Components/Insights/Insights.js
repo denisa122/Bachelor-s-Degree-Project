@@ -2,8 +2,17 @@ import React from "react";
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-import { Pie } from "react-chartjs-2";
-import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
+import { Pie, Line } from "react-chartjs-2";
+import {
+  Chart as ChartJS,
+  ArcElement,
+  Tooltip,
+  Legend,
+  LineElement,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+} from "chart.js";
 
 import "./Insights.css";
 
@@ -16,9 +25,18 @@ import Emoji from "../../assets/emoji.svg";
 
 import Navigation from "../Navigation/Navigation";
 
-ChartJS.register(ArcElement, Tooltip, Legend);
+ChartJS.register(
+  ArcElement,
+  Tooltip,
+  Legend,
+  LineElement,
+  CategoryScale,
+  LinearScale,
+  PointElement
+);
 
 const Insights = ({ userID }) => {
+  const [moodData, setMoodData] = useState([]);
   const [sentimentAnalysis, setSentimentAnalysis] = useState([]);
   const [mostUsedSentiments, setMostUsedSentiments] = useState([]);
   const [sentimentPercentages, setSentimentPercentages] = useState({
@@ -28,6 +46,17 @@ const Insights = ({ userID }) => {
   });
 
   useEffect(() => {
+    const fetchMoodData = async () => {
+      try {
+        const response = await axios.get(
+          `${process.env.REACT_APP_API_BASE_URL}/api/insights/mood-trends/${userID}`
+        );
+        setMoodData(response.data.moodTrends);
+      } catch (error) {
+        console.error("Error fetching mood data: ", error);
+      }
+    };
+
     const fetchSentimentAnalysis = async () => {
       try {
         const response = await axios.get(
@@ -51,6 +80,7 @@ const Insights = ({ userID }) => {
       }
     };
 
+    fetchMoodData();
     fetchSentimentAnalysis();
     fetchMostUsedSentiments();
   }, [userID]);
@@ -64,8 +94,8 @@ const Insights = ({ userID }) => {
           sentimentPercentages.negative,
           sentimentPercentages.neutral,
         ],
-        backgroundColor: ['#66FF99', '#FFCAD4', '#EECFA1'],
-        hoverBackgroundColor: ['#4DFF80', '#FF9FB4', '#D4A86E'],
+        backgroundColor: ["#66FF99", "#FFCAD4", "#EECFA1"],
+        hoverBackgroundColor: ["#4DFF80", "#FF9FB4", "#D4A86E"],
       },
     ],
   };
@@ -82,6 +112,51 @@ const Insights = ({ userID }) => {
       },
       legend: {
         position: "top",
+      },
+    },
+  };
+
+  const linearChartData = {
+    labels: moodData.map((entry) => entry.date),
+    datasets: [
+      {
+        label: "Mood Score",
+        data: moodData.map((entry) => entry.moodScore),
+        borderColor: "rgba(75, 192, 192, 1)",
+        fill: false,
+      },
+      {
+        label: "Energy Level",
+        data: moodData.map((entry) => entry.energyLevel),
+        borderColor: "rgba(153, 102, 255, 1)",
+        fill: false,
+      },
+      {
+        label: "Stress Level",
+        data: moodData.map((entry) => entry.stressLevel),
+        borderColor: "rgba(255, 99, 132, 1)",
+        fill: false,
+      },
+    ],
+  };
+
+  const lineChartOptions = {
+    responsive: true,
+    plugins: {
+      tooltip: {
+        callbacks: {
+          label: function (tooltipItem) {
+            return `${tooltipItem.label}: ${tooltipItem.raw}`;
+          },
+        },
+      },
+      legend: {
+        position: "top",
+      },
+    },
+    scales: {
+      y: {
+        beginAtZero: true,
       },
     },
   };
@@ -132,9 +207,8 @@ const Insights = ({ userID }) => {
             throughout the day and over various periods—you can identify
             patterns, fluctuations, and emotional shifts.
           </p>
-          <img src={Filter} alt="filter icon "></img>
           <div className="moodTrendsImg">
-            <img src="moodTrends.jpg" alt="mood trends graph"></img>
+            <Line data={linearChartData} options={lineChartOptions} />
           </div>
         </div>
 

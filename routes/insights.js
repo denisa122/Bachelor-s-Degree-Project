@@ -9,4 +9,8 @@ router.get('/sentiment-analysis/:userID', insightsController.getSentimentAnalysi
 // /api/insights/most-used-sentiments/:userID
 router.get('/most-used-sentiments/:userID', insightsController.getMostUsedSentimentsLast7Days);
 
+// Get mood trends
+// /api/insights/mood-trends/:userID
+router.get('/mood-trends/:userID', insightsController.getMoodTrends);
+
 module.exports = router;
