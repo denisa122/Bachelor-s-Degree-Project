@@ -1,6 +1,7 @@
 import React from "react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import axios from "axios";
+import fetchEmoji from "../../services/fetchEmoji";
 
 import { Pie, Line } from "react-chartjs-2";
 import {
@@ -44,6 +45,8 @@ const Insights = ({ userID }) => {
     negative: 0,
     neutral: 0,
   });
+  const [emojis, setEmojis] = useState([]);
+  const emojisFetchedRef = useRef(false);
 
   useEffect(() => {
     const fetchMoodData = async () => {
@@ -84,6 +87,24 @@ const Insights = ({ userID }) => {
     fetchSentimentAnalysis();
     fetchMostUsedSentiments();
   }, [userID]);
+
+  useEffect(() => {
+    if (mostUsedSentiments.length > 0 && !emojisFetchedRef.current) {
+      const fetchEmojis = async () => {
+        const emojiPromises = mostUsedSentiments.map(async (sentiment) => {
+          const emoji = await fetchEmoji(sentiment.toLowerCase());
+          return { [sentiment]: emoji };
+        });
+
+        const emojiResults = await Promise.all(emojiPromises);
+        const emojiObject = Object.assign({}, ...emojiResults);
+        setEmojis(emojiObject);
+      };
+
+      fetchEmojis();
+      emojisFetchedRef.current = true;
+    }
+  }, [mostUsedSentiments]);
 
   const pieChartData = {
     labels: ["Positive", "Negative", "Neutral"],
@@ -212,75 +233,6 @@ const Insights = ({ userID }) => {
           </div>
         </div>
 
-        <div className="section patternsSection">
-          <h1 className="sectionTitle">Patterns</h1>
-          <div className="flex flex-col space-y-5">
-            <div className="flex flex-row items-baseline">
-              <img
-                src={PatternsIcon}
-                alt="lightbulb icon"
-                className="mr-4"
-              ></img>
-              <p>
-                You tend to put off tasks or responsibilities until the last
-                minute, often leading to stress and rushed work. This may be due
-                to fear of failure or lack of motivation.
-              </p>
-            </div>
-            <div className="flex flex-row items-baseline">
-              <img
-                src={PatternsIcon}
-                alt="lightbulb icon"
-                className="mr-4"
-              ></img>
-              <p>
-                You tend to use encouraging and affirming language with
-                yourself, even when faced with challenges. This helps boost your
-                self-esteem, foster resilience, and improve your mental health.
-              </p>
-            </div>
-            <div className="flex flex-row items-baseline">
-              <img
-                src={PatternsIcon}
-                alt="lightbulb icon"
-                className="mr-4"
-              ></img>
-              <p>
-                You often take on too many tasks or responsibilities, sometimes
-                at the expense of your well-being or personal time. This may
-                stem from a desire to please others or a fear of missing out.
-              </p>
-            </div>
-            <div className="flex flex-row items-baseline">
-              <img
-                src={PatternsIcon}
-                alt="lightbulb icon"
-                className="mr-4"
-              ></img>
-              <p>
-                You tend to strive for flawlessness in every aspect of your
-                life, which can lead to unrealistic expectations and
-                dissatisfaction when things don't meet your high standards. This
-                behavior may cause stress, burnout, and prevent you from fully
-                enjoying your achievements.
-              </p>
-            </div>
-            <div className="flex flex-row items-baseline">
-              <img
-                src={PatternsIcon}
-                alt="lightbulb icon"
-                className="mr-4"
-              ></img>
-              <p>
-                You tend to avoid confrontational situations or difficult
-                conversations, often to maintain peace or prevent upsetting
-                others. While this may reduce short-term stress, it can prevent
-                personal growth and resolution of issues.
-              </p>
-            </div>
-          </div>
-        </div>
-
         <div className="section sentimentAnalysisSection">
           <h1 className="sectionTitle">Sentiment Analysis</h1>
           <p className="sectionText">
@@ -297,11 +249,7 @@ const Insights = ({ userID }) => {
             {mostUsedSentiments && mostUsedSentiments.length > 0 ? (
               mostUsedSentiments.map((sentiment, index) => (
                 <div key={index} className="flex flex-col">
-                  <img
-                    src={Emoji}
-                    alt="emotion emoji face"
-                    className="emotionEmoji"
-                  ></img>
+                  <span className="emotionEmoji">{emojis[sentiment]}</span>
                   <p className="emotionText">{sentiment}</p>
                 </div>
               ))
