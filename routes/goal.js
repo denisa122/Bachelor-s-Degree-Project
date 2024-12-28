@@ -9,7 +9,7 @@ router.post('/', verifyToken, goalController.addGoal);
 
 // Get today's goals
 // /api/goals/today
-router.get('/today', verifyToken, goalController.getTodaysGoals);
+router.get('/today/:userID', verifyToken, goalController.getTodaysGoals);
 
 // Update goal completion
 // /api/goals/:id

@@ -29,10 +29,11 @@ const addGoal = async (req, res) => {
 };
 
 const getTodaysGoals = async (req, res) => {
+  const { userID } = req.params;
   try {
     const date = new Date().toISOString().split("T")[0];
     const goals = await Goal.findAll({
-      where: { date },
+      where: { date, userID },
     });
 
     res.status(200).json(goals);
