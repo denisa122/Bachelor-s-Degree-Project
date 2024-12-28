@@ -11,9 +11,10 @@ const connectToPostgreSQLDB = async () => {
         await sequelize.authenticate();
         console.log('Successfully connected to PostgreSQL!');
 
-        // Sync models to the database (creates tables if they don't exist)
+        // Sync models to the database
         await sequelize.sync({ force: false }); // Change `force: false` to `force: true` for recreating tables
         console.log('All sequelize models were synchronized successfully.');
+        
     } catch (error) {
         console.error('Error connecting to PostgreSQL:', error);
     }

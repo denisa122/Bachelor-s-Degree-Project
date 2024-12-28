@@ -97,8 +97,9 @@ const getLoginStatus = async (req, res) => {
 
 const logout = async (req, res) => {
   try {
-    localStorage.removeItem("token");
+    res.status(200).json({ message: "Logged out successfully!" });
   } catch (error) {
+    alert("Error logging out!");
     res.status(500).json({ error });
   }
 };
