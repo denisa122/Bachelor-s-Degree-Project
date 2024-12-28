@@ -1,17 +1,35 @@
 {
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "cross-env NODE_ENV=test nyc mocha --exit",
+    "migrate:test": "cross-env NODE_ENV=test sequelize-cli db:migrate"
+  },
+  "keywords": [],
+  "author": "Denisa-Gabriela Neagu",
+  "license": "ISC",
   "dependencies": {
     "axios": "^1.7.9",
     "bcrypt": "^5.1.1",
     "body-parser": "^1.20.3",
+    "chai": "^4.3.3",
+    "chai-http": "^4.3.0",
     "cors": "^2.8.5",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
     "joi": "^17.13.3",
     "jsonwebtoken": "^9.0.2",
+    "mocha": "^11.0.1",
     "mongoose": "^8.8.4",
+    "nyc": "^17.1.0",
     "pg": "^8.13.1",
     "pg-hstore": "^2.3.4",
     "sentiment": "^5.0.2",
     "sequelize": "^6.37.5"
+  },
+  "devDependencies": {
+    "cross-env": "^7.0.3"
   }
 }

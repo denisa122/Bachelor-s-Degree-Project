@@ -1,10 +1,13 @@
 const { Sequelize } = require('sequelize');
 const path = require('path');
 
-const sequelize = new Sequelize(`postgres://${process.env.POSTGRESQL_DB_USER}:${process.env.POSTGRESQL_DB_PASSWORD}@${process.env.POSTGRESQL_DB_HOST}:${process.env.POSTGRESQL_DB_PORT}/${process.env.POSTGRESQL_DB_NAME}`, {
-    dialect: 'postgres',
-});
+const databaseUrl = process.env.NODE_ENV === 'test'
+  ? `postgres://${process.env.POSTGRESQL_DB_USER}:${process.env.POSTGRESQL_DB_PASSWORD}@${process.env.POSTGRESQL_DB_HOST}:${process.env.POSTGRESQL_DB_PORT}/test_database` 
+  : `postgres://${process.env.POSTGRESQL_DB_USER}:${process.env.POSTGRESQL_DB_PASSWORD}@${process.env.POSTGRESQL_DB_HOST}:${process.env.POSTGRESQL_DB_PORT}/${process.env.POSTGRESQL_DB_NAME}`;
 
+  const sequelize = new Sequelize(databaseUrl, {
+    dialect: 'postgres',
+  });
 
 const connectToPostgreSQLDB = async () => {
     try {
@@ -12,7 +15,7 @@ const connectToPostgreSQLDB = async () => {
         console.log('Successfully connected to PostgreSQL!');
 
         // Sync models to the database
-        await sequelize.sync({ force: false }); // Change `force: false` to `force: true` for recreating tables
+        await sequelize.sync({ force: process.env.NODE_ENV === 'test' }); // Change `force: false` to `force: true` for recreating tables
         console.log('All sequelize models were synchronized successfully.');
         
     } catch (error) {

@@ -30,7 +30,7 @@ const startServer = async () => {
     await connectToPostgreSQLDB();
 
     // Sync the Sequelize models with the database
-    await sequelize.sync({ force: false }); // can change this to `force: true` during development
+    await sequelize.sync({ force: process.env.NODE_ENV === 'test' }); // can change this to `force: true` during development
     console.log("All Sequelize models were synchronized successfully.");
 
     const PORT = process.env.PORT || 5000;
