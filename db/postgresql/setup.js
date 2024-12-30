@@ -1,4 +1,4 @@
-require("dotenv").config({
+require("dotenv-flow").config({
   path: process.env.NODE_ENV === "test" ? ".env.test" : ".env",
 });
 
