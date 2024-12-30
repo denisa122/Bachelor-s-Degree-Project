@@ -27,6 +27,11 @@ const HomepageLoggedIn = ({ userID }) => {
   const { id } = useParams();
   const [firstName, setFirstName] = useState("");
   const [isLoading, setIsLoading] = useState(true);
+  const [questionnaireStatus, setQuestionnaireStatus] = useState({
+    morning: false,
+    midday: false,
+    evening: false,
+  });
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -55,6 +60,48 @@ const HomepageLoggedIn = ({ userID }) => {
     };
 
     fetchUserData();
+
+    const fetchQuestionnaireStatus = async () => {
+      const token = localStorage.getItem("token");
+      if (!token) return;
+
+      try {
+        const responseMorning = await axios.get(
+          `${process.env.REACT_APP_API_BASE_URL}/api/questionnaires/check/${userID}/Morning`,
+          {
+            headers: {
+              "auth-token": token,
+            },
+          }
+        );
+        const responseMidday = await axios.get(
+          `${process.env.REACT_APP_API_BASE_URL}/api/questionnaires/check/${userID}/Midday`,
+          {
+            headers: {
+              "auth-token": token,
+            },
+          }
+        );
+        const responseEvening = await axios.get(
+          `${process.env.REACT_APP_API_BASE_URL}/api/questionnaires/check/${userID}/Evening`,
+          {
+            headers: {
+              "auth-token": token,
+            },
+          }
+        );
+
+        setQuestionnaireStatus({
+          morning: responseMorning.data.submitted,
+          midday: responseMidday.data.submitted,
+          evening: responseEvening.data.submitted,
+        });
+      } catch (error) {
+        console.error("Error fetching questionnaire status:", error);
+      }
+    };
+
+    fetchQuestionnaireStatus();
   }, [userID]);
 
   if (isLoading) {
@@ -107,14 +154,23 @@ const HomepageLoggedIn = ({ userID }) => {
                   className="questionnaireImage"
                 ></img>
                 <a
-                  href="/questionnaire/Morning"
-                  className="mb-3 inline-block w-full rounded px-6 pb-2 pt-2.5 text-sm font-medium leading-normal text-[#252D3B] shadow-dark-3 transition duration-150 ease-in-out hover:shadow-dark-2 focus:shadow-dark-2 focus:outline-none focus:ring-0 active:shadow-dark-2 dark:shadow-black/30 dark:hover:shadow-dark-strong dark:focus:shadow-dark-strong dark:active:shadow-dark-strong"
+                  href={
+                    questionnaireStatus.morning ? "#" : "/questionnaire/Morning"
+                  }
+                  className={`mb-3 inline-block w-full rounded px-6 pb-2 pt-2.5 text-sm font-medium leading-normal text-[#252D3B] shadow-dark-3 transition duration-150 ease-in-out hover:shadow-dark-2 focus:shadow-dark-2 focus:outline-none focus:ring-0 active:shadow-dark-2 dark:shadow-black/30 dark:hover:shadow-dark-strong dark:focus:shadow-dark-strong dark:active:shadow-dark-strong ${
+                    questionnaireStatus.morning
+                      ? "buttonWithBorder w-full text-sm cursor-not-allowed"
+                      : ""
+                  }`}
                   style={{
-                    background:
-                      "linear-gradient(to right, #FFCAD4 0%, #CBC0D3 50%, #D8E2DC 100%)",
+                    background: questionnaireStatus.morning
+                      ? "#d3d3d3" 
+                      : "linear-gradient(to right, #FFCAD4 0%, #CBC0D3 50%, #D8E2DC 100%)", 
                   }}
                 >
-                  Morning questionnaire
+                  {questionnaireStatus.morning
+                    ? "Done for today"
+                    : "Morning questionnaire"}
                 </a>
               </div>
               <div>
@@ -124,14 +180,21 @@ const HomepageLoggedIn = ({ userID }) => {
                   className="questionnaireImage"
                 ></img>
                 <a
-                  href="questionnaire/Midday"
-                  className="mb-3 inline-block w-full rounded px-6 pb-2 pt-2.5 text-sm font-medium leading-normal text-[#252D3B] shadow-dark-3 transition duration-150 ease-in-out hover:shadow-dark-2 focus:shadow-dark-2 focus:outline-none focus:ring-0 active:shadow-dark-2 dark:shadow-black/30 dark:hover:shadow-dark-strong dark:focus:shadow-dark-strong dark:active:shadow-dark-strong"
+                  href={
+                    questionnaireStatus.midday ? "#" : "/questionnaire/Midday"
+                  }
+                  className={`mb-3 inline-block w-full rounded px-6 pb-2 pt-2.5 text-sm font-medium leading-normal text-[#252D3B] shadow-dark-3 transition duration-150 ease-in-out hover:shadow-dark-2 focus:shadow-dark-2 focus:outline-none focus:ring-0 active:shadow-dark-2 dark:shadow-black/30 dark:hover:shadow-dark-strong dark:focus:shadow-dark-strong dark:active:shadow-dark-strong ${
+                    questionnaireStatus.midday ? "buttonWithBorder w-full text-sm cursor-not-allowed" : ""
+                  }`}
                   style={{
-                    background:
-                      "linear-gradient(to right, #FFCAD4 0%, #CBC0D3 50%, #D8E2DC 100%)",
+                    background: questionnaireStatus.midday
+                      ? "#d3d3d3" 
+                      : "linear-gradient(to right, #FFCAD4 0%, #CBC0D3 50%, #D8E2DC 100%)", 
                   }}
                 >
-                  Midday questionnaire
+                  {questionnaireStatus.midday
+                    ? "Done for today"
+                    : "Midday questionnaire"}
                 </a>
               </div>
               <div>
@@ -141,14 +204,21 @@ const HomepageLoggedIn = ({ userID }) => {
                   className="questionnaireImage !w-[133px]"
                 ></img>
                 <a
-                  href="/questionnaire/Evening"
-                  className="mb-3 inline-block w-full rounded px-6 pb-2 pt-2.5 text-sm font-medium leading-normal text-[#252D3B] shadow-dark-3 transition duration-150 ease-in-out hover:shadow-dark-2 focus:shadow-dark-2 focus:outline-none focus:ring-0 active:shadow-dark-2 dark:shadow-black/30 dark:hover:shadow-dark-strong dark:focus:shadow-dark-strong dark:active:shadow-dark-strong"
+                  href={
+                    questionnaireStatus.evening ? "#" : "/questionnaire/Evening"
+                  }
+                  className={`mb-3 inline-block w-full rounded px-6 pb-2 pt-2.5 text-sm font-medium leading-normal text-[#252D3B] shadow-dark-3 transition duration-150 ease-in-out hover:shadow-dark-2 focus:shadow-dark-2 focus:outline-none focus:ring-0 active:shadow-dark-2 dark:shadow-black/30 dark:hover:shadow-dark-strong dark:focus:shadow-dark-strong dark:active:shadow-dark-strong ${
+                    questionnaireStatus.evening ? "buttonWithBorder w-full text-sm cursor-not-allowed" : ""
+                  }`}
                   style={{
-                    background:
-                      "linear-gradient(to right, #FFCAD4 0%, #CBC0D3 50%, #D8E2DC 100%)",
+                    background: questionnaireStatus.evening
+                      ? "#d3d3d3" 
+                      : "linear-gradient(to right, #FFCAD4 0%, #CBC0D3 50%, #D8E2DC 100%)",
                   }}
                 >
-                  Evening questionnaire
+                  {questionnaireStatus.evening
+                    ? "Done for today"
+                    : "Evening questionnaire"}
                 </a>
               </div>
             </div>
