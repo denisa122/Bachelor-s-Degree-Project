@@ -90,7 +90,6 @@ const getLoginStatus = async (req, res) => {
     }
   } catch (error) {
     console.error("Error fetching login status:", error);
-    res.json({ isLoggedIn: false });
     res.status(500).json({ error });
   }
 };
