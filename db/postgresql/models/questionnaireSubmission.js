@@ -28,7 +28,7 @@ const QuestionnaireSubmission = sequelize.define(
     },
     {
         tableName: "questionnaire_submissions",
-        timestamps: false,
+        timestamps: true,
     }
 );
 

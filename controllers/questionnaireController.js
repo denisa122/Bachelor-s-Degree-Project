@@ -5,6 +5,7 @@ const MoodResponse = require("../db/postgresql/models/moodResponse");
 const QuestionnaireSubmission = require("../db/postgresql/models/questionnaireSubmission");
 
 const { date } = require("joi");
+const {Op} = require("sequelize");
 const scoringLogic = require("../services/scoringLogic");
 
 const getQuestionnaires = async (req, res) => {
@@ -25,10 +26,16 @@ const checkIfSubmitted = async (req, res) => {
   try {
     const { userID, timeOfDay } = req.params;
 
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
     const submission = await QuestionnaireSubmission.findOne({
       where: {
         userID,
         timeOfDay,
+        createdAt: {
+          [Op.gte]: today,
+        },
       },
     });
 
