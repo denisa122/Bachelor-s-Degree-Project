@@ -1,4 +1,4 @@
-require("dotenv-flow").config({
+require("dotenv").config({
   path: process.env.NODE_ENV === "test" ? ".env.test" : ".env",
 });
 
@@ -22,7 +22,7 @@ const connectToPostgreSQLDB = async () => {
     console.log("Successfully connected to PostgreSQL!");
 
     // Sync models to the database
-    await sequelize.sync({ force: process.env.NODE_ENV === "test" }); // Change `force: false` to `force: true` for recreating tables
+    await sequelize.sync({ force: process.env.NODE_ENV === "test" });
     console.log("All sequelize models were synchronized successfully.");
   } catch (error) {
     console.error("Error connecting to PostgreSQL:", error);

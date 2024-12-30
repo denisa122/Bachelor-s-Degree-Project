@@ -34,11 +34,11 @@ jobs:
         run: |
           npm test
         env:
-          POSTGRESQL_DB_USER: "postgres"
-          POSTGRESQL_DB_HOST: "localhost"
-          POSTGRESQL_DB_NAME: "test_database"
-          POSTGRESQL_DB_PASSWORD: "password"
-          POSTGRESQL_DB_PORT: "5432"
+          POSTGRESQL_DB_USER: ${{ secrets.POSTGRESQL_DB_USER }}
+          POSTGRESQL_DB_HOST: ${{ secrets.POSTGRESQL_DB_HOST }}
+          POSTGRESQL_DB_NAME: ${{ secrets.POSTGRESQL_DB_NAME }}
+          POSTGRESQL_DB_PASSWORD: ${{ secrets.POSTGRESQL_DB_PASSWORD }}
+          POSTGRESQL_DB_PORT: ${{ secrets.POSTGRESQL_DB_PORT }}
           MONGODB_URI: ${{ secrets.MONGODB_URI }}
 
   deploy_backend:
