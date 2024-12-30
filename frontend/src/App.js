@@ -20,10 +20,16 @@ import Insights from "./Components/Insights/Insights";
 import ProfileSettings from "./Components/User/ProfileSettings";
 import Questionnaire from "./Components/Questionnaire/Questionnaire";
 
+import { Input, Ripple, initTWE } from "tw-elements";
+
 function App() {
   const [userId, setUserId] = useState(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    initTWE({ Input, Ripple });
+  }, []);
 
   useEffect(() => {
     const fetchUserId = async () => {

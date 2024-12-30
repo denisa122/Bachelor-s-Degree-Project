@@ -5,8 +5,6 @@ import axios from "axios";
 
 import "./authentication.css";
 
-import { Input, Ripple, initTWE } from "tw-elements";
-
 import Logo from "../../assets/logo_login.png";
 
 const Login = ({ setIsAuthenticated }) => {
@@ -15,8 +13,6 @@ const Login = ({ setIsAuthenticated }) => {
   const [error, setError] = useState("");
 
   const navigate = useNavigate();
-
-  initTWE({ Input, Ripple });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -41,18 +37,29 @@ const Login = ({ setIsAuthenticated }) => {
       }
     } catch (error) {
       console.error("Error caught in handleSubmit:", error);
-      setError("An unexpected error occurred");
+
+      if (error.response && error.response.data) {
+        setError(error.response.data.error);
+      } else {
+        setError("An unexpected error occurred");
+      }
     }
   };
 
+  const goToRegister = () => {
+    navigate("/register");
+  };
+
   return (
-    <section className="gradient-form h-full bg-neutral-200 dark:bg-neutral-700"
-     style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          minHeight: "100vh",
-        }}>
+    <section
+      className="gradient-form h-full bg-neutral-200 dark:bg-neutral-700"
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        minHeight: "100vh",
+      }}
+    >
       <div className="container h-full p-10">
         <div className="flex h-full flex-wrap items-center justify-center">
           <div className="xl:w-[80%]">
@@ -65,6 +72,11 @@ const Login = ({ setIsAuthenticated }) => {
                       <h4 className="mb-12 mt-2 pb-1 text-xl font-semibold">
                         Welcome to MindScribe
                       </h4>
+                      {error && (
+                        <p className="text-red-500 text-sm font-medium -mt-8 mb-5">
+                          {error}
+                        </p>
+                      )}
                     </div>
 
                     <form id="loginForm" onSubmit={handleSubmit}>
@@ -128,9 +140,9 @@ const Login = ({ setIsAuthenticated }) => {
 
                       <div class="flex items-center justify-between pb-6">
                         <p class="mb-0 me-2">Don't have an account?</p>
-                        <Link to="/register">
                           <button
                             type="button"
+                            onClick={goToRegister}
                             className="inline-block rounded border-2 px-6 pb-[6px] pt-2 text-xs font-medium uppercase leading-normal transition duration-150 ease-in-out hover:border-danger-600 hover:bg-danger-50/50 hover:text-danger-600 focus:border-danger-600 focus:bg-danger-50/50 focus:text-danger-600 focus:outline-none focus:ring-0 active:border-danger-700 active:text-danger-700 dark:hover:bg-rose-950 dark:focus:bg-rose-950"
                             style={{
                               borderColor: "#252D3B",
@@ -141,7 +153,6 @@ const Login = ({ setIsAuthenticated }) => {
                           >
                             Register
                           </button>
-                        </Link>
                       </div>
                     </form>
                   </div>
