@@ -17,7 +17,6 @@ import InsightsIcon from "../../assets/insights-icon-small.svg";
 import Navigation from "../Navigation/Navigation";
 import QuestionnaireBox from "./QuestionnaireBox";
 import GoalBox from "./GoalBox";
-import { get, set } from "mongoose";
 
 const MoodTracker = ({ userID }) => {
   const { id } = useParams();
