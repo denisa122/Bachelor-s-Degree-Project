@@ -3,6 +3,7 @@ require("dotenv-flow").config();
 const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
+const { Pool } = require("pg");
 
 const connectToMongoDB = require("./db/mongodb/setup");
 const { connectToPostgreSQLDB } = require("./db/postgresql/setup");
