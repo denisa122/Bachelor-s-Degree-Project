@@ -10,7 +10,6 @@ import { jwtDecode } from "jwt-decode";
 import "./Journal.css";
 
 import Navigation from "../Navigation/Navigation";
-import { set } from "mongoose";
 
 const JournalEditor = ( {userID}) => {
   const {id} = useParams();
