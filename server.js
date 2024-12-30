@@ -51,9 +51,11 @@ const startServer = async () => {
     await connectToMongoDB();
     await connectToPostgreSQLDB();
 
-    const isSeeded = await checkIfDataSeeded();
-    if (!isSeeded) {
-      await seedDatabase();
+    if (process.env.NODE_ENV !== "test") {
+      const isSeeded = await checkIfDataSeeded();
+      if (!isSeeded) {
+        await seedDatabase();
+      }
     }
 
     // Sync the Sequelize models with the database
