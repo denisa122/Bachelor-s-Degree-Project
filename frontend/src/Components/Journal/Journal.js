@@ -13,7 +13,6 @@ import MoreIcon from "../../assets/more-icon.svg";
 
 import Navigation from "../Navigation/Navigation";
 import JournalEntry from "./JournalEntry";
-import { set } from "mongoose";
 
 const Journal = ({ userID }) => {
   const { id } = useParams();
