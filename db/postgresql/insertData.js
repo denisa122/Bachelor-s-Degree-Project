@@ -3,8 +3,11 @@ const fs = require("fs");
 const { Pool } = require("pg");
 
 const pool = new Pool({
-  connectionString: process.env.DATABASE_URL,
-  ssl: { rejectUnauthorized: false },
+  connectionString: process.env.POSTGRESQL_DB_URL,
+  ssl:
+    process.env.POSTGRESQL_DB_URL && !process.env.POSTGRESQL_DB_URL.includes("localhost")
+      ? { rejectUnauthorized: false }
+      : false,
 });
 
 const seedDatabase = async () => {

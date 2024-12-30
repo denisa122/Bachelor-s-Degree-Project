@@ -1,9 +1,21 @@
 /* File to populate the db tables with some initial data */
+INSERT INTO questionnaires (title, "timeOfDay", description)
+SELECT * FROM (SELECT 'Morning Questionnaire', 'Morning', 'Start your day by capturing your initial mood and setting your intentions. Reflect on your goals, expectations, and how prepared you feel for the day ahead.') AS tmp
+WHERE NOT EXISTS (
+    SELECT 1 FROM questionnaires WHERE title = 'Morning Questionnaire'
+);
 
-INSERT INTO questionnaires (title, "timeOfDay", description) VALUES 
-('Morning Questionnaire', 'Morning', 'Start your day by capturing your initial mood and setting your intentions. Reflect on your goals, expectations, and how prepared you feel for the day ahead.'),
-('Midday Questionnaire', 'Midday', 'Take a moment to process how your day is unfolding. Reflect on key events, challenges, and accomplishments, and see how your mood is evolving.'),
-('Evening Questionnaire', 'Evening', 'End your day by checking in on your emotional and energy shifts. This helps track any fluctuations in mood or stress and gives you a chance to unwind.');
+INSERT INTO questionnaires (title, "timeOfDay", description)
+SELECT * FROM (SELECT 'Midday Questionnaire', 'Midday', 'Take a moment to process how your day is unfolding. Reflect on key events, challenges, and accomplishments, and see how your mood is evolving.') AS tmp
+WHERE NOT EXISTS (
+    SELECT 1 FROM questionnaires WHERE title = 'Midday Questionnaire'
+);
+
+INSERT INTO questionnaires (title, "timeOfDay", description)
+SELECT * FROM (SELECT 'Evening Questionnaire', 'Evening', 'End your day by checking in on your emotional and energy shifts. This helps track any fluctuations in mood or stress and gives you a chance to unwind.') AS tmp
+WHERE NOT EXISTS (
+    SELECT 1 FROM questionnaires WHERE title = 'Evening Questionnaire'
+);
 
 INSERT INTO questions ("questionnaireID", text, type, options) VALUES
 ((SELECT "questionnaireID" FROM questionnaires WHERE title = 'Morning Questionnaire'), 'How do you feel about the day ahead?', 'Multiple Choice', '["Excited", "Anxious", "Neutral"]'),

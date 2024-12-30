@@ -9,7 +9,7 @@ const { connectToPostgreSQLDB } = require("./db/postgresql/setup");
 
 // Import Sequelize models
 const models = require("./db/postgresql/models");
-const {sequelize} = models;
+const { sequelize } = models;
 
 const { start } = require("repl");
 
@@ -24,13 +24,39 @@ const corsOptions = {
 };
 app.use(cors(corsOptions));
 
+const seedDatabase = async () => {
+  try {
+    const seedSQL = fs.readFileSync("./db/postgresql/seed_data.sql", "utf8");
+    await pool.query(seedSQL);
+    console.log("Data seeded successfully");
+  } catch (error) {
+    console.error("Error seeding data", error);
+  }
+};
+
+const checkIfDataSeeded = async () => {
+  try {
+    const res = await pool.query("SELECT COUNT(*) FROM questionnaires");
+    const count = parseInt(res.rows[0].count);
+    return count > 0;
+  } catch (error) {
+    console.error("Error checking if data is seeded:", error);
+    return false;
+  }
+};
+
 const startServer = async () => {
   try {
     await connectToMongoDB();
     await connectToPostgreSQLDB();
 
+    const isSeeded = await checkIfDataSeeded();
+    if (!isSeeded) {
+      await seedDatabase();
+    }
+
     // Sync the Sequelize models with the database
-    await sequelize.sync({ force: process.env.NODE_ENV === 'test' }); // can change this to `force: true` during development
+    await sequelize.sync({ force: process.env.NODE_ENV === "test" });
     console.log("All Sequelize models were synchronized successfully.");
 
     const PORT = process.env.PORT || 5000;
