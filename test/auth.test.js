@@ -28,7 +28,7 @@ describe("Register and Login Tests", () => {
       });
   });
 
-  it("Should log in and then log out a user", () => {
+  it("Should log in and then log out a user", (done) => {
     // Login
     chai
       .request(server)

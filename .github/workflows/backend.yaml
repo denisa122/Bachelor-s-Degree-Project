@@ -34,7 +34,6 @@ jobs:
         run: |
           npm test
         env:
-          MONGODB_URI: ${{ secrets.MONGODB_URI }}
           POSTGRESQL_DB_USER: ${{ secrets.POSTGRESQL_DB_USER }}
           POSTGRESQL_DB_HOST: ${{ secrets.POSTGRESQL_DB_HOST }}
           POSTGRESQL_DB_NAME: ${{ secrets.POSTGRESQL_DB_NAME }}
