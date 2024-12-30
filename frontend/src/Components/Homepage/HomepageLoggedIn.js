@@ -164,8 +164,8 @@ const HomepageLoggedIn = ({ userID }) => {
                   }`}
                   style={{
                     background: questionnaireStatus.morning
-                      ? "#d3d3d3" 
-                      : "linear-gradient(to right, #FFCAD4 0%, #CBC0D3 50%, #D8E2DC 100%)", 
+                      ? "#d3d3d3"
+                      : "linear-gradient(to right, #FFCAD4 0%, #CBC0D3 50%, #D8E2DC 100%)",
                   }}
                 >
                   {questionnaireStatus.morning
@@ -184,12 +184,14 @@ const HomepageLoggedIn = ({ userID }) => {
                     questionnaireStatus.midday ? "#" : "/questionnaire/Midday"
                   }
                   className={`mb-3 inline-block w-full rounded px-6 pb-2 pt-2.5 text-sm font-medium leading-normal text-[#252D3B] shadow-dark-3 transition duration-150 ease-in-out hover:shadow-dark-2 focus:shadow-dark-2 focus:outline-none focus:ring-0 active:shadow-dark-2 dark:shadow-black/30 dark:hover:shadow-dark-strong dark:focus:shadow-dark-strong dark:active:shadow-dark-strong ${
-                    questionnaireStatus.midday ? "buttonWithBorder w-full text-sm cursor-not-allowed" : ""
+                    questionnaireStatus.midday
+                      ? "buttonWithBorder w-full text-sm cursor-not-allowed"
+                      : ""
                   }`}
                   style={{
                     background: questionnaireStatus.midday
-                      ? "#d3d3d3" 
-                      : "linear-gradient(to right, #FFCAD4 0%, #CBC0D3 50%, #D8E2DC 100%)", 
+                      ? "#d3d3d3"
+                      : "linear-gradient(to right, #FFCAD4 0%, #CBC0D3 50%, #D8E2DC 100%)",
                   }}
                 >
                   {questionnaireStatus.midday
@@ -208,11 +210,13 @@ const HomepageLoggedIn = ({ userID }) => {
                     questionnaireStatus.evening ? "#" : "/questionnaire/Evening"
                   }
                   className={`mb-3 inline-block w-full rounded px-6 pb-2 pt-2.5 text-sm font-medium leading-normal text-[#252D3B] shadow-dark-3 transition duration-150 ease-in-out hover:shadow-dark-2 focus:shadow-dark-2 focus:outline-none focus:ring-0 active:shadow-dark-2 dark:shadow-black/30 dark:hover:shadow-dark-strong dark:focus:shadow-dark-strong dark:active:shadow-dark-strong ${
-                    questionnaireStatus.evening ? "buttonWithBorder w-full text-sm cursor-not-allowed" : ""
+                    questionnaireStatus.evening
+                      ? "buttonWithBorder w-full text-sm cursor-not-allowed"
+                      : ""
                   }`}
                   style={{
                     background: questionnaireStatus.evening
-                      ? "#d3d3d3" 
+                      ? "#d3d3d3"
                       : "linear-gradient(to right, #FFCAD4 0%, #CBC0D3 50%, #D8E2DC 100%)",
                   }}
                 >
@@ -279,7 +283,7 @@ const HomepageLoggedIn = ({ userID }) => {
             </div>
           </div>
 
-          <div className="section dailyQuoteSection">
+          {/* <div className="section dailyQuoteSection">
             <div className="flex flex-row items-baseline">
               <img
                 src={Quote}
@@ -293,9 +297,9 @@ const HomepageLoggedIn = ({ userID }) => {
               health—nurture your mind, embrace your emotions, and take the time
               to heal and grow.
             </p>
-          </div>
+          </div> */}
 
-          <div className="section reminderSection text-center">
+          {/* <div className="section reminderSection text-center">
             <div className="flex flex-row items-baseline">
               <img
                 src={Meditate}
@@ -315,6 +319,39 @@ const HomepageLoggedIn = ({ userID }) => {
                 alt="person meditating animation"
                 className="dailyReminderImg"
               ></img>
+            </div>
+          </div> */}
+
+          <div className="section crisisInterventionSection">
+            <div className="flex flex-row items-baseline">
+              <h1 className="sectionTitle">Crisis Intervention</h1>
+            </div>
+            <p className="sectionText">
+              If you're feeling overwhelmed or in distress, remember that you're
+              not alone. There are resources available to help you through
+              challenging times.
+            </p>
+            <div className="hotlines">
+              <ul>
+                <li>
+                  <strong>National Suicide Prevention Lifeline (US):</strong>{" "}
+                  1-800-273-8255
+                </li>
+                <li>
+                  <strong>Crisis Text Line:</strong> Text HOME to 741741
+                </li>
+                <li>
+                  <strong>International Helplines:</strong> Visit{" "}
+                  <a href="https://www.opencounseling.com/suicide-hotlines">
+                    OpenCounseling
+                  </a>{" "}
+                  for a list of helplines worldwide.
+                </li>
+                <li>
+                  <strong>Emergency Services:</strong> Dial 911 (or your local
+                  emergency number).
+                </li>
+              </ul>
             </div>
           </div>
         </div>

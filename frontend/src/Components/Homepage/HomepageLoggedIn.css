@@ -109,3 +109,38 @@
     width: 200px;
     margin-top: 32px;
 }
+
+.crisisInterventionSection {
+    margin-top: 20px;
+    padding: 20px;
+    border-radius: 8px;
+    background: linear-gradient(to right, #ffecd2, #fcb69f); 
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .crisisInterventionSection .sectionTitle {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #252D3B;
+  }
+  
+  .crisisInterventionSection .sectionText {
+    margin: 10px 0;
+    font-size: 1rem;
+    color: #252D3B;
+  }
+  
+  .crisisInterventionSection .hotlines ul {
+    list-style-type: none;
+    padding-left: 0;
+  }
+  
+  .crisisInterventionSection .hotlines li {
+    margin: 5px 0;
+    font-size: 0.95rem;
+  }
+  
+  .crisisInterventionSection .hotlines a {
+    text-decoration: underline;
+  }
+  
