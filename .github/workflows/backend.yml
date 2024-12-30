@@ -33,6 +33,12 @@ jobs:
       - name: Run tests
         run: |
           npm test
+        env:
+          POSTGRESQL_DB_USER: ${{ secrets.POSTGRESQL_DB_USER }}
+          POSTGRESQL_DB_HOST: ${{ secrets.POSTGRESQL_DB_HOST }}
+          POSTGRESQL_DB_NAME: ${{ secrets.POSTGRESQL_DB_NAME }}
+          POSTGRESQL_DB_PASSWORD: ${{ secrets.POSTGRESQL_DB_PASSWORD }}
+          POSTGRESQL_DB_PORT: ${{ secrets.POSTGRESQL_DB_PORT }}
 
   deploy_backend:
 
