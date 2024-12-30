@@ -39,6 +39,7 @@ jobs:
           POSTGRESQL_DB_NAME: ${{ secrets.POSTGRESQL_DB_NAME }}
           POSTGRESQL_DB_PASSWORD: ${{ secrets.POSTGRESQL_DB_PASSWORD }}
           POSTGRESQL_DB_PORT: ${{ secrets.POSTGRESQL_DB_PORT }}
+          MONGODB_URI: ${{ secrets.MONGODB_URI }}
 
   deploy_backend:
 
