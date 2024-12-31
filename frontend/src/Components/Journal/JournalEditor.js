@@ -7,16 +7,16 @@ import "draft-js/dist/Draft.css";
 import axios from "axios";
 import { jwtDecode } from "jwt-decode";
 
-import "./Journal.css";
+import "./JournalEditor.css";
 
 import Navigation from "../Navigation/Navigation";
 
-const JournalEditor = ( {userID}) => {
-  const {id} = useParams();
+const JournalEditor = ({ userID }) => {
+  const { id } = useParams();
   const navigate = useNavigate();
   const [editorState, setEditorState] = useState(() =>
     EditorState.createEmpty()
-  )
+  );
 
   const token = localStorage.getItem("token");
 
@@ -53,7 +53,7 @@ const JournalEditor = ( {userID}) => {
         {
           userID,
           content,
-        }, 
+        },
         {
           headers: {
             "auth-token": token,
@@ -61,11 +61,14 @@ const JournalEditor = ( {userID}) => {
         }
       );
       console.log("Journal entry saved:", response.data);
-      alert("Journal entry saved!");
       navigate("/journal");
     } catch (error) {
       console.error("Error saving journal entry:", error);
     }
+  };
+
+  const isInlineStyleActive = (style) => {
+    return editorState.getCurrentInlineStyle().has(style);
   };
 
   return (
@@ -79,6 +82,7 @@ const JournalEditor = ( {userID}) => {
               e.preventDefault();
               toggleInlineStyle("BOLD");
             }}
+            className={isInlineStyleActive("BOLD") ? "active" : ""}
           >
             Bold
           </button>
@@ -87,6 +91,7 @@ const JournalEditor = ( {userID}) => {
               e.preventDefault();
               toggleInlineStyle("ITALIC");
             }}
+            className={isInlineStyleActive("ITALIC") ? "active" : ""}
           >
             Italic
           </button>
@@ -95,6 +100,7 @@ const JournalEditor = ( {userID}) => {
               e.preventDefault();
               toggleInlineStyle("UNDERLINE");
             }}
+            className={isInlineStyleActive("UNDERLINE") ? "active" : ""}
           >
             Underline
           </button>
@@ -128,7 +134,9 @@ const JournalEditor = ( {userID}) => {
         </div>
 
         {/* Save Button */}
-        <button onClick={saveJournalEntry}>Save Entry</button>
+        <button className="saveEntryButton" onClick={saveJournalEntry}>
+          Save Entry
+        </button>
       </div>
     </div>
   );

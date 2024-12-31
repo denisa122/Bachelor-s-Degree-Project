@@ -9,7 +9,6 @@ import "./Journal.css";
 import Logo from "../../assets/logo.png";
 import JournalImage from "../../assets/journal.png";
 import WriteIcon from "../../assets/write-icon.svg";
-import MoreIcon from "../../assets/more-icon.svg";
 
 import Navigation from "../Navigation/Navigation";
 import JournalEntry from "./JournalEntry";
@@ -120,39 +119,48 @@ const Journal = ({ userID }) => {
           <h1 className="sectionTitle">
             Explore your previous journal entries
           </h1>
-          {/** Month-Year dropdown */}
-          <div className="flex flex-row items-baseline sectionText">
-            <select
-              value={`${selectedMonth} ${selectedYear}`}
-              onChange={(e) => {
-                const [month, year] = e.target.value.split(" ");
-                handleMonthYearChange(month, year);
-              }}
-            >
-              {Object.keys(groupedEntries).map((key) => (
-                <option key={key} value={key}>
-                  {key}
-                </option>
-              ))}
-            </select>
-          </div>
 
-          <div className="entries">
-            {groupedEntries[`${selectedMonth} ${selectedYear}`]?.map(
-              (entry) => (
-                <JournalEntry
-                  key={entry._id}
-                  date={new Date(entry.timestamp).toLocaleDateString("en-US", {
-                    day: "numeric",
-                    month: "long",
-                    year: "numeric",
-                  })}
-                  entry={entry.content}
-                  sentimentScore={entry.sentimentScore}
-                />
-              )
-            )}
-          </div>
+          {Object.keys(groupedEntries).length > 0 ? (
+            <>
+              <div className="flex flex-row items-baseline sectionText">
+                <select
+                  value={`${selectedMonth} ${selectedYear}`}
+                  onChange={(e) => {
+                    const [month, year] = e.target.value.split(" ");
+                    handleMonthYearChange(month, year);
+                  }}
+                >
+                  {Object.keys(groupedEntries).map((key) => (
+                    <option key={key} value={key}>
+                      {key}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              <div className="entries">
+                {groupedEntries[`${selectedMonth} ${selectedYear}`]?.map(
+                  (entry) => (
+                    <JournalEntry
+                      key={entry._id}
+                      date={new Date(entry.timestamp).toLocaleDateString(
+                        "en-US",
+                        {
+                          day: "numeric",
+                          month: "long",
+                          year: "numeric",
+                        }
+                      )}
+                      entry={entry.content}
+                      sentimentScore={entry.sentimentScore}
+                    />
+                  )
+                )}
+              </div>
+            </>
+          ) : (
+            <p className="noEntriesMessage">You have no journal entries.</p>
+          )}
         </div>
       </div>
     </div>

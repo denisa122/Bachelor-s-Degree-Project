@@ -2,8 +2,6 @@ import React from "react";
 
 import "./Journal.css";
 
-import Emoji from "../../assets/emoji.svg";
-
 const JournalEntry = ({ date, entry, sentimentScore }) => {
   const formattedDate = new Date(date).toLocaleDateString("en-US", {
     day: "numeric",

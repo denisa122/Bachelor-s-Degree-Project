@@ -1,0 +1,73 @@
+.editorContainer {
+    background-color: #f8f8f8;
+    padding: 40px;
+    padding-bottom: 0px !important;
+    margin: 50px auto;
+    max-width: 800px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
+    border-radius: 15px;
+    border: 2px solid #dcdcdc;
+    background-color: #dfd0e0;
+    background-image: url("https://www.transparenttextures.com/patterns/lined-paper.png");
+    background-size: 100%;
+    background-position: center;
+    font-size: 18px;
+}
+
+.editorToolbar {
+    margin-bottom: 20px;
+}
+
+.editorToolbar button {
+    background-color: transparent;
+    border: none;
+    padding: 8px 16px;
+    margin-right: 12px;
+    font-size: 16px;
+    cursor: pointer;
+    font-family: 'Segoe UI', sans-serif;
+    transition: all 0.3s ease;
+    color: #3b3b3b;
+  }
+
+  .editorToolbar button:hover {
+    color: #6a6a6a;
+    background-color: #ccb4ce;
+    border-radius: 4px;
+  }
+
+  .editorToolbar button.active {
+    background-color: #ccb4ce; 
+    border-radius: 4px;
+    box-shadow: 0 0 3px 2px rgba(0, 0, 0, 0.1); 
+  }
+
+  .editorWrapper {
+    padding: 30px;
+    border-radius: 10px;
+    height: 60vh;
+    min-height: 300px;
+    margin-bottom: 20px;
+    font-family: 'Borel', sans-serif;
+    font-size: 18px;
+    color: #3b3b3b;
+    line-height: 1.6;
+    transition: border 0.3s ease;
+  }
+
+  .saveEntryButton {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #38445A;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-family:  'Segoe UI', sans-serif;
+    transition: background-color 0.3s ease;
+    margin-top: 20px;
+  }
+
+  .saveEntryButton:hover {
+    background-color: #4a5975;
+  }

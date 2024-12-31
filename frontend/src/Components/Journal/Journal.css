@@ -85,3 +85,8 @@ select:focus {
     outline: none;
     border: none;
 }
+
+.noEntriesMessage {
+    font-style: italic;
+    margin-top: 20px;
+}
