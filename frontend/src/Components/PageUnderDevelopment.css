@@ -1,0 +1,59 @@
+.underDevelopmentPage {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f3f4f6;
+    font-family: 'Arial', sans-serif;
+  }
+  
+  .constructionBox {
+    text-align: center;
+    background-color: #fff;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 80%;
+    max-width: 600px;
+  }
+  
+  .constructionTitle {
+    font-size: 2.5rem;
+    color: #38445A; 
+    margin-bottom: 20px;
+  }
+  
+  .constructionText {
+    font-size: 1.2rem;
+    color: #666;
+    margin-bottom: 30px;
+  }
+  
+  .progressBar {
+    width: 100%;
+    height: 8px;
+    background-color: #e0e0e0;
+    border-radius: 50px;
+    margin-top: 30px;
+  }
+  
+  .progress {
+    width: 50%; 
+    height: 100%;
+    background-color: #4caf50; 
+    border-radius: 50px;
+    animation: progressAnimation 2s ease-in-out infinite;
+  }
+  
+  @keyframes progressAnimation {
+    0% {
+      width: 50%;
+    }
+    50% {
+      width: 70%;
+    }
+    100% {
+      width: 50%;
+    }
+  }
+  

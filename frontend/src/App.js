@@ -69,12 +69,18 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/register" element={<Register />} />
+
+        {/* TEMPORARY until I implement homepage for guests
+         Change back to /login after */}
         <Route
-          path="/login"
+          path="/"
           element={<Login setIsAuthenticated={setIsAuthenticated} />}
         />
 
-        <Route path="/" element={<HomepageGuest />} />
+        {/* TEMPORARY until I implement this page
+         Change back to / after */}
+        <Route path="/guest" element={<HomepageGuest />} />
+        
         <Route
           path="/home"
           element={

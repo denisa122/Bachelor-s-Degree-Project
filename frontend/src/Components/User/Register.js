@@ -31,7 +31,8 @@ const Register = () => {
         }
       );
 
-      window.location.href = "/login";
+      {/** TODO Change back to /login after I change the entry point to the app back to homepage for guests*/}
+      window.location.href = "/";
     } catch (error) {
       console.error("Error caught in handleSubmit:", error);
 
@@ -44,7 +45,8 @@ const Register = () => {
   };
 
   const goToLogin = () => {
-    navigate("/login");
+    {/** TODO Change back to /login after I change the entry point to the app back to homepage for guests*/}
+    navigate("/");
   };
 
   return (
