@@ -25,7 +25,8 @@ const PrivateRoute = ({ element: Component, isAuthenticated }) => {
     }
 
     if (redirect) {
-        return <Navigate to="/login" />;
+        {/* TODO Change back to /login after I implement the homepage for guest as entry point */}
+        return <Navigate to="/" />;
     }
 
     return (
