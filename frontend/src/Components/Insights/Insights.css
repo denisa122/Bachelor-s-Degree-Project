@@ -14,6 +14,9 @@
 
 .moodTrendsImg {
     text-align: center;
+    max-width: 800px;
+    height: 350px;
+    margin: 0 auto;
 }
 
 .sentimentPieChart {

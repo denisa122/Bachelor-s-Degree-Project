@@ -217,7 +217,7 @@ const Insights = ({ userID }) => {
           <img
             src={InsightsImage}
             alt="insights image"
-            className="journalImage" // Make this image bigger
+            className="journalImage"
           ></img>
           <div className="flex flex-col">
             <h2 className="sectionTitle !mb-2.5">
@@ -240,7 +240,7 @@ const Insights = ({ userID }) => {
 
         <div className="section moodTrendsSection">
           <h1 className="sectionTitle mt-[60px]">Mood Trends</h1>
-          <p className="sectionText">
+          <p className="sectionText pb-5">
             In this section, you can explore how your mood has evolved over
             time. By reviewing the results of your mood questionnaires—taken
             throughout the day and over various periods—you can identify
@@ -253,14 +253,14 @@ const Insights = ({ userID }) => {
 
         <div className="section sentimentAnalysisSection">
           <h1 className="sectionTitle">Sentiment Analysis</h1>
-          <p className="sectionText">
+          <p className="sectionText pb-5">
             Gain deeper insights into the emotions behind your journal entries.
             See how your mood shifts and what words reflect your inner state.
           </p>
           <div className="sentimentPieChart">
             <Pie data={pieChartData} options={pieChartOptions} />
           </div>
-          <p className="sectionText mt-5 !text-lg font-medium">
+          <p className="sectionText mt-8 pb-5 !text-lg font-medium">
             Most used sentiments over the last 7 days
           </p>
           <div className="emotions">
