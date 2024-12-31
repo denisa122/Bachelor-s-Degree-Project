@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 
+import { FaArrowLeft } from "react-icons/fa";
+
 import "./Questionnaire.css";
 
 const Questionnaire = ({ userID }) => {
@@ -54,6 +56,10 @@ const Questionnaire = ({ userID }) => {
     });
   };
 
+  const handleBackToMoodTracker = () => {
+    navigate("/mood-tracker");
+  };
+
   const handleSubmit = async () => {
     const payload = {
       userID: userID,
@@ -87,55 +93,74 @@ const Questionnaire = ({ userID }) => {
   };
 
   return (
-    <div className="questionnairePage">
-      <h1>{questionnaire?.title}</h1>
-      <p>{questionnaire?.description}</p>
+    <div className="questionnairePage flex flex-col">
+      <button className="backButton" onClick={handleBackToMoodTracker}>
+        <FaArrowLeft style={{ marginRight: "8px" }} />
+        Back to Mood Tracker
+      </button>
+      <div className="questionnaireContent">
+        <h1>{questionnaire?.title}</h1>
+        <p className="!text-center mb-8 !italic">{questionnaire?.description}</p>
 
-      {/* Check if Questions exist and map over them */}
-      {questionnaire?.Questions && questionnaire.Questions.length > 0 ? (
-        questionnaire.Questions.map((question) => (
-          <div key={question.questionID}>
-            <p>{question.text}</p>
-            {question.type === "Multiple Choice" ? (
-              <select
-                onChange={(e) =>
-                  handleAnswerChange(question.questionID, e.target.value)
-                }
-                value={responses[question.questionID] || ""}
-              >
-                <option value="">Select an answer</option>
-                {question.options?.map((option, idx) => (
-                  <option key={idx} value={option}>
-                    {option}
-                  </option>
-                ))}
-              </select>
-            ) : question.type === "Scale" ? (
-              <input
-                type="number"
-                value={responses[question.questionID] || ""}
-                onChange={(e) =>
-                  handleAnswerChange(question.questionID, e.target.value)
-                }
-                min="1"
-                max="5" // Adjust based on scale range
-              />
-            ) : (
-              <input
-                type="text"
-                value={responses[question.questionID] || ""}
-                onChange={(e) =>
-                  handleAnswerChange(question.questionID, e.target.value)
-                }
-              />
-            )}
-          </div>
-        ))
-      ) : (
-        <p>No questions available</p>
-      )}
+        {/* Check if Questions exist and map over them */}
+        {questionnaire?.Questions && questionnaire.Questions.length > 0 ? (
+          questionnaire.Questions.map((question) => (
+            <div key={question.questionID}>
+              <p>{question.text}</p>
+              {question.type === "Multiple Choice" ? (
+                <select
+                  onChange={(e) =>
+                    handleAnswerChange(question.questionID, e.target.value)
+                  }
+                  value={responses[question.questionID] || ""}
+                >
+                  <option value="">Select an answer</option>
+                  {question.options?.map((option, idx) => (
+                    <option key={idx} value={option}>
+                      {option}
+                    </option>
+                  ))}
+                </select>
+              ) : question.type === "Scale" ? (
+                <div className="scaleContainer">
+                  <label htmlFor={question.questionID} className="scaleLabel">
+                    Low
+                  </label>
+                  <input
+                    type="range"
+                    id={question.questionID}
+                    min="1"
+                    max="5"
+                    step="1"
+                    value={responses[question.questionID] || 1}
+                    onChange={(e) =>
+                      handleAnswerChange(question.questionID, e.target.value)
+                    }
+                    className="scaleSlider"
+                  />
+                  <label htmlFor={question.questionID} className="scaleLabel">
+                    High
+                  </label>
+                </div>
+              ) : (
+                <input
+                  type="text"
+                  value={responses[question.questionID] || ""}
+                  onChange={(e) =>
+                    handleAnswerChange(question.questionID, e.target.value)
+                  }
+                />
+              )}
+            </div>
+          ))
+        ) : (
+          <p>No questions available</p>
+        )}
 
-      <button onClick={handleSubmit}>Submit Questionnaire</button>
+        <button className="submitQuestionnaireButton" onClick={handleSubmit}>
+          Submit Questionnaire
+        </button>
+      </div>
     </div>
   );
 };

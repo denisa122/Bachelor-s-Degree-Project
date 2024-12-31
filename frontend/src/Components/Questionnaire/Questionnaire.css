@@ -1,0 +1,117 @@
+.questionnairePage {
+    padding: 30px;
+    padding-top: 0px !important;
+    max-width: 100vw;
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+    flex-direction: column; 
+  }
+
+  .questionnaireContent {
+    width: 70%;
+  }
+  
+  .questionnairePage h1 {
+    font-size: 24px;
+    text-align: center;
+    font-weight: 500;
+  }
+  
+  .questionnairePage p {
+    font-size: 16px;
+    color: #6a6a6a;
+    margin-top: 20px;
+    text-align: left; 
+  }
+  
+  .questionnairePage select,
+  .questionnairePage input {
+    width: 100%;
+    padding: 6px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+  }
+  
+  .questionnairePage button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 20px;
+  }
+
+  .scaleContainer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+  }
+  
+  .scaleSlider {
+    flex-grow: 1;
+    margin: 0 10px;
+    height: 8px;
+    background-color: #dfdae2;
+    border-radius: 5px;
+    -webkit-appearance: none;
+  }
+  
+  .scaleSlider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: #38445A;
+    cursor: pointer;
+  }
+  
+  .scaleSlider::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: #38445A;
+    cursor: pointer;
+  }
+  
+  .scaleLabel {
+    font-size: 16px;
+    color: #6a6a6a;
+  }
+  
+  .backButton {
+    font-size: 16px;
+    color: #38445A;
+    border: none;
+    background: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    margin-bottom: 12px; 
+  }
+  
+  .backButton:hover {
+    text-decoration: underline;
+  }
+  
+  .backButton svg {
+    margin-right: 8px;
+    font-size: 18px;
+    color: #38445A;
+  }
+
+  .submitQuestionnaireButton {
+    background: linear-gradient(to right, #FFCAD4 0%, #CBC0D3 50%, #D8E2DC 100%);
+  }
+
+  @media screen and (min-width: 1024px) {
+    .questionnaireContent {
+      width: 40%;
+    }
+  }
+  
