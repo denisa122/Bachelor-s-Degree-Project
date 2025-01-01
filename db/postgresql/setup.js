@@ -4,16 +4,16 @@ require("dotenv").config({
 
 const { Sequelize } = require("sequelize");
 
-let databaseUrl;
-
-if (process.env.NODE_ENV === "test") {
-  databaseUrl = `postgres://${process.env.POSTGRESQL_DB_USER}:${process.env.POSTGRESQL_DB_PASSWORD}@${process.env.POSTGRESQL_DB_HOST}:${process.env.POSTGRESQL_DB_PORT}/${process.env.POSTGRESQL_DB_NAME}`;
-} else {
-  databaseUrl = process.env.POSTGRESQL_DB_URL;
-}
+const databaseUrl = process.env.POSTGRESQL_DB_URL;
 
 const sequelize = new Sequelize(databaseUrl, {
   dialect: "postgres",
+  dialectOptions: {
+    ssl: {
+      require: true,
+      rejectUnauthorized: false,
+    },
+  },
 });
 
 const connectToPostgreSQLDB = async () => {
