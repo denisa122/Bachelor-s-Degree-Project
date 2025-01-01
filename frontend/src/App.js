@@ -5,6 +5,8 @@ import axios from "axios";
 
 import "./App.css";
 
+import PrivacyPolicy from "./Components/PrivacyPolicy/PrivacyPolicy";
+
 import PrivateRoute from "./Components/PrivateRoute";
 
 import Register from "./Components/User/Register";
@@ -68,6 +70,7 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
+        <Route path="privacy-policy" element={<PrivacyPolicy />} />
         <Route path="/register" element={<Register />} />
 
         {/* TEMPORARY until I implement homepage for guests
@@ -80,7 +83,7 @@ function App() {
         {/* TEMPORARY until I implement this page
          Change back to / after */}
         <Route path="/guest" element={<HomepageGuest />} />
-        
+
         <Route
           path="/home"
           element={

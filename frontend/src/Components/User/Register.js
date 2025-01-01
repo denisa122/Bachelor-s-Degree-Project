@@ -13,12 +13,17 @@ const Register = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [consentGiven, setConsentGiven] = useState(false);
 
   const navigate = useNavigate();
 
-
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (!consentGiven) {
+      setError("You must agree to the Privacy Policy to register.");
+      return;
+    }
 
     try {
       const response = await axios.post(
@@ -28,10 +33,13 @@ const Register = () => {
           lastName,
           email,
           password,
+          consentGiven,
         }
       );
 
-      {/** TODO Change back to /login after I change the entry point to the app back to homepage for guests*/}
+      {
+        /** TODO Change back to /login after I change the entry point to the app back to homepage for guests*/
+      }
       window.location.href = "/";
     } catch (error) {
       console.error("Error caught in handleSubmit:", error);
@@ -45,7 +53,9 @@ const Register = () => {
   };
 
   const goToLogin = () => {
-    {/** TODO Change back to /login after I change the entry point to the app back to homepage for guests*/}
+    {
+      /** TODO Change back to /login after I change the entry point to the app back to homepage for guests*/
+    }
     navigate("/");
   };
 
@@ -162,6 +172,30 @@ const Register = () => {
                           </label>
                         </div>
 
+                        <div className="relative mb-4">
+                          <input
+                            type="checkbox"
+                            id="privacyPolicyConsent"
+                            name="privacyPolicyConsent"
+                            checked={consentGiven}
+                            onChange={(e) => setConsentGiven(e.target.checked)}
+                          />
+                          <label
+                            htmlFor="privacyPolicyConsent"
+                            className="ml-2 text-sm"
+                          >
+                            I agree to the{" "}
+                            <a
+                              href="/privacy-policy"
+                              target="_blank"
+                              className="text-blue-500 underline"
+                            >
+                              Privacy Policy
+                            </a>
+                            .
+                          </label>
+                        </div>
+
                         <div className="mb-12 pb-1 pt-1 text-center">
                           <button
                             className="mb-3 inline-block w-full rounded px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-[#252D3B] shadow-dark-3 transition duration-150 ease-in-out hover:shadow-dark-2 focus:shadow-dark-2 focus:outline-none focus:ring-0 active:shadow-dark-2 dark:shadow-black/30 dark:hover:shadow-dark-strong dark:focus:shadow-dark-strong dark:active:shadow-dark-strong"
@@ -177,21 +211,21 @@ const Register = () => {
                           </button>
                         </div>
 
-                        <div class="flex items-center justify-between pb-6">
-                          <p class="mb-0 me-2">Already have an account?</p>
-                            <button
-                              type="button"
-                              onClick={goToLogin}
-                              className="inline-block rounded border-2 px-6 pb-[6px] pt-2 text-xs font-medium uppercase leading-normal transition duration-150 ease-in-out hover:border-danger-600 hover:bg-danger-50/50 hover:text-danger-600 focus:border-danger-600 focus:bg-danger-50/50 focus:text-danger-600 focus:outline-none focus:ring-0 active:border-danger-700 active:text-danger-700 dark:hover:bg-rose-950 dark:focus:bg-rose-950"
-                              style={{
-                                borderColor: "#252D3B",
-                                color: "#252D3B",
-                              }}
-                              data-twe-ripple-init
-                              data-twe-ripple-color="light"
-                            >
-                              Login
-                            </button>
+                        <div className="flex items-center justify-between pb-6">
+                          <p className="mb-0 me-2">Already have an account?</p>
+                          <button
+                            type="button"
+                            onClick={goToLogin}
+                            className="inline-block rounded border-2 px-6 pb-[6px] pt-2 text-xs font-medium uppercase leading-normal transition duration-150 ease-in-out hover:border-danger-600 hover:bg-danger-50/50 hover:text-danger-600 focus:border-danger-600 focus:bg-danger-50/50 focus:text-danger-600 focus:outline-none focus:ring-0 active:border-danger-700 active:text-danger-700 dark:hover:bg-rose-950 dark:focus:bg-rose-950"
+                            style={{
+                              borderColor: "#252D3B",
+                              color: "#252D3B",
+                            }}
+                            data-twe-ripple-init
+                            data-twe-ripple-color="light"
+                          >
+                            Login
+                          </button>
                         </div>
                       </form>
                     </div>

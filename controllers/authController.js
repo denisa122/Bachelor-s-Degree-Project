@@ -22,6 +22,11 @@ const register = async (req, res) => {
     return res.status(400).json({ error: "Email is already taken!" });
   }
 
+  // Check privacy policy is accepted
+  if (!req.body.consentGiven) {
+    return res.status(400).json({ error: "Privacy policy must be accepted to create an account!" });
+  }
+
   // Hash password
   const salt = await bcrypt.genSalt(10);
   const hashedPassword = await bcrypt.hash(req.body.password, salt);
@@ -32,6 +37,7 @@ const register = async (req, res) => {
     lastName: req.body.lastName,
     email: req.body.email,
     password: hashedPassword,
+    privacyConsent: req.body.consentGiven,
   };
 
   try {

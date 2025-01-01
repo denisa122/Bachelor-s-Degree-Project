@@ -3,7 +3,6 @@ require("dotenv-flow").config();
 const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
-const { Pool } = require("pg");
 const fs = require("fs");
 
 const connectToMongoDB = require("./db/mongodb/setup");
@@ -29,7 +28,7 @@ app.use(cors(corsOptions));
 const seedDatabase = async () => {
   try {
     const seedSQL = fs.readFileSync("./db/postgresql/seed_data.sql", "utf8");
-    await pool.query(seedSQL);
+    await sequelize.query(seedSQL);
     console.log("Data seeded successfully");
   } catch (error) {
     console.error("Error seeding data", error);
@@ -38,8 +37,8 @@ const seedDatabase = async () => {
 
 const checkIfDataSeeded = async () => {
   try {
-    const res = await pool.query("SELECT COUNT(*) FROM questionnaires");
-    const count = parseInt(res.rows[0].count);
+    const res = await await sequelize.query("SELECT COUNT(*) FROM questionnaires");
+    const count = parseInt(res[0].count);
     return count > 0;
   } catch (error) {
     console.error("Error checking if data is seeded:", error);
