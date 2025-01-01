@@ -1,28 +1,17 @@
-require('dotenv').config(); // Load environment variables from .env file
+require("dotenv").config(); // Make sure .env is loaded
+const { Sequelize } = require("sequelize");
+
+const databaseUrl = process.env.POSTGRESQL_DB_URL;
 
 module.exports = {
   development: {
-    username: process.env.POSTGRESQL_DB_USER,
-    password: process.env.POSTGRESQL_DB_PASSWORD,
-    database: process.env.POSTGRESQL_DB_NAME,
-    host: process.env.POSTGRESQL_DB_HOST,
+    use_env_variable: "POSTGRESQL_DB_URL",
     dialect: "postgres",
-    port: process.env.POSTGRESQL_DB_PORT,
+    dialectOptions: {
+      ssl: {
+        require: true,
+        rejectUnauthorized: false,
+      },
+    },
   },
-  test: {
-    username: process.env.POSTGRESQL_DB_USER,
-    password: process.env.POSTGRESQL_DB_PASSWORD,
-    database: process.env.POSTGRESQL_DB_NAME,
-    host: process.env.POSTGRESQL_DB_HOST,
-    dialect: "postgres",
-    port: process.env.POSTGRESQL_DB_PORT,
-  },
-  production: {
-    username: process.env.POSTGRESQL_DB_USER,
-    password: process.env.POSTGRESQL_DB_PASSWORD,
-    database: process.env.POSTGRESQL_DB_NAME,
-    host: process.env.POSTGRESQL_DB_HOST,
-    dialect: "postgres",
-    port: process.env.POSTGRESQL_DB_PORT,
-  }
 };
