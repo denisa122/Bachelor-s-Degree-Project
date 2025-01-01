@@ -7,4 +7,8 @@ const {verifyToken} = require('../middlewares/tokenVerification');
 // /api/user/:id
 router.get('/:id', verifyToken, userController.getUser);
 
+// Delete user account
+// /api/user/:id
+router.delete('/:id', verifyToken, userController.deleteUser);
+
 module.exports = router;

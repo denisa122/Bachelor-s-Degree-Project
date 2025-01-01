@@ -1,10 +1,10 @@
-require("dotenv").config(); // Make sure .env is loaded
+require("dotenv").config(); 
 const { Sequelize } = require("sequelize");
 
 const databaseUrl = process.env.POSTGRESQL_DB_URL;
 
 module.exports = {
-  development: {
+  production: {
     use_env_variable: "POSTGRESQL_DB_URL",
     dialect: "postgres",
     dialectOptions: {

@@ -174,7 +174,7 @@ function App() {
               <p>Loading...</p>
             ) : (
               <PrivateRoute
-                element={<ProfileSettings />}
+                element={<ProfileSettings userID={userId} />}
                 isAuthenticated={isAuthenticated}
               />
             )

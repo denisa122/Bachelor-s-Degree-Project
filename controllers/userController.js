@@ -20,6 +20,29 @@ const getUser = async (req, res) => {
   }
 };
 
+const deleteUser = async (req, res) => {
+  const { id } = req.params;
+  console.log("Received DELETE request for userID:", id);
+
+  try {
+    const user = await User.findByPk(id);
+    console.log("User fetched from DB:", user);
+    if (!user) {
+      return res.status(404).json({ error: "User not found!" });
+    }
+
+    console.log("Deleting user:", user);
+    await user.destroy();
+    res.status(200).json({ message: "User account deleted successfully!" });
+
+    console.log("User deleted successfully:", id);
+  } catch (error) {
+    console.error("Error deleting user:", error);
+    res.status(500).json({ error: "Something went wrong!" });
+  }
+};
+
 module.exports = {
   getUser,
+  deleteUser,
 };
