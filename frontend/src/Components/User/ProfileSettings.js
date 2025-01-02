@@ -36,28 +36,25 @@ const ProfileSettings = ({ userID }) => {
       setSuccessMessage(response.data.message);
       localStorage.clear();
       setTimeout(() => {
-        window.location.href = "/login";
-      }, 3000);
+        window.location.href = "/";
+      }, 1000);
     } catch (error) {
       console.error("Error deleting account:", error);
       setError(error.response?.data?.error || "Something went wrong.");
-    } 
+    }
   };
 
   return (
     <div className="flex flex-row">
       <Navigation />
       <div className="profileSettingsPage">
-        <div>
-          <h2>Delete Account</h2>
-          <p>
+        <div className="deleteAccountSection">
+          <h2 className="sectionTitle">Delete Account</h2>
+          <p className="sectionText">
             Deleting your account is permanent and cannot be undone. All your
             data will be removed.
           </p>
-          <button
-            className="deleteAccountButton"
-            onClick={handleDeleteAccount}
-          >
+          <button className="deleteAccountButton" onClick={handleDeleteAccount}>
             Delete Account
           </button>
           {error && <p className="error">{error}</p>}

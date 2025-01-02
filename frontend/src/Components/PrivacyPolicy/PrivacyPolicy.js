@@ -9,7 +9,7 @@ const PrivacyPolicy = () => {
       <div>
         <ul>
           <li>
-            <b>Data We Collect</b> <br></br> First name, email address, goals,
+            <b>Data We Collect</b> <br></br> First name, last name, email address, daily goals,
             journal entries.
           </li>
           <li>
