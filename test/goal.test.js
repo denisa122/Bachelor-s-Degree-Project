@@ -6,7 +6,6 @@ chai.use(chaiHttp);
 const server = require("../server");
 const jwt = require("jsonwebtoken");
 
-let goalID;
 
 describe("Goal Tests", () => {
   describe("Add daily goal and get today's goals workflow test", () => {

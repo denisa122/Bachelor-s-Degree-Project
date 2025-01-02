@@ -75,7 +75,6 @@ const MoodTracker = ({ userID }) => {
       }
     };
 
-    // Check submission status for each time of day
     checkSubmissionStatus("Morning");
     checkSubmissionStatus("Midday");
     checkSubmissionStatus("Evening");

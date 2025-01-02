@@ -1,3 +1,5 @@
+// Currently not used 
+
 import React from 'react';
 
 import './Footer.css';

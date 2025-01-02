@@ -20,9 +20,9 @@ import "./Insights.css";
 // Icons & images
 import Logo from "../../assets/logo.png";
 import InsightsImage from "../../assets/insights.png";
-import Filter from "../../assets/filter-icon.svg";
-import PatternsIcon from "../../assets/insights-icon-small.svg";
-import Emoji from "../../assets/emoji.svg";
+// import Filter from "../../assets/filter-icon.svg";
+// import PatternsIcon from "../../assets/insights-icon-small.svg";
+// import Emoji from "../../assets/emoji.svg";
 
 import Navigation from "../Navigation/Navigation";
 

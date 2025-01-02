@@ -4,7 +4,7 @@
     padding-bottom: 0px !important;
     margin: 50px auto;
     max-width: 800px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
     border-radius: 15px;
     border: 2px solid #dcdcdc;
     background-color: #dfd0e0;

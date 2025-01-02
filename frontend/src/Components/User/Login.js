@@ -1,6 +1,6 @@
 import React from "react";
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 import "./authentication.css";
@@ -140,19 +140,19 @@ const Login = ({ setIsAuthenticated }) => {
 
                       <div class="flex items-center justify-between pb-6">
                         <p class="mb-0 me-2">Don't have an account?</p>
-                          <button
-                            type="button"
-                            onClick={goToRegister}
-                            className="inline-block rounded border-2 px-6 pb-[6px] pt-2 text-xs font-medium uppercase leading-normal transition duration-150 ease-in-out hover:border-danger-600 hover:bg-danger-50/50 hover:text-danger-600 focus:border-danger-600 focus:bg-danger-50/50 focus:text-danger-600 focus:outline-none focus:ring-0 active:border-danger-700 active:text-danger-700 dark:hover:bg-rose-950 dark:focus:bg-rose-950"
-                            style={{
-                              borderColor: "#252D3B",
-                              color: "#252D3B",
-                            }}
-                            data-twe-ripple-init
-                            data-twe-ripple-color="light"
-                          >
-                            Register
-                          </button>
+                        <button
+                          type="button"
+                          onClick={goToRegister}
+                          className="inline-block rounded border-2 px-6 pb-[6px] pt-2 text-xs font-medium uppercase leading-normal transition duration-150 ease-in-out hover:border-danger-600 hover:bg-danger-50/50 hover:text-danger-600 focus:border-danger-600 focus:bg-danger-50/50 focus:text-danger-600 focus:outline-none focus:ring-0 active:border-danger-700 active:text-danger-700 dark:hover:bg-rose-950 dark:focus:bg-rose-950"
+                          style={{
+                            borderColor: "#252D3B",
+                            color: "#252D3B",
+                          }}
+                          data-twe-ripple-init
+                          data-twe-ripple-color="light"
+                        >
+                          Register
+                        </button>
                       </div>
                     </form>
                   </div>

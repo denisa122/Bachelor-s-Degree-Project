@@ -1,5 +1,4 @@
 import React from "react";
-import { useState, useEffect } from "react";
 import { useNavigate, NavLink } from "react-router-dom";
 import axios from "axios";
 
@@ -56,8 +55,16 @@ const Navigation = () => {
         activeClass="active"
         className="listItem"
       >
-        <img src={ActiveJournal} alt="quill icon" className="hidden activeNavbarIcon ml-1 !mr-1"></img>
-        <img src={Journal} alt="quill icon" className="navbarIcon ml-1 !mr-1"></img>
+        <img
+          src={ActiveJournal}
+          alt="quill icon"
+          className="hidden activeNavbarIcon ml-1 !mr-1"
+        ></img>
+        <img
+          src={Journal}
+          alt="quill icon"
+          className="navbarIcon ml-1 !mr-1"
+        ></img>
         Journal
       </NavLink>
 
@@ -67,8 +74,16 @@ const Navigation = () => {
         activeClass="active"
         className="listItem"
       >
-        <img src={ActiveMoodTracker} alt="mood tracker icon" className="hidden activeNavbarIcon"></img>
-        <img src={MoodTracker} alt="mood tracker icon" className="navbarIcon"></img>
+        <img
+          src={ActiveMoodTracker}
+          alt="mood tracker icon"
+          className="hidden activeNavbarIcon"
+        ></img>
+        <img
+          src={MoodTracker}
+          alt="mood tracker icon"
+          className="navbarIcon"
+        ></img>
         Mood Tracker
       </NavLink>
 
@@ -78,7 +93,11 @@ const Navigation = () => {
         activeClass="active"
         className="listItem"
       >
-        <img src={ActiveInsights} alt="lightbulb icon" className="hidden activeNavbarIcon"></img>
+        <img
+          src={ActiveInsights}
+          alt="lightbulb icon"
+          className="hidden activeNavbarIcon"
+        ></img>
         <img src={Insights} alt="lightbulb icon" className="navbarIcon"></img>
         Insights
       </NavLink>
@@ -89,8 +108,16 @@ const Navigation = () => {
         activeClass="active"
         className="listItem"
       >
-        <img src={ActiveInsights} alt="profile settings icon" className="hidden activeNavbarIcon ml-1 !mr-1"></img>
-        <img src={ProfileSettings} alt="profile settings icon" className="navbarIcon ml-1 !mr-1"></img>
+        <img
+          src={ActiveProfileSettings}
+          alt="profile settings icon"
+          className="hidden activeNavbarIcon ml-1 !mr-1"
+        ></img>
+        <img
+          src={ProfileSettings}
+          alt="profile settings icon"
+          className="navbarIcon ml-1 !mr-1"
+        ></img>
         Profile Settings
       </NavLink>
       <a className="listItem fixed bottom-0 !mb-12">

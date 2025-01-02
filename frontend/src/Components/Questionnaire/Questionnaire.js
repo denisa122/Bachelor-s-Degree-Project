@@ -100,9 +100,10 @@ const Questionnaire = ({ userID }) => {
       </button>
       <div className="questionnaireContent">
         <h1>{questionnaire?.title}</h1>
-        <p className="!text-center mb-8 !italic">{questionnaire?.description}</p>
+        <p className="!text-center mb-8 !italic">
+          {questionnaire?.description}
+        </p>
 
-        {/* Check if Questions exist and map over them */}
         {questionnaire?.Questions && questionnaire.Questions.length > 0 ? (
           questionnaire.Questions.map((question) => (
             <div key={question.questionID}>

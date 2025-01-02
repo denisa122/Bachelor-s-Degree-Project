@@ -46,7 +46,7 @@ const stressQuestions = ["If you’re feeling stressed, what’s the cause?"];
 
 // Multiple choice -> score based on predefined choices
 function scoreMultipleChoice(question, response) {
-  if (!response) return 0; 
+  if (!response) return 0;
 
   const scoring = {
     "How do you feel about the day ahead?": {
@@ -79,7 +79,7 @@ function scoreMultipleChoice(question, response) {
     },
   };
 
-  return scoring[question]?.[response] || 0; 
+  return scoring[question]?.[response] || 0;
 }
 
 // Scale questions -> score based on numeric answer

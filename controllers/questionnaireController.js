@@ -5,7 +5,7 @@ const MoodResponse = require("../db/postgresql/models/moodResponse");
 const QuestionnaireSubmission = require("../db/postgresql/models/questionnaireSubmission");
 
 const { date } = require("joi");
-const {Op} = require("sequelize");
+const { Op } = require("sequelize");
 const scoringLogic = require("../services/scoringLogic");
 
 const getQuestionnaires = async (req, res) => {

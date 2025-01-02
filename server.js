@@ -37,7 +37,9 @@ const seedDatabase = async () => {
 
 const checkIfDataSeeded = async () => {
   try {
-    const res = await await sequelize.query("SELECT COUNT(*) FROM questionnaires");
+    const res = await await sequelize.query(
+      "SELECT COUNT(*) FROM questionnaires"
+    );
     const count = parseInt(res[0].count);
     return count > 0;
   } catch (error) {

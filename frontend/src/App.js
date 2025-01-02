@@ -3,8 +3,6 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-import "./App.css";
-
 import PrivacyPolicy from "./Components/PrivacyPolicy/PrivacyPolicy";
 
 import PrivateRoute from "./Components/PrivateRoute";

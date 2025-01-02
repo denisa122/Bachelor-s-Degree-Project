@@ -15,9 +15,9 @@ import InsightsIcon from "../../assets/hp-insights-icon.svg";
 import InsightsImg from "../../assets/hp-insights-img.png";
 import MagnifyingGlass from "../../assets/magnifying-glass-icon.svg";
 import Notifications from "../../assets/notifications-icon.svg";
-import Quote from "../../assets/quote-icon.svg";
-import Meditate from "../../assets/meditate-icon.svg";
-import DailyReminder from "../../assets/dailyReminder.png";
+// import Quote from "../../assets/quote-icon.svg";
+// import Meditate from "../../assets/meditate-icon.svg";
+// import DailyReminder from "../../assets/dailyReminder.png";
 
 import Navigation from "../Navigation/Navigation";
 import NotificationCard from "./NotificationCard";

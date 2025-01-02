@@ -24,14 +24,15 @@ const register = async (req, res) => {
 
   // Check privacy policy is accepted
   if (!req.body.consentGiven) {
-    return res.status(400).json({ error: "Privacy policy must be accepted to create an account!" });
+    return res
+      .status(400)
+      .json({ error: "Privacy policy must be accepted to create an account!" });
   }
 
   // Hash password
   const salt = await bcrypt.genSalt(10);
   const hashedPassword = await bcrypt.hash(req.body.password, salt);
 
-  // Create user object and save it in the database
   const userObject = {
     firstName: req.body.firstName,
     lastName: req.body.lastName,

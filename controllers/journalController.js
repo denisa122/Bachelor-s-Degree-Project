@@ -7,13 +7,6 @@ const { Op } = require("sequelize");
 const Sentiment = require("sentiment");
 const sentiment = new Sentiment();
 
-// sentiment.addDictionary({
-//   routine: 0,
-//   typical: 0,
-//   normal: 0,
-//   standard: 0,
-// });
-
 const getWordCount = (content) => {
   return content.split(/\s+/).length;
 };

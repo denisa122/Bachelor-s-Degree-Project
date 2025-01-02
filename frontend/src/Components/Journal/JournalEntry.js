@@ -16,8 +16,6 @@ const JournalEntry = ({ date, entry, sentimentScore }) => {
       ? "Negative 😔"
       : "Neutral 😐";
 
-      console.log("Sentiment score front end: ", sentimentScore);
-
   return (
     <div className="journalEntry">
       <div className="flex flex-row items-baseline justify-between">

@@ -133,7 +133,6 @@ const JournalEditor = ({ userID }) => {
           />
         </div>
 
-        {/* Save Button */}
         <button className="saveEntryButton" onClick={saveJournalEntry}>
           Save Entry
         </button>

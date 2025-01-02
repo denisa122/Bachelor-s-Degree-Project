@@ -79,7 +79,6 @@ const getMostUsedSentimentsLast7Days = async (req, res) => {
   const { userID } = req.params;
 
   try {
-    // Get journal entries from the last 7 days
     const date7DaysAgo = new Date();
     date7DaysAgo.setDate(date7DaysAgo.getDate() - 7);
 
