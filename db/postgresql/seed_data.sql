@@ -17,6 +17,8 @@ WHERE NOT EXISTS (
     SELECT 1 FROM questionnaires WHERE title = 'Evening Questionnaire'
 );
 
+DELETE FROM questions;
+
 INSERT INTO questions ("questionnaireID", text, type, options) VALUES
 ((SELECT "questionnaireID" FROM questionnaires WHERE title = 'Morning Questionnaire'), 'How do you feel about the day ahead?', 'Multiple Choice', '["Excited", "Anxious", "Neutral"]'),
 ((SELECT "questionnaireID" FROM questionnaires WHERE title = 'Morning Questionnaire'), 'Did you sleep well last night?', 'Multiple Choice', '["Yes", "No"]'),
@@ -50,3 +52,27 @@ INSERT INTO questions ("questionnaireID", text, type, options) VALUES
 ((SELECT "questionnaireID" FROM questionnaires WHERE title = 'Evening Questionnaire'), 'What’s one thing you’d like to improve tomorrow? ', 'Text', NULL),
 ((SELECT "questionnaireID" FROM questionnaires WHERE title = 'Evening Questionnaire'), 'Did you learn something new, about yourself or something else, today?', 'Text', NULL),
 ((SELECT "questionnaireID" FROM questionnaires WHERE title = 'Evening Questionnaire'), 'What’s one thing you’re looking forward to tomorrow?', 'Text', NULL);
+
+INSERT INTO mood_entries (userID, "timeOfDay", moodScore, energyLevel, stressLevel, date)
+VALUES
+(9, 'Morning', 8, 7, 2, '2025-01-01'),
+(9, 'Midday', 6, 5, 3, '2025-01-01'),
+(9, 'Evening', 7, 6, 1, '2025-01-01'),
+(9, 'Morning', 5, 4, 6, '2025-01-02'),
+(9, 'Midday', 7, 5, -2, '2025-01-02'),
+(9, 'Evening', 6, 5, 3, '2025-01-02'),
+(9, 'Morning', 6, 6, 4, '2025-01-03'),
+(9, 'Midday', 8, 7, -1, '2025-01-03'),
+(9, 'Evening', 5, 4, -5, '2025-01-03'),
+(9, 'Morning', 7, 8, 2, '2025-01-04'),
+(9, 'Midday', 5, 6, 4, '2025-01-04'),
+(9, 'Evening', 6, 5, 3, '2025-01-04'),
+(9, 'Morning', 4, -3, 7, '2025-01-05'),
+(9, 'Midday', 6, -5, 5, '2025-01-05'),
+(9, 'Evening', 8, -7, 2, '2025-01-05'),
+(9, 'Morning', 7, 8, 3, '2025-01-06'),
+(9, 'Midday', 6, 5, 4, '2025-01-06'),
+(9, 'Evening', 5, 4, 6, '2025-01-06'),
+(9, 'Morning', 8, 7, 1, '2025-01-07'),
+(9, 'Midday', 7, 6, 2, '2025-01-07'),
+(9, 'Evening', 6, 5, 3, '2025-01-07');
