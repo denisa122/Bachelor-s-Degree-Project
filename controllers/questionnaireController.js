@@ -71,7 +71,7 @@ const submitQuestionnaire = async (req, res) => {
       scoringLogic.calculateScores(responses);
     console.log("Scores calculated: ", moodScore, energyLevel, stressLevel);
 
-    await QuestionnaireSubmission.create({
+   const newSubmission = await QuestionnaireSubmission.create({
       userID,
       questionnaireID,
       timeOfDay,

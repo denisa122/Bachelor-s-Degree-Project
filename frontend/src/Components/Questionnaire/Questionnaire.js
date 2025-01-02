@@ -32,7 +32,7 @@ const Questionnaire = ({ userID }) => {
         setQuestionnaire(response.data);
 
         const submissionResponse = await axios.get(
-          `${process.env.REACT_APP_API_BASE_URL}/api/questionnaires/submission/check/${userID}/${timeOfDay}`,
+          `${process.env.REACT_APP_API_BASE_URL}/api/questionnaires/check/${userID}/${timeOfDay}`,
           {
             headers: {
               "auth-token": token,
