@@ -70,6 +70,7 @@ const Questionnaire = ({ userID }) => {
         answer: responses[key],
       })),
     };
+    console.log("Submitting questionnaire with payload:", payload);
 
     const token = localStorage.getItem("token");
 

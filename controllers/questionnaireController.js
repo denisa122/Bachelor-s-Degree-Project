@@ -28,6 +28,7 @@ const checkIfSubmitted = async (req, res) => {
 
     const today = new Date();
     today.setHours(0, 0, 0, 0);
+    console.log("Checking submission for today: ", today);
 
     const submission = await QuestionnaireSubmission.findOne({
       where: {
@@ -40,11 +41,13 @@ const checkIfSubmitted = async (req, res) => {
     });
 
     if (submission) {
+      console.log("Already submitted: ", submission);
       return res.status(200).json({ submitted: true });
     }
 
     return res.status(200).json({ submitted: false });
   } catch (error) {
+    console.error("Error checking submission: ", error.message);
     res.status(500).json({ message: error.message });
   }
 };
@@ -52,6 +55,7 @@ const checkIfSubmitted = async (req, res) => {
 const submitQuestionnaire = async (req, res) => {
   try {
     const { userID, questionnaireID, timeOfDay, responses } = req.body;
+    console.log("Received payload:", req.body);
 
     const existingSubmission = await QuestionnaireSubmission.findOne({
       where: {
@@ -60,6 +64,23 @@ const submitQuestionnaire = async (req, res) => {
         timeOfDay,
       },
     });
+
+    if (
+      !userID ||
+      !questionnaireID ||
+      !timeOfDay ||
+      !responses ||
+      !responses.length
+    ) {
+      console.log("Validation failed: ", {
+        userID,
+        questionnaireID,
+        timeOfDay,
+        responses,
+      });
+      return res.status(400).json({ message: "Invalid payload" });
+    }
+    console.log("Validated payload:", req.body);
 
     if (existingSubmission) {
       return res
@@ -71,7 +92,7 @@ const submitQuestionnaire = async (req, res) => {
       scoringLogic.calculateScores(responses);
     console.log("Scores calculated: ", moodScore, energyLevel, stressLevel);
 
-   const newSubmission = await QuestionnaireSubmission.create({
+    const newSubmission = await QuestionnaireSubmission.create({
       userID,
       questionnaireID,
       timeOfDay,
