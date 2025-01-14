@@ -50,3 +50,13 @@
 .listItem.active .activeNavbarIcon {
     display: inline-block;
 }
+
+.navGuest {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.navGuest .active {
+    color: #5A77AC;
+}

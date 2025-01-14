@@ -20,7 +20,7 @@ import Insights from "./Components/Insights/Insights";
 import ProfileSettings from "./Components/User/ProfileSettings";
 import Questionnaire from "./Components/Questionnaire/Questionnaire";
 
-import { Input, Ripple, initTWE } from "tw-elements";
+import { Input, Ripple, Collapse, initTWE } from "tw-elements";
 
 function App() {
   const [userId, setUserId] = useState(null);
@@ -28,7 +28,7 @@ function App() {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    initTWE({ Input, Ripple });
+    initTWE({ Input, Ripple, Collapse });
   }, []);
 
   useEffect(() => {

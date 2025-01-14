@@ -1,0 +1,153 @@
+.headerSection {
+    background: linear-gradient(to right, #FFCAD4 0%, #CBC0D3 50%, #D8E2DC 100%);
+    color: #38445A;
+    padding: 40px 40px 100px; 
+    text-align: center; 
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    height: 80vh;
+}
+
+.headerSection > div {
+    flex: 1;
+}
+
+.custom-shape-divider-bottom-1736776159 {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+    line-height: 0;
+    transform: rotate(180deg);
+}
+
+.custom-shape-divider-bottom-1736776159 svg {
+    position: relative;
+    display: block;
+    width: calc(100% + 1.3px);
+    height: 95px;
+    transform: rotateY(180deg);
+}
+
+.custom-shape-divider-bottom-1736776159 .shape-fill {
+    fill: #FFFFFF;
+}
+
+.heroImg {
+    height: 800px;
+    object-fit: cover;
+}
+
+.headerTitle {
+    font-size: 40px;
+    margin-bottom: 12px;
+}
+
+.headerSubtitle {
+    font-size: 16px;
+    margin-bottom: 32px;
+}
+
+.inputHeader {
+    margin-right: 20px;
+    padding: 5px;
+    width: 250px;
+    border-radius: 4px;
+    border: 1px solid #38445A;
+}
+
+.buttonHeader {
+    color: #ffe5d9;
+    background-color: #5A77AC;
+    border-radius: 4px;
+    padding: 7px 10px;
+}
+
+.featuresSection {
+    padding: 0px 40px;
+    margin-bottom: 80px;
+}
+
+.feature {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 100px;
+}
+
+.featuresSectionHeader {
+    max-width: 640px;
+}
+
+.featureImg {
+    height: 350px;
+}
+
+.shareSection {
+    background-color: #5A77AC; /** or #CBC0D3; */
+    color: #ffe5d9; /** or nothing if other bg */
+    padding: 80px 0px;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+}
+
+.buttonGetStarted {
+    border: 2px solid #ffe5d9;
+    margin-top: 40px;
+}
+
+.reviewsSection {
+    padding: 80px 40px;
+    text-align: center;
+}
+
+.flex-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    text-align: left;
+}
+
+.firstRow, .secondRow, .thirdRow {
+    flex: 1;
+    padding: 20px;
+}
+
+.profileIcon {
+    margin-right: 16px;
+}
+
+.reviewName {
+    font-size: 18px;
+    font-weight: 500;
+    margin-bottom: 1px;
+}
+
+@media screen and (min-width: 1024px) {
+    .inputHeader {
+        width: 275px;
+    }
+    
+    .featuresSection {
+        padding: 0px 260px;
+    }
+
+    .featuresDescription {
+        max-width: 640px;
+    }
+
+    .reviewsSection {
+        padding: 80px 260px;
+    }
+
+    .flex-container {
+        flex-direction: row;
+    }
+}
+  
