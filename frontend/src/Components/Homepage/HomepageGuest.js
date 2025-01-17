@@ -14,7 +14,7 @@ import Avatar5 from "../../assets/avatar5.png";
 import Stars from "../../assets/stars.png";
 
 
-import HeroImg from "../../assets/hero-img.png";
+import HeroImg from "../../assets/hero-img2.png";
 import JournalEntry from "../../assets/journal-entry-with-text.png";
 import MoodTrendsGraph from "../../assets/mood-trends-graph.png";
 import SentimentAnalysisPieChart from "../../assets/sentiment-alaysis-pie-chart.png";
