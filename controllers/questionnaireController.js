@@ -24,15 +24,23 @@ const getQuestionnaires = async (req, res) => {
 
 const checkIfSubmitted = async (req, res) => {
   try {
-    const { userID, questionnaireID } = req.params;
+    const { userID, timeOfDay } = req.params;
 
     const today = new Date();
     today.setHours(0, 0, 0, 0);
 
+    const questionnaire = await Questionnaire.findOne({
+      where: { timeOfDay },
+    });
+
+    if (!questionnaire) {
+      return res.status(404).json({ message: "Questionnaire not found for specific time of day" });
+    }
+
     const submission = await QuestionnaireSubmission.findOne({
       where: {
         userID,
-        questionnaireID,
+        questionnaireID: questionnaire.questionnaireID,
         createdAt: {
           [Op.gte]: today,
         },
