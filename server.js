@@ -17,6 +17,7 @@ const { start } = require("repl");
 // Initialize Express
 const app = express();
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 const corsOptions = {
   origin: "*",
@@ -75,8 +76,6 @@ const startServer = async () => {
   }
 };
 
-startServer();
-
 // Routes
 const authRoutes = require("./routes/auth");
 const userRoutes = require("./routes/user");
@@ -91,5 +90,7 @@ app.use("/api/journal", journalRoutes);
 app.use("/api/questionnaires", questionnaireRoutes);
 app.use("/api/goals", goalRoutes);
 app.use("/api/insights", insightsRoutes);
+
+startServer();
 
 module.exports = app;

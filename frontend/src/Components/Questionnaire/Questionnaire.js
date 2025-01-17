@@ -66,11 +66,11 @@ const Questionnaire = ({ userID }) => {
       questionnaireID: questionnaire?.questionnaireID,
       timeOfDay: timeOfDay,
       responses: Object.keys(responses).map((key) => ({
-        questionID: key,
-        answer: responses[key],
+        questionID: parseInt(key, 10),
+        answer: responses[key]?.trim?.() || responses[key],
       })),
     };
-    console.log("Submitting questionnaire with payload:", payload);
+    console.log("Payload being sent to backend:", payload);
 
     const token = localStorage.getItem("token");
 

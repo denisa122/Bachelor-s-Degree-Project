@@ -24,16 +24,15 @@ const getQuestionnaires = async (req, res) => {
 
 const checkIfSubmitted = async (req, res) => {
   try {
-    const { userID, timeOfDay } = req.params;
+    const { userID, questionnaireID } = req.params;
 
     const today = new Date();
     today.setHours(0, 0, 0, 0);
-    console.log("Checking submission for today: ", today);
 
     const submission = await QuestionnaireSubmission.findOne({
       where: {
         userID,
-        timeOfDay,
+        questionnaireID,
         createdAt: {
           [Op.gte]: today,
         },
@@ -53,39 +52,51 @@ const checkIfSubmitted = async (req, res) => {
 };
 
 const submitQuestionnaire = async (req, res) => {
+  console.log("Payload received at /submit:", req.body);
   try {
     const { userID, questionnaireID, timeOfDay, responses } = req.body;
-    console.log("Received payload:", req.body);
+
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
 
     const existingSubmission = await QuestionnaireSubmission.findOne({
       where: {
         userID,
         questionnaireID,
-        timeOfDay,
+        createdAt: {
+          [Op.gte]: today,
+        },
       },
     });
-
-    if (
-      !userID ||
-      !questionnaireID ||
-      !timeOfDay ||
-      !responses ||
-      !responses.length
-    ) {
-      console.log("Validation failed: ", {
-        userID,
-        questionnaireID,
-        timeOfDay,
-        responses,
-      });
-      return res.status(400).json({ message: "Invalid payload" });
-    }
-    console.log("Validated payload:", req.body);
 
     if (existingSubmission) {
       return res
         .status(400)
         .json({ message: "You have already completed this questionnaire." });
+    }
+
+    if (
+      !userID ||
+      !questionnaireID ||
+      !timeOfDay ||
+      !Array.isArray(responses) ||
+      responses.some(
+        (response) =>
+          typeof response.questionID !== "number" || response.answer == null
+      )
+    ) {
+      console.log("Validation Debug:", {
+        userID,
+        questionnaireID,
+        timeOfDay,
+        responses,
+        invalidResponses: responses.filter(
+          (response) =>
+            typeof response.questionID !== "number" || response.answer == null
+        ),
+      });
+
+      return res.status(400).json({ message: "Invalid payload" });
     }
 
     const { moodScore, energyLevel, stressLevel } =
@@ -121,6 +132,7 @@ const submitQuestionnaire = async (req, res) => {
 
     res.status(201).json({ message: "Questionnaire submitted successfully" });
   } catch (error) {
+    console.error("Error in submitQuestionnaire:", error);
     res.status(500).json({ message: error.message });
   }
 };
