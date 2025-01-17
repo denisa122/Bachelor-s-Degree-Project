@@ -34,7 +34,9 @@ const checkIfSubmitted = async (req, res) => {
     });
 
     if (!questionnaire) {
-      return res.status(404).json({ message: "Questionnaire not found for specific time of day" });
+      return res
+        .status(404)
+        .json({ message: "Questionnaire not found for specific time of day" });
     }
 
     const submission = await QuestionnaireSubmission.findOne({
@@ -60,7 +62,6 @@ const checkIfSubmitted = async (req, res) => {
 };
 
 const submitQuestionnaire = async (req, res) => {
-  console.log("Payload received at /submit:", req.body);
   try {
     const { userID, questionnaireID, timeOfDay, responses } = req.body;
 
@@ -107,6 +108,7 @@ const submitQuestionnaire = async (req, res) => {
       return res.status(400).json({ message: "Invalid payload" });
     }
 
+    console.log("Responses received: ", responses);
     const { moodScore, energyLevel, stressLevel } =
       scoringLogic.calculateScores(responses);
     console.log("Scores calculated: ", moodScore, energyLevel, stressLevel);

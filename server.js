@@ -62,7 +62,10 @@ const startServer = async () => {
     }
 
     // Sync the Sequelize models with the database
-    await sequelize.sync({ force: process.env.NODE_ENV === "test" });
+    await sequelize.sync({
+      force: process.env.NODE_ENV === "test",
+      alter: process.env.NODE_ENV !== "test",
+    });
     console.log("All Sequelize models were synchronized successfully.");
 
     const PORT = process.env.PORT || 5000;

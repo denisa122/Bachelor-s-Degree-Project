@@ -17,8 +17,6 @@ WHERE NOT EXISTS (
     SELECT 1 FROM questionnaires WHERE title = 'Evening Questionnaire'
 );
 
-DELETE FROM questions;
-
 INSERT INTO questions ("questionnaireID", text, type, options) VALUES
 ((SELECT "questionnaireID" FROM questionnaires WHERE title = 'Morning Questionnaire'), 'How do you feel about the day ahead?', 'Multiple Choice', '["Excited", "Anxious", "Neutral"]'),
 ((SELECT "questionnaireID" FROM questionnaires WHERE title = 'Morning Questionnaire'), 'Did you sleep well last night?', 'Multiple Choice', '["Yes", "No"]'),
@@ -51,11 +49,13 @@ INSERT INTO questions ("questionnaireID", text, type, options) VALUES
 ((SELECT "questionnaireID" FROM questionnaires WHERE title = 'Evening Questionnaire'), 'What’s one thing you’re proud of after today?', 'Text', NULL),
 ((SELECT "questionnaireID" FROM questionnaires WHERE title = 'Evening Questionnaire'), 'What’s one thing you’d like to improve tomorrow? ', 'Text', NULL),
 ((SELECT "questionnaireID" FROM questionnaires WHERE title = 'Evening Questionnaire'), 'Did you learn something new, about yourself or something else, today?', 'Text', NULL),
-((SELECT "questionnaireID" FROM questionnaires WHERE title = 'Evening Questionnaire'), 'What’s one thing you’re looking forward to tomorrow?', 'Text', NULL);
+((SELECT "questionnaireID" FROM questionnaires WHERE title = 'Evening Questionnaire'), 'What’s one thing you’re looking forward to tomorrow?', 'Text', NULL),
+ON CONFLICT (text) DO NOTHING;
 
 INSERT INTO mood_entries (date, "timeOfDay", "moodScore", "energyLevel", "stressLevel", "userID")
-VALUES
--- Day 1 (7 days ago)
+SELECT * FROM (
+    VALUES
+    -- Day 1 (7 days ago)
 (CURRENT_DATE - INTERVAL '7 days' + TIME '08:00:00', 'Morning', 8, 7, 2, 9),
 (CURRENT_DATE - INTERVAL '7 days' + TIME '12:00:00', 'Midday', 6, 5, 3, 9),
 (CURRENT_DATE - INTERVAL '7 days' + TIME '20:00:00', 'Evening', 7, 6, 1, 9),
@@ -88,5 +88,14 @@ VALUES
 -- Day 7 (1 day ago)
 (CURRENT_DATE - INTERVAL '1 days' + TIME '08:00:00', 'Morning', 8, 7, 1, 9),
 (CURRENT_DATE - INTERVAL '1 days' + TIME '12:00:00', 'Midday', 7, 6, 2, 9),
-(CURRENT_DATE - INTERVAL '1 days' + TIME '20:00:00', 'Evening', 6, 5, 3, 9);
+(CURRENT_DATE - INTERVAL '1 days' + TIME '20:00:00', 'Evening', 6, 5, 3, 9),
+) AS new_data(date, "timeOfDay", "moodScore", "energyLevel", "stressLevel", "userID")
+WHERE NOT EXISTS (
+    SELECT 1 FROM mood_entries 
+    WHERE mood_entries.date = new_data.date
+    AND mood_entries."timeOfDay" = new_data."timeOfDay"
+    AND mood_entries."moodScore" = new_data."moodScore"
+);
+
+
 

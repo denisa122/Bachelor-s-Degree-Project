@@ -22,7 +22,10 @@ const connectToPostgreSQLDB = async () => {
     console.log("Successfully connected to PostgreSQL!");
 
     // Sync models to the database
-    await sequelize.sync({ force: process.env.NODE_ENV === "test" });
+    await sequelize.sync({
+      force: process.env.NODE_ENV === "test",
+      alter: process.env.NODE_ENV !== "test",
+    });
     console.log("All sequelize models were synchronized successfully.");
   } catch (error) {
     console.error("Error connecting to PostgreSQL:", error);
