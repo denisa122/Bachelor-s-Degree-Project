@@ -108,7 +108,7 @@ const submitQuestionnaire = async (req, res) => {
       return res.status(400).json({ message: "Invalid payload" });
     }
 
-    console.log("Responses received: ", responses);
+    console.log("Input to calculateScores: ", responses);
     const { moodScore, energyLevel, stressLevel } =
       scoringLogic.calculateScores(responses);
     console.log("Scores calculated: ", moodScore, energyLevel, stressLevel);

@@ -50,9 +50,11 @@ const Questionnaire = ({ userID }) => {
   }, [timeOfDay, userID]);
 
   const handleAnswerChange = (questionId, answer) => {
+    const capitalizedAnswer = answer.charAt(0).toUpperCase() + answer.slice(1);
+
     setResponses({
       ...responses,
-      [questionId]: answer,
+      [questionId]: capitalizedAnswer,
     });
   };
 
