@@ -71,16 +71,12 @@ function App() {
         <Route path="privacy-policy" element={<PrivacyPolicy />} />
         <Route path="/register" element={<Register />} />
 
-        {/* TEMPORARY until I implement homepage for guests
-         Change back to /login after */}
         <Route
-          path="/"
+          path="/login"
           element={<Login setIsAuthenticated={setIsAuthenticated} />}
         />
 
-        {/* TEMPORARY until I implement this page
-         Change back to / after */}
-        <Route path="/guest" element={<HomepageGuest />} />
+        <Route path="/" element={<HomepageGuest />} />
 
         <Route
           path="/home"
