@@ -43,7 +43,17 @@ const register = async (req, res) => {
 
   try {
     const savedUser = await User.create(userObject);
-    res.json({ error: null, data: savedUser });
+
+    const userWithoutPassword = {
+      userID: savedUser.userID,
+      firstName: savedUser.firstName,
+      lastName: savedUser.lastName,
+      email: savedUser.email,
+      privacyConsent: savedUser.privacyConsent,
+      dateJoined: savedUser.dateJoined,
+    };
+
+    res.json({ error: null, data: {userWithoutPassword} });
   } catch (error) {
     res.status(400).json({ error });
   }
