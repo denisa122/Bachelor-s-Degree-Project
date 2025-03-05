@@ -49,52 +49,58 @@ INSERT INTO questions ("questionnaireID", text, type, options) VALUES
 ((SELECT "questionnaireID" FROM questionnaires WHERE title = 'Evening Questionnaire'), 'What’s one thing you’re proud of after today?', 'Text', NULL),
 ((SELECT "questionnaireID" FROM questionnaires WHERE title = 'Evening Questionnaire'), 'What’s one thing you’d like to improve tomorrow? ', 'Text', NULL),
 ((SELECT "questionnaireID" FROM questionnaires WHERE title = 'Evening Questionnaire'), 'Did you learn something new, about yourself or something else, today?', 'Text', NULL),
-((SELECT "questionnaireID" FROM questionnaires WHERE title = 'Evening Questionnaire'), 'What’s one thing you’re looking forward to tomorrow?', 'Text', NULL),
-ON CONFLICT (text) DO NOTHING;
+((SELECT "questionnaireID" FROM questionnaires WHERE title = 'Evening Questionnaire'), 'What’s one thing you’re looking forward to tomorrow?', 'Text', NULL);
 
 INSERT INTO mood_entries (date, "timeOfDay", "moodScore", "energyLevel", "stressLevel", "userID")
-SELECT * FROM (
-    VALUES
-    -- Day 1 (7 days ago)
-(CURRENT_DATE - INTERVAL '7 days' + TIME '08:00:00', 'Morning', 8, 7, 2, 9),
-(CURRENT_DATE - INTERVAL '7 days' + TIME '12:00:00', 'Midday', 6, 5, 3, 9),
-(CURRENT_DATE - INTERVAL '7 days' + TIME '20:00:00', 'Evening', 7, 6, 1, 9),
-
--- Day 2 (6 days ago)
-(CURRENT_DATE - INTERVAL '6 days' + TIME '08:00:00', 'Morning', 5, 4, 6, 9),
-(CURRENT_DATE - INTERVAL '6 days' + TIME '12:00:00', 'Midday', 7, 5, -2, 9),
-(CURRENT_DATE - INTERVAL '6 days' + TIME '20:00:00', 'Evening', 6, 5, 3, 9),
-
--- Day 3 (5 days ago)
-(CURRENT_DATE - INTERVAL '5 days' + TIME '08:00:00', 'Morning', 6, 6, 4, 9),
-(CURRENT_DATE - INTERVAL '5 days' + TIME '12:00:00', 'Midday', 8, 7, -1, 9),
-(CURRENT_DATE - INTERVAL '5 days' + TIME '20:00:00', 'Evening', 5, 4, -5, 9),
-
--- Day 4 (4 days ago)
-(CURRENT_DATE - INTERVAL '4 days' + TIME '08:00:00', 'Morning', 7, 8, 2, 9),
-(CURRENT_DATE - INTERVAL '4 days' + TIME '12:00:00', 'Midday', 5, 6, 4, 9),
-(CURRENT_DATE - INTERVAL '4 days' + TIME '20:00:00', 'Evening', 6, 5, 3, 9),
-
--- Day 5 (3 days ago)
-(CURRENT_DATE - INTERVAL '3 days' + TIME '08:00:00', 'Morning', 4, -3, 7, 9),
-(CURRENT_DATE - INTERVAL '3 days' + TIME '12:00:00', 'Midday', 6, -5, 5, 9),
-(CURRENT_DATE - INTERVAL '3 days' + TIME '20:00:00', 'Evening', 8, -7, 2, 9),
-
--- Day 6 (2 days ago)
-(CURRENT_DATE - INTERVAL '2 days' + TIME '08:00:00', 'Morning', 7, 8, 3, 9),
-(CURRENT_DATE - INTERVAL '2 days' + TIME '12:00:00', 'Midday', 6, 5, 4, 9),
-(CURRENT_DATE - INTERVAL '2 days' + TIME '20:00:00', 'Evening', 5, 4, 6, 9),
-
--- Day 7 (1 day ago)
-(CURRENT_DATE - INTERVAL '1 days' + TIME '08:00:00', 'Morning', 8, 7, 1, 9),
-(CURRENT_DATE - INTERVAL '1 days' + TIME '12:00:00', 'Midday', 7, 6, 2, 9),
-(CURRENT_DATE - INTERVAL '1 days' + TIME '20:00:00', 'Evening', 6, 5, 3, 9),
-) AS new_data(date, "timeOfDay", "moodScore", "energyLevel", "stressLevel", "userID")
+SELECT new_data.date, new_data."timeOfDay", new_data."moodScore", new_data."energyLevel", new_data."stressLevel", new_data."userID"
+FROM (
+    SELECT 
+        (CURRENT_DATE - INTERVAL '7 days') + INTERVAL '08:00:00' AS date, 'Morning' AS "timeOfDay", 8 AS "moodScore", 7 AS "energyLevel", 2 AS "stressLevel", 3 AS "userID"
+    UNION ALL
+    SELECT (CURRENT_DATE - INTERVAL '7 days') + INTERVAL '12:00:00', 'Midday', 6, 5, 3, 3
+    UNION ALL
+    SELECT (CURRENT_DATE - INTERVAL '7 days') + INTERVAL '20:00:00', 'Evening', 7, 6, 1, 3
+    UNION ALL
+    SELECT (CURRENT_DATE - INTERVAL '6 days') + INTERVAL '08:00:00', 'Morning', 5, 4, 6, 3
+    UNION ALL
+    SELECT (CURRENT_DATE - INTERVAL '6 days') + INTERVAL '12:00:00', 'Midday', 7, 5, 2, 3
+    UNION ALL
+    SELECT (CURRENT_DATE - INTERVAL '6 days') + INTERVAL '20:00:00', 'Evening', 6, 5, 3, 3
+    UNION ALL
+    SELECT (CURRENT_DATE - INTERVAL '5 days') + INTERVAL '08:00:00', 'Morning', 6, 6, 4, 3
+    UNION ALL
+    SELECT (CURRENT_DATE - INTERVAL '5 days') + INTERVAL '12:00:00', 'Midday', 8, 7, 1, 3
+    UNION ALL
+    SELECT (CURRENT_DATE - INTERVAL '5 days') + INTERVAL '20:00:00', 'Evening', 5, 4, 5, 3
+    UNION ALL
+    SELECT (CURRENT_DATE - INTERVAL '4 days') + INTERVAL '08:00:00', 'Morning', 7, 8, 2, 3
+    UNION ALL
+    SELECT (CURRENT_DATE - INTERVAL '4 days') + INTERVAL '12:00:00', 'Midday', 5, 6, 4, 3
+    UNION ALL
+    SELECT (CURRENT_DATE - INTERVAL '4 days') + INTERVAL '20:00:00', 'Evening', 6, 5, 3, 3
+    UNION ALL
+    SELECT (CURRENT_DATE - INTERVAL '3 days') + INTERVAL '08:00:00', 'Morning', 4, 3, 7, 3
+    UNION ALL
+    SELECT (CURRENT_DATE - INTERVAL '3 days') + INTERVAL '12:00:00', 'Midday', 6, 5, 5, 3
+    UNION ALL
+    SELECT (CURRENT_DATE - INTERVAL '3 days') + INTERVAL '20:00:00', 'Evening', 8, 7, 2, 3
+    UNION ALL
+    SELECT (CURRENT_DATE - INTERVAL '2 days') + INTERVAL '08:00:00', 'Morning', 7, 8, 3, 3
+    UNION ALL
+    SELECT (CURRENT_DATE - INTERVAL '2 days') + INTERVAL '12:00:00', 'Midday', 6, 5, 4, 3
+    UNION ALL
+    SELECT (CURRENT_DATE - INTERVAL '2 days') + INTERVAL '20:00:00', 'Evening', 5, 4, 6, 3
+    UNION ALL
+    SELECT (CURRENT_DATE - INTERVAL '1 days') + INTERVAL '08:00:00', 'Morning', 8, 7, 1, 3
+    UNION ALL
+    SELECT (CURRENT_DATE - INTERVAL '1 days') + INTERVAL '12:00:00', 'Midday', 7, 6, 2, 3
+    UNION ALL
+    SELECT (CURRENT_DATE - INTERVAL '1 days') + INTERVAL '20:00:00', 'Evening', 6, 5, 3, 3
+) AS new_data
 WHERE NOT EXISTS (
     SELECT 1 FROM mood_entries 
     WHERE mood_entries.date = new_data.date
     AND mood_entries."timeOfDay" = new_data."timeOfDay"
-    AND mood_entries."moodScore" = new_data."moodScore"
 );
 
 

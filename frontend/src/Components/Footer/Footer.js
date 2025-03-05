@@ -38,7 +38,7 @@ const Footer = () => {
 
           <div className="footerItem">
             <img src={LocationIcon} alt="location icon" className="iconFooter"></img>
-            <span>Perth, WA</span>
+            <span>Hamilton Hill, Perth WA</span>
           </div>
         </div>
 

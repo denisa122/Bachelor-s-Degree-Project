@@ -9,105 +9,105 @@ const calculateScores = (responses) => {
   responses.forEach(({ questionID, answer }) => {
     switch (questionID) {
       // Morning questionnaire
-      case 5569:
+      case 33:
         if (answer === "Excited") moodScore += 1;
         else if (answer === "Neutral") moodScore += 0;
         else if (answer === "Anxious") moodScore -= 1;
         break;
-      case 5570:
+      case 34:
         if (answer === "Yes") energyLevel += 3;
         else if (answer === "No") energyLevel -= 3;
         break;
-      case 5571:
-      case 5572:
-      case 5573:
+      case 35:
+      case 36:
+      case 37:
         if (answer === "Yes") moodScore -= 1;
         else if (answer === "No") moodScore += 1;
         break;
-      case 5574:
+      case 38:
         energyLevel += parseInt(answer) || 0;
         break;
-      case 5575:
+      case 39:
         moodScore += parseInt(answer) || 0;
         break;
-      case 5576:
+      case 40:
         if (answer === "Yes") moodScore += 1;
         else if (answer === "Somewhat prepared") moodScore += 0;
         else if (answer === "No") moodScore -= 1;
         break;
-      case 5577:
-      case 5578:
+      case 41:
+      case 42:
         if (answer === "Yes") moodScore -= 1;
         else if (answer === "No") moodScore += 1;
         break;
-      case 5579:
+      case 43:
         if (answer === "Yes") moodScore += 1;
         else if (answer === "No") moodScore -= 1;
         break;
       // Midday questionnaire
-      case 5580:
+      case 44:
         moodScore = 0;
         energyLevel = 0;
         stressLevel = 0;
         moodScore += parseInt(answer) || 0;
         break;
-      case 5581:
+      case 45:
         if (answer === "Yes") moodScore -= 1;
         else if (answer === "No") moodScore += 1;
         break;
-      case 5582:
-      case 5583:
-      case 5584:
-      case 5585:
+      case 46:
+      case 47:
+      case 48:
+      case 49:
         if (answer === "Yes") moodScore -= 1;
         else if (answer === "No") moodScore += 1;
         break;
-      case 5586:
-      case 5587:
-      case 5588:
+      case 50:
+      case 51:
+      case 52:
         energyLevel += parseInt(answer) || 0;
         break;
-      case 5589:
+      case 53:
         if (answer === "Yes") stressLevel -= 1;
         else if (answer === "No") stressLevel += 1;
         break;
-      case 5590:
+      case 54:
         if (answer === "Work") stressLevel -= 1;
         else if (answer === "Studies") stressLevel -= 1;
         else if (answer === "Family") stressLevel -= 1;
         else if (answer === "Friends") stressLevel -= 1;
         break;
-      case 5591:
+      case 55:
         if (answer === "Excited") moodScore += 1;
         else if (answer === "Neutral") moodScore += 0;
         else if (answer === "Anxious") moodScore -= 1;
         break;
       // Evening questionnaire
-      case 5592:
+      case 56:
         moodScore = 0;
         energyLevel = 0;
         stressLevel = 0;
         moodScore += parseInt(answer) || 0;
         break;
-      case 5593:
+      case 57:
         energyLevel += parseInt(answer) || 0;
         break;
-      case 5594:
+      case 58:
         if (answer === "Yes") stressLevel += 1;
         else if (answer === "No") stressLevel += 0;
         break;
-      case 5595:
+      case 59:
         if (answer === "Yes") moodScore -= 1;
         else if (answer === "No") moodScore += 0;
         break;
-      case 5596:
+      case 60:
         if (answer === "Yes") moodScore += 1;
         else if (answer === "No") moodScore -= 1;
         break;
-      case 5597:
-      case 5598:
-      case 5599:
-      case 5600:
+      case 61:
+      case 62:
+      case 63:
+      case 64:
       default:
         console.log(`No scoring logic for questionID: ${questionID}`);
         break;

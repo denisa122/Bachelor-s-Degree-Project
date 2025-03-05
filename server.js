@@ -26,40 +26,40 @@ const corsOptions = {
 };
 app.use(cors(corsOptions));
 
-const seedDatabase = async () => {
-  try {
-    const seedSQL = fs.readFileSync("./db/postgresql/seed_data.sql", "utf8");
-    await sequelize.query(seedSQL);
-    console.log("Data seeded successfully");
-  } catch (error) {
-    console.error("Error seeding data", error);
-  }
-};
+// const seedDatabase = async () => {
+//   try {
+//     const seedSQL = fs.readFileSync("./db/postgresql/seed_data.sql", "utf8");
+//     await sequelize.query(seedSQL);
+//     console.log("Data seeded successfully");
+//   } catch (error) {
+//     console.error("Error seeding data", error);
+//   }
+// };
 
-const checkIfDataSeeded = async () => {
-  try {
-    const res = await await sequelize.query(
-      "SELECT COUNT(*) FROM questionnaires"
-    );
-    const count = parseInt(res[0].count);
-    return count > 0;
-  } catch (error) {
-    console.error("Error checking if data is seeded:", error);
-    return false;
-  }
-};
+// const checkIfDataSeeded = async () => {
+//   try {
+//     const res = await await sequelize.query(
+//       "SELECT COUNT(*) FROM questionnaires"
+//     );
+//     const count = parseInt(res[0].count);
+//     return count > 0;
+//   } catch (error) {
+//     console.error("Error checking if data is seeded:", error);
+//     return false;
+//   }
+// };
 
 const startServer = async () => {
   try {
     await connectToMongoDB();
     await connectToPostgreSQLDB();
 
-    if (process.env.NODE_ENV !== "test") {
-      const isSeeded = await checkIfDataSeeded();
-      if (!isSeeded) {
-        await seedDatabase();
-      }
-    }
+    // if (process.env.NODE_ENV !== "test") {
+    //   const isSeeded = await checkIfDataSeeded();
+    //   if (!isSeeded) {
+    //     await seedDatabase();
+    //   }
+    // }
 
     // Sync the Sequelize models with the database
     await sequelize.sync({
