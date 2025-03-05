@@ -33,12 +33,12 @@ const Footer = () => {
 
           <div className="footerItem">
             <img src={PhoneIcon} alt="phone icon" className="iconFooter"></img>
-            <span>+45 50 21 52 26</span>
+            <span>+61 415 954 081</span>
           </div>
 
           <div className="footerItem">
             <img src={LocationIcon} alt="location icon" className="iconFooter"></img>
-            <span>Aarhus, Denmark</span>
+            <span>Perth, WA</span>
           </div>
         </div>
 
